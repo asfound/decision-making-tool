@@ -20,7 +20,7 @@ export default [
       'import/resolver': {
         alias: {
           extensions: ['.ts', '.js', '.json'],
-          map: [['@', './src']],
+          map: [['~', './src']],
         },
       },
     },
