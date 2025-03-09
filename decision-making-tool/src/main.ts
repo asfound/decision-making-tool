@@ -1,3 +1,6 @@
 import './style.css';
-import { main } from './utils/createElement';
-document.body.appendChild(main({}, ['Test']));
+import App from './app/app';
+
+document.addEventListener('DOMContentLoaded', () => {
+  new App();
+});
