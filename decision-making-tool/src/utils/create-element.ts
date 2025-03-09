@@ -30,3 +30,5 @@ export const h1 = createElementFactory('h1');
 export const header = createElementFactory('header');
 
 export const main = createElementFactory('main');
+
+export const section = createElementFactory('section');
