@@ -22,8 +22,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "checkJs": true
   },
-  "include": ["src"],
+  "include": ["src", "eslint.config.js", "vite.config.js"],
   "exclude": ["node_modules", "dist"]
 }
