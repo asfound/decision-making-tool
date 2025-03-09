@@ -12,4 +12,9 @@ export class MainView extends BaseView {
 
     return mainElement;
   }
+
+  public setContent(content: BaseView): void {
+    this.element.innerHTML = '';
+    this.element.append(content.getHTML());
+  }
 }

@@ -1,7 +1,7 @@
 import { BaseView } from '~/components/base-view';
 import { section } from '~/utils/create-element';
 
-export class StartScreenView extends BaseView {
+export default class StartScreenView extends BaseView {
   constructor() {
     super(StartScreenView.createHTML());
   }

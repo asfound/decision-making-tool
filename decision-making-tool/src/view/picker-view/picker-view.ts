@@ -1,9 +1,9 @@
 import { BaseView } from '~/components/base-view';
 import { section } from '~/utils/create-element';
 
-export class WheelView extends BaseView {
+export default class PickerView extends BaseView {
   constructor() {
-    super(WheelView.createHTML());
+    super(PickerView.createHTML());
   }
 
   private static createHTML(): HTMLElement {
