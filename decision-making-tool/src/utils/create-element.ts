@@ -1,4 +1,4 @@
-import { isNonNullable } from './typeGuards';
+import { isNonNullable } from './type-guards';
 
 type Tag = keyof HTMLElementTagNameMap;
 type Properties<T extends Tag> = Partial<HTMLElementTagNameMap[T]>;
@@ -22,5 +22,11 @@ function createElementFactory<T extends Tag>(tag: T) {
     return element;
   };
 }
+
+export const div = createElementFactory('div');
+
+export const h1 = createElementFactory('h1');
+
+export const header = createElementFactory('header');
 
 export const main = createElementFactory('main');
