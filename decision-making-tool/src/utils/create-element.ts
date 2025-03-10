@@ -1,6 +1,6 @@
 import { isNonNullable } from './type-guards';
 
-type Tag = keyof HTMLElementTagNameMap;
+export type Tag = keyof HTMLElementTagNameMap;
 type Properties<T extends Tag> = Partial<HTMLElementTagNameMap[T]>;
 type ChildNode = Node | string | null | undefined;
 
