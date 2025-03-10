@@ -19,6 +19,8 @@ export class MainView extends View<'main'> {
   }
 
   protected createHTML(): HTMLElement {
-    return main({});
+    const mainElement = main({});
+
+    return mainElement;
   }
 }

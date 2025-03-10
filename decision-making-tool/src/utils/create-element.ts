@@ -23,11 +23,19 @@ function createElementFactory<T extends Tag>(tag: T) {
   };
 }
 
+export const button = createElementFactory('button');
+
 export const div = createElementFactory('div');
 
 export const h1 = createElementFactory('h1');
 
+export const input = createElementFactory('input');
+
 export const header = createElementFactory('header');
+
+export const label = createElementFactory('label');
+
+export const li = createElementFactory('li');
 
 export const main = createElementFactory('main');
 
