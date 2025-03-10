@@ -1,7 +1,7 @@
 import { section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-export default class StartScreenView extends View<'section'> {
+export default class PickerView extends View<'section'> {
   protected view: HTMLElement;
 
   constructor() {
@@ -11,7 +11,8 @@ export default class StartScreenView extends View<'section'> {
   }
 
   protected createHTML(): HTMLElement {
-    const sectionElement = section({}, ['StartScreen']);
+    const sectionElement = section({}, ['Wheel']);
+
     return sectionElement;
   }
 }

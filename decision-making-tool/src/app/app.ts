@@ -1,8 +1,8 @@
-import { HeaderView } from '~/components/header/header-view';
-import { MainView } from '~/components/main/main-view';
 import { Page } from '~/router/pages';
 import Route from '~/router/route';
 import { Router } from '~/router/router';
+import { HeaderView } from '~/view/header/header-view';
+import { MainView } from '~/view/main/main-view';
 
 export default class App {
   private readonly header: HeaderView;
@@ -29,7 +29,7 @@ export default class App {
       }),
       new Route([`${Page.PICKER}`], async () => {
         const { default: WheelView } = await import(
-          '~/view/picker-view/picker-view'
+          '~/view/picker/picker-view'
         );
         this.main.setContent(new WheelView());
       }),
