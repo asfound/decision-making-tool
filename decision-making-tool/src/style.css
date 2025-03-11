@@ -1,14 +1,44 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --white: white;
+  --primary-bright: #e5e5e9;
+  --primary-dark: #000b2f;
+  --primary-color: #003cff;
+  --shadow: rgb(31 38 135 / 37%);
+  --border-radius: 10px;
+
+  font-family: Montserrat, Arial, sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   line-height: 1.5;
-  color: black;
+  color: var(--primary-color);
   text-rendering: optimizelegibility;
 
-  color-scheme: light dark;
-  background-color: white;
-
-  font-synthesis: none;
+  background:
+    radial-gradient(
+      circle,
+      transparent 20%,
+      var(--white) 20%,
+      var(--white) 80%,
+      transparent 80%,
+      transparent
+    ),
+    radial-gradient(
+        circle,
+        transparent 20%,
+        var(--white) 20%,
+        var(--white) 80%,
+        transparent 80%,
+        transparent
+      )
+      25px 25px,
+    linear-gradient(var(--primary-color) 2px, transparent 2px) 0 -1px,
+    linear-gradient(90deg, var(--primary-color) 2px, var(--white) 2px) -1px 0;
+  background-color: var(--white);
+  background-size:
+    50px 50px,
+    50px 50px,
+    25px 25px,
+    25px 25px;
 }

@@ -1,6 +1,8 @@
 import { button } from '~/utils/create-element';
 import { View } from '~/view/view';
 
+import styles from './button.module.css';
+
 type ButtonProperties = {
   textContent: string;
   type: HTMLButtonElement['type'];
@@ -27,6 +29,7 @@ export class Button extends View<'button'> {
     const buttonElement = button({
       textContent: this.properties.textContent,
       type: this.properties.type,
+      className: styles.button,
     });
 
     buttonElement.addEventListener(

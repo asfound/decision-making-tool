@@ -5,6 +5,8 @@ import { View } from '~/view/view';
 import type { OptionProperties } from './option-properties';
 import type { OptionsListController } from './options-list-controller';
 
+import styles from './options-list.module.css';
+
 export class OptionsList extends View<'ul'> {
   protected view: HTMLUListElement;
   private readonly controller: OptionsListController;
@@ -23,7 +25,7 @@ export class OptionsList extends View<'ul'> {
   }
 
   protected createHTML(): HTMLUListElement {
-    const listElement = ul({});
+    const listElement = ul({ className: styles.list });
 
     for (const optionProperties of this.controller.getOptions()) {
       const optionElement = this.createOptionBar(optionProperties);

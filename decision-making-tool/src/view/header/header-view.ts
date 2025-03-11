@@ -1,6 +1,7 @@
 import { h1, header } from '~/utils/create-element';
 
 import { View } from '../view';
+import styles from './header.module.css';
 
 const appName = 'Decision Making Tool';
 
@@ -14,8 +15,10 @@ export class HeaderView extends View<'header'> {
   }
 
   protected createHTML(): HTMLElement {
-    const headingElement = h1({}, [appName]);
-    const headerElement = header({}, [headingElement]);
+    const headingElement = h1({ className: styles.heading }, [appName]);
+    const headerElement = header({ className: styles.header }, [
+      headingElement,
+    ]);
 
     return headerElement;
   }

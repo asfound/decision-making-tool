@@ -1,0 +1,9 @@
+.list {
+  padding: 1rem;
+  border: 1px var(--primary-color) solid;
+  border-radius: var(--border-radius);
+
+  list-style: none;
+
+  background-color: var(--white);
+}
