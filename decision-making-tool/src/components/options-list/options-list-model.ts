@@ -8,15 +8,11 @@ export class OptionsListModel {
     this.idCounter = idCounter;
 
     for (const option of initialOptions) {
-      this.options.set(option.id, option);
+      this.addOption(option);
     }
 
     if (this.options.size === 0) {
-      const initialOptionProperties = new OptionProperties(
-        this.getIdAndIncrement()
-      );
-
-      this.addOption(initialOptionProperties);
+      this.addOption(new OptionProperties(this.getIdAndIncrement()));
     }
   }
 
