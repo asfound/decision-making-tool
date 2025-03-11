@@ -30,12 +30,15 @@ export class OptionBar extends View<'li'> {
   }
 
   protected createHTML(): HTMLLIElement {
+    const idString = `#${String(this.id)}`;
     const liElement = li({});
 
-    const labelElement = label({ textContent: `#${String(this.id)}` });
+    const labelElement = label({ textContent: idString });
+    labelElement.setAttribute('for', idString);
 
     const titleInput = input({});
     titleInput.placeholder = PLACEHOLDERS.title;
+    titleInput.setAttribute('id', idString);
 
     if (this.title) {
       titleInput.value = this.title;
@@ -48,23 +51,24 @@ export class OptionBar extends View<'li'> {
       weightInput.value = String(this.weight);
     }
 
+    const deleteButton = this.createDeleteButton(liElement);
+
+    liElement.append(labelElement, titleInput, weightInput, deleteButton);
+
+    return liElement;
+  }
+
+  private createDeleteButton(parent: HTMLLIElement): HTMLButtonElement {
     const deleteButton = new Button({
       textContent: 'delete',
       type: 'button',
       onClick: (): void => {
         deleteButton.removeElement();
-        liElement.remove();
+        parent.remove();
         this.modelCallback(this.id);
       },
     });
 
-    liElement.append(
-      labelElement,
-      titleInput,
-      weightInput,
-      deleteButton.getHTML()
-    );
-
-    return liElement;
+    return deleteButton.getHTML();
   }
 }
