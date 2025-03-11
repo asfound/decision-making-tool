@@ -4,8 +4,6 @@ import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-const INITIAL_ID = 1;
-
 export default class StartScreenView extends View<'section'> {
   protected view: HTMLElement;
   private readonly optionsListModel: OptionsListModel;
@@ -14,7 +12,7 @@ export default class StartScreenView extends View<'section'> {
   constructor() {
     super();
 
-    this.optionsListModel = new OptionsListModel(INITIAL_ID, []);
+    this.optionsListModel = new OptionsListModel();
     this.optionsList = new OptionsList(this.optionsListModel);
 
     this.view = this.createHTML();

@@ -1,10 +1,14 @@
 import { OptionProperties } from './option-properties';
 
+const INITIAL_ID = 1;
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
   private idCounter: number;
 
-  constructor(idCounter: number, initialOptions: OptionProperties[] = []) {
+  constructor(
+    idCounter: number = INITIAL_ID,
+    initialOptions: OptionProperties[] = []
+  ) {
     this.idCounter = idCounter;
 
     for (const option of initialOptions) {
@@ -26,6 +30,10 @@ export class OptionsListModel {
 
   public removeOption(id: number): void {
     this.options.delete(id);
+
+    if (this.options.size === 0) {
+      this.resetIDCounter();
+    }
   }
 
   public getIdAndIncrement(): number {
@@ -33,5 +41,9 @@ export class OptionsListModel {
     this.idCounter += 1;
 
     return currentId;
+  }
+
+  private resetIDCounter(): void {
+    this.idCounter = INITIAL_ID;
   }
 }
