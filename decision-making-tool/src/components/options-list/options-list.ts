@@ -3,7 +3,8 @@ import { ul } from '~/utils/create-element';
 import { View } from '~/view/view';
 
 import type { OptionsListModel } from './options-list-model';
-import type { OptionProperties } from './types';
+
+import { OptionProperties } from './option-properties';
 
 export class OptionsList extends View<'ul'> {
   protected view: HTMLUListElement;
@@ -15,11 +16,14 @@ export class OptionsList extends View<'ul'> {
     this.view = this.createHTML();
   }
 
-  public addOption(optionProperties: OptionProperties): void {
+  public addOption(): void {
+    const idToUse = this.model.getIdAndIncrement();
+    const optionProperties = new OptionProperties(idToUse);
     this.model.addOption(optionProperties);
-
     const optionElement = new OptionBar(optionProperties);
     this.view.append(optionElement.getHTML());
+
+    console.log(this.model.getOptions());
   }
 
   protected createHTML(): HTMLUListElement {

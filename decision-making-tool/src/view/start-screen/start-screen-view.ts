@@ -1,7 +1,10 @@
+import { Button } from '~/components/button/button';
 import { OptionsList } from '~/components/options-list/options-list';
 import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { section } from '~/utils/create-element';
 import { View } from '~/view/view';
+
+const INITIAL_ID = 1;
 
 export default class StartScreenView extends View<'section'> {
   protected view: HTMLElement;
@@ -11,7 +14,7 @@ export default class StartScreenView extends View<'section'> {
   constructor() {
     super();
 
-    this.optionsListModel = new OptionsListModel([{}]);
+    this.optionsListModel = new OptionsListModel(INITIAL_ID, []);
     this.optionsList = new OptionsList(this.optionsListModel);
 
     this.view = this.createHTML();
@@ -20,8 +23,18 @@ export default class StartScreenView extends View<'section'> {
   protected createHTML(): HTMLElement {
     const sectionElement = section({}, ['StartScreen']);
 
-    sectionElement.append(this.optionsList.getHTML());
+    const addOptionButton = new Button({
+      textContent: 'add option',
+      type: 'button',
+      onClick: (): void => {
+        this.optionsList.addOption();
+      },
+    });
 
+    sectionElement.append(
+      this.optionsList.getHTML(),
+      addOptionButton.getHTML()
+    );
     return sectionElement;
   }
 }

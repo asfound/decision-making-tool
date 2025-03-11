@@ -2,27 +2,21 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import type { OptionProperties } from '../types';
+import type { OptionProperties } from '../option-properties';
 
 const PLACEHOLDERS = {
   title: 'Title',
   weight: 'Weight',
 };
 
-const BASE_ID = '1';
-
 export class OptionBar extends View<'li'> {
   protected view: HTMLLIElement;
 
-  private readonly id: string;
+  private readonly id: number;
   private readonly title: string;
   private readonly weight: number;
 
-  public constructor({
-    id = BASE_ID,
-    title = '',
-    weight = 0,
-  }: OptionProperties = {}) {
+  public constructor({ id, title, weight }: OptionProperties) {
     super();
 
     this.id = id;
@@ -35,7 +29,7 @@ export class OptionBar extends View<'li'> {
   protected createHTML(): HTMLLIElement {
     const liElement = li({});
 
-    const labelElement = label({ textContent: this.id });
+    const labelElement = label({ textContent: `#${String(this.id)}` });
 
     const titleInput = input({});
     titleInput.placeholder = PLACEHOLDERS.title;

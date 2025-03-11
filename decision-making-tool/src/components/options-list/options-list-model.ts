@@ -1,17 +1,37 @@
-import type { OptionProperties } from './types';
+import { OptionProperties } from './option-properties';
 
 export class OptionsListModel {
-  private readonly options: OptionProperties[] = [];
+  private readonly options: Map<number, OptionProperties> = new Map();
+  private idCounter: number;
 
-  constructor(initialOptions: OptionProperties[] = []) {
-    this.options = initialOptions;
+  constructor(idCounter: number, initialOptions: OptionProperties[] = []) {
+    this.idCounter = idCounter;
+
+    for (const option of initialOptions) {
+      this.options.set(option.id, option);
+    }
+
+    if (this.options.size === 0) {
+      const initialOptionProperties = new OptionProperties(
+        this.getIdAndIncrement()
+      );
+
+      this.addOption(initialOptionProperties);
+    }
   }
 
   public getOptions(): OptionProperties[] {
-    return this.options;
+    return [...this.options.values()];
   }
 
   public addOption(option: OptionProperties): void {
-    this.options.push(option);
+    this.options.set(option.id, option);
+  }
+
+  public getIdAndIncrement(): number {
+    const currentId = this.idCounter;
+    this.idCounter += 1;
+
+    return currentId;
   }
 }
