@@ -2,11 +2,7 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-type OptionProperties = {
-  id?: string;
-  title?: string;
-  weight?: number;
-};
+import type { OptionProperties } from '../types';
 
 const PLACEHOLDERS = {
   title: 'Title',

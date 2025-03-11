@@ -40,3 +40,5 @@ export const li = createElementFactory('li');
 export const main = createElementFactory('main');
 
 export const section = createElementFactory('section');
+
+export const ul = createElementFactory('ul');
