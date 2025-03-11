@@ -2,8 +2,8 @@ import { OptionBar } from '~/components/options-list/option-bar/option-bar';
 import { ul } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import type { OptionProperties } from './option-properties';
-import type { OptionsListController } from './options-list-controller';
+import type { OptionProperties } from '../option-bar/option-properties';
+import type { OptionsListController } from '../options-list-controller';
 
 import styles from './options-list.module.css';
 

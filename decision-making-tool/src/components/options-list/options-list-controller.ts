@@ -1,6 +1,6 @@
 import type { OptionsListModel } from './options-list-model';
 
-import { OptionProperties } from './option-properties';
+import { OptionProperties } from './option-bar/option-properties';
 
 export class OptionsListController {
   private readonly model: OptionsListModel;

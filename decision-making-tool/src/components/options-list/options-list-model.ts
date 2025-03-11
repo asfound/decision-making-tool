@@ -1,4 +1,4 @@
-import { OptionProperties } from './option-properties';
+import { OptionProperties } from './option-bar/option-properties';
 
 const INITIAL_ID = 1;
 export class OptionsListModel {

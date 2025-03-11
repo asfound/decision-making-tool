@@ -2,7 +2,7 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import { OptionProperties } from '../option-properties';
+import { OptionProperties } from './option-properties';
 
 const PLACEHOLDERS = {
   title: 'Title',

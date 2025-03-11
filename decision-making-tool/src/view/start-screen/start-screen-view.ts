@@ -1,7 +1,7 @@
 import { Button } from '~/components/button/button';
 import { OptionsListController } from '~/components/options-list/options-list-controller';
 import { OptionsListModel } from '~/components/options-list/options-list-model';
-import { OptionsList } from '~/components/options-list/options-list-view';
+import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
 import { section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
