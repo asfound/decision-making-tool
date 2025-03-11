@@ -26,6 +26,7 @@ export class OptionsListModel {
 
   public addOption(option: OptionProperties): void {
     this.options.set(option.id, option);
+    console.log([...this.options.values()]);
   }
 
   public removeOption(id: number): void {
