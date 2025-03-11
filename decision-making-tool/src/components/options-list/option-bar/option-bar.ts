@@ -16,7 +16,10 @@ export class OptionBar extends View<'li'> {
   private readonly title: string;
   private readonly weight: number;
 
-  public constructor({ id, title, weight }: OptionProperties) {
+  public constructor(
+    { id, title, weight }: OptionProperties,
+    private readonly modelCallback: (id: number) => void
+  ) {
     super();
 
     this.id = id;
@@ -51,8 +54,7 @@ export class OptionBar extends View<'li'> {
       onClick: (): void => {
         deleteButton.removeElement();
         liElement.remove();
-
-        console.log('delete');
+        this.modelCallback(this.id);
       },
     });
 

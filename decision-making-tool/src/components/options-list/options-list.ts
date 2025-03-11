@@ -19,18 +19,27 @@ export class OptionsList extends View<'ul'> {
   public addOption(): void {
     const idToUse = this.model.getIdAndIncrement();
     const optionProperties = new OptionProperties(idToUse);
-    this.model.addOption(optionProperties);
-    const optionElement = new OptionBar(optionProperties);
-    this.view.append(optionElement.getHTML());
 
-    console.log(this.model.getOptions());
+    this.model.addOption(optionProperties);
+
+    const optionElement = new OptionBar(
+      optionProperties,
+      this.model.removeOption.bind(this.model)
+    );
+
+    this.view.append(optionElement.getHTML());
   }
 
   protected createHTML(): HTMLUListElement {
     const listElement = ul({});
 
     for (const data of this.model.getOptions()) {
-      listElement.append(new OptionBar(data).getHTML());
+      const optionElement = new OptionBar(
+        data,
+        this.model.removeOption.bind(this.model)
+      );
+
+      listElement.append(optionElement.getHTML());
     }
 
     return listElement;

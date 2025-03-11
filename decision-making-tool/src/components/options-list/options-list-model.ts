@@ -28,6 +28,10 @@ export class OptionsListModel {
     this.options.set(option.id, option);
   }
 
+  public removeOption(id: number): void {
+    this.options.delete(id);
+  }
+
   public getIdAndIncrement(): number {
     const currentId = this.idCounter;
     this.idCounter += 1;
