@@ -2,7 +2,7 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import type { OptionProperties } from '../option-properties';
+import { OptionProperties } from '../option-properties';
 
 const PLACEHOLDERS = {
   title: 'Title',
@@ -13,12 +13,15 @@ export class OptionBar extends View<'li'> {
   protected view: HTMLLIElement;
 
   private readonly id: number;
-  private readonly title: string;
-  private readonly weight: number;
+  private title: string;
+  private weight: number;
 
   public constructor(
     { id, title, weight }: OptionProperties,
-    private readonly modelCallback: (id: number) => void
+    private readonly removeOptionCallback: (id: number) => void,
+    private readonly updateOptionCallback: (
+      properties: OptionProperties
+    ) => void
   ) {
     super();
 
@@ -44,12 +47,23 @@ export class OptionBar extends View<'li'> {
       titleInput.value = this.title;
     }
 
+    titleInput.addEventListener('input', () => {
+      this.title = titleInput.value;
+      this.updatePropertiesInModel();
+    });
+
     const weightInput = input({});
     weightInput.placeholder = PLACEHOLDERS.weight;
+    weightInput.setAttribute('type', 'number');
 
     if (this.weight > 0) {
       weightInput.value = String(this.weight);
     }
+
+    weightInput.addEventListener('input', () => {
+      this.weight = Number(weightInput.value);
+      this.updatePropertiesInModel();
+    });
 
     const deleteButton = this.createDeleteButton(liElement);
 
@@ -65,10 +79,20 @@ export class OptionBar extends View<'li'> {
       onClick: (): void => {
         deleteButton.removeElement();
         parent.remove();
-        this.modelCallback(this.id);
+        this.removeOptionCallback(this.id);
       },
     });
 
     return deleteButton.getHTML();
+  }
+
+  private updatePropertiesInModel(): void {
+    const currentProperties = new OptionProperties(
+      this.id,
+      this.title,
+      this.weight
+    );
+
+    this.updateOptionCallback(currentProperties);
   }
 }

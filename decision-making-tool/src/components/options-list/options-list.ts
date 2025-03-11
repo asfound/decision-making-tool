@@ -12,6 +12,7 @@ export class OptionsList extends View<'ul'> {
 
   constructor(model: OptionsListModel) {
     super();
+
     this.model = model;
     this.view = this.createHTML();
   }
@@ -24,7 +25,8 @@ export class OptionsList extends View<'ul'> {
 
     const optionElement = new OptionBar(
       optionProperties,
-      this.model.removeOption.bind(this.model)
+      this.model.removeOption.bind(this.model),
+      this.model.updateOptionProperties.bind(this.model)
     );
 
     this.view.append(optionElement.getHTML());
@@ -33,10 +35,11 @@ export class OptionsList extends View<'ul'> {
   protected createHTML(): HTMLUListElement {
     const listElement = ul({});
 
-    for (const data of this.model.getOptions()) {
+    for (const optionProperties of this.model.getOptions()) {
       const optionElement = new OptionBar(
-        data,
-        this.model.removeOption.bind(this.model)
+        optionProperties,
+        this.model.removeOption.bind(this.model),
+        this.model.updateOptionProperties.bind(this.model)
       );
 
       listElement.append(optionElement.getHTML());

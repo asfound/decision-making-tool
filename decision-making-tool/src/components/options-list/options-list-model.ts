@@ -36,6 +36,17 @@ export class OptionsListModel {
     }
   }
 
+  public updateOptionProperties(newProperties: OptionProperties): void {
+    const option = this.options.get(newProperties.id);
+
+    if (option) {
+      option.title = newProperties.title;
+      option.weight = newProperties.weight;
+
+      this.options.set(option.id, option);
+    }
+  }
+
   public getIdAndIncrement(): number {
     const currentId = this.idCounter;
     this.idCounter += 1;
