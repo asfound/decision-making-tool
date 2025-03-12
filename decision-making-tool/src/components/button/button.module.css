@@ -1,3 +1,22 @@
 .button {
+  padding: 0.25rem 0.5rem;
+  border: none;
+
+  color: var(--primary-bright);
   text-transform: capitalize;
+
+  background-color: var(--primary-color);
+
+  transition:
+    background-color 0.2s,
+    transform 0.3s;
+}
+
+.button:hover {
+  cursor: pointer;
+  background-color: var(--primary-dark);
+}
+
+.button:active {
+  transform: scale(0.96);
 }
