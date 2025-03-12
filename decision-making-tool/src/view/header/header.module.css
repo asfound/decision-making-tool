@@ -3,6 +3,7 @@
 }
 
 .heading {
+  margin-bottom: 3rem;
   padding: 0.5rem;
   border: var(--basic-border);
   border-radius: var(--border-radius);

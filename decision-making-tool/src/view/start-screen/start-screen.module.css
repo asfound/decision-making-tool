@@ -1,0 +1,46 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  width: 100%;
+  max-width: 35rem;
+  margin: 0 auto;
+}
+
+.button:first-child,
+.button:last-child {
+  flex: 1 1 100%;
+  padding: 0.75rem;
+}
+
+.button:last-child {
+  border: var(--basic-border);
+  border-radius: var(--border-radius);
+
+  color: var(--primary-color);
+  text-transform: uppercase;
+
+  background-color: var(--white);
+
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border 0.2s;
+}
+
+.button:last-child:hover {
+  border-color: transparent;
+  color: var(--primary-color);
+  background-color: var(--primary-bright);
+}
+
+.button:nth-child(n + 2):nth-child(-n + 5) {
+  flex: 1 1 45%;
+}
