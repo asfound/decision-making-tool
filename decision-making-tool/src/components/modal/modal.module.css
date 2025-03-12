@@ -1,0 +1,24 @@
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border: var(--dark-border);
+}
+
+.container {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.closeButton {
+  color: var(--primary-color);
+  background-color: var(--primary-bright);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.closeButton:hover {
+  color: var(--primary-bright);
+}

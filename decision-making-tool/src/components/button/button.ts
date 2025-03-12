@@ -7,6 +7,7 @@ type ButtonProperties = {
   textContent: string;
   type: HTMLButtonElement['type'];
   onClick: () => void;
+  className?: string;
 };
 
 export class Button extends View<'button'> {
@@ -29,6 +30,10 @@ export class Button extends View<'button'> {
       type: this.properties.type,
       className: styles.button,
     });
+
+    if (this.properties.className) {
+      buttonElement.classList.add(this.properties.className);
+    }
 
     buttonElement.addEventListener(
       'click',

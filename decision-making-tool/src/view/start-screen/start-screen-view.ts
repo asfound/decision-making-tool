@@ -3,6 +3,7 @@ import { Modal } from '~/components/modal/modal';
 import { OptionsListController } from '~/components/options-list/options-list-controller';
 import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
+import { Textarea } from '~/components/textarea/textarea';
 import { section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
@@ -101,7 +102,11 @@ export default class StartScreenView extends View<'section'> {
       textContent: 'paste list from file',
       type: 'button',
       onClick: (): void => {
-        const modal = new Modal();
+        const textareaElement = new Textarea();
+
+        const modal = new Modal(textareaElement.getHTML(), () => {
+          console.log(textareaElement.getValue());
+        });
         document.body.prepend(modal.getHTML());
         modal.showModal();
       },

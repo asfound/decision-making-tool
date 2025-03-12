@@ -5,6 +5,7 @@
   --primary-color: #003cff;
   --border-radius: 10px;
   --basic-border: 1px var(--primary-color) solid;
+  --dark-border: 1.5px var(--primary-dark) solid;
 
   font-family: Montserrat, Arial, sans-serif;
   font-optical-sizing: auto;

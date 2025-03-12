@@ -1,0 +1,10 @@
+.textarea {
+  padding: 0.5rem;
+  border: var(--basic-border);
+  color: var(--primary-dark);
+  outline: none;
+}
+
+.textarea::placeholder {
+  color: var(--primary-bright);
+}

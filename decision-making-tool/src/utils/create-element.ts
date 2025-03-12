@@ -45,4 +45,6 @@ export const main = createElementFactory('main');
 
 export const section = createElementFactory('section');
 
+export const textarea = createElementFactory('textarea');
+
 export const ul = createElementFactory('ul');
