@@ -43,3 +43,7 @@
     25px 25px,
     25px 25px;
 }
+
+body:has(dialog[open]) {
+  overflow: hidden;
+}

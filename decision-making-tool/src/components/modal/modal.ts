@@ -30,18 +30,18 @@ export class Modal extends View<'dialog'> {
       textContent: 'close',
       type: 'button',
       onClick: (): void => {
-        closeButton.removeListener();
-        modalWindow.close();
-        modalWindow.remove();
+        this.closeModal(modalWindow, closeButton);
       },
     });
 
     modalWindow.addEventListener('click', (event) => {
       if (event.target === modalWindow) {
-        closeButton.removeListener();
-        modalWindow.close();
-        modalWindow.remove();
+        this.closeModal(modalWindow, closeButton);
       }
+    });
+
+    modalWindow.addEventListener('cancel', () => {
+      this.closeModal(modalWindow, closeButton);
     });
 
     buttonsContainer.append(closeButton.getHTML());
@@ -59,16 +59,14 @@ export class Modal extends View<'dialog'> {
   }
 
   private createConfirmButton(
-    modalWindow: HTMLDialogElement,
+    modal: HTMLDialogElement,
     closeButton: Button
   ): HTMLButtonElement {
     const confirmButton = new Button({
       textContent: 'confirm',
       type: 'button',
       onClick: (): void => {
-        closeButton.removeListener();
-        modalWindow.close();
-        modalWindow.remove();
+        this.closeModal(modal, closeButton);
 
         if (this.childCallback) {
           this.childCallback();
@@ -77,5 +75,11 @@ export class Modal extends View<'dialog'> {
     });
 
     return confirmButton.getHTML();
+  }
+
+  private closeModal(modal: HTMLDialogElement, closeButton: Button): void {
+    closeButton.removeListener();
+    modal.close();
+    modal.remove();
   }
 }
