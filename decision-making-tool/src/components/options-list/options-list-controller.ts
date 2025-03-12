@@ -1,12 +1,16 @@
+import { SaveListService } from '~/services/save-list';
+
 import type { OptionsListModel } from './options-list-model';
 
 import { OptionProperties } from './option-bar/option-properties';
 
 export class OptionsListController {
   private readonly model: OptionsListModel;
+  private readonly saveListService: SaveListService;
 
   constructor(model: OptionsListModel) {
     this.model = model;
+    this.saveListService = new SaveListService();
   }
 
   public addOption(): OptionProperties {
@@ -31,5 +35,10 @@ export class OptionsListController {
 
   public clearList(): void {
     this.model.clearOptions();
+  }
+
+  public saveListToFile(): void {
+    const data = this.model.getListData();
+    this.saveListService.saveDataToFile(data);
   }
 }

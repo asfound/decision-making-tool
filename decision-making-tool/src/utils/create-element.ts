@@ -23,6 +23,8 @@ function createElementFactory<T extends Tag>(tag: T) {
   };
 }
 
+export const a = createElementFactory('a');
+
 export const button = createElementFactory('button');
 
 export const div = createElementFactory('div');

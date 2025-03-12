@@ -36,6 +36,10 @@ export class OptionsList extends View<'ul'> {
     this.options.clear();
   }
 
+  public saveListToFile(): void {
+    this.controller.saveListToFile();
+  }
+
   protected createHTML(): HTMLUListElement {
     const listElement = ul({ className: styles.list });
 

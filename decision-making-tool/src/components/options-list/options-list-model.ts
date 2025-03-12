@@ -1,5 +1,10 @@
 import { OptionProperties } from './option-bar/option-properties';
 
+export type ListData = {
+  list: Array<{ id: number; title: string; weight: number }>;
+  lastId: number;
+};
+
 const INITIAL_ID = 1;
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
@@ -58,6 +63,18 @@ export class OptionsListModel {
     this.idCounter += 1;
 
     return currentId;
+  }
+
+  public getListData(): ListData {
+    const list = [...this.options.values()].map((properties) => ({
+      id: properties.id,
+      title: properties.title,
+      weight: properties.weight,
+    }));
+
+    const lastId = this.idCounter;
+
+    return { list, lastId };
   }
 
   private resetIDCounter(): void {

@@ -26,6 +26,22 @@ export default class StartScreenView extends View<'section'> {
   protected createHTML(): HTMLElement {
     const sectionElement = section({}, ['StartScreen']);
 
+    const addOptionButton = this.createAddOptionButton();
+
+    const clearListButton = this.createClearListButton();
+
+    const saveListButton = this.createSaveListButton();
+
+    sectionElement.append(
+      this.optionsList.getHTML(),
+      addOptionButton,
+      clearListButton,
+      saveListButton
+    );
+    return sectionElement;
+  }
+
+  private createAddOptionButton(): HTMLButtonElement {
     const addOptionButton = new Button({
       textContent: 'add option',
       type: 'button',
@@ -34,6 +50,10 @@ export default class StartScreenView extends View<'section'> {
       },
     });
 
+    return addOptionButton.getHTML();
+  }
+
+  private createClearListButton(): HTMLButtonElement {
     const clearListButton = new Button({
       textContent: 'clear list',
       type: 'button',
@@ -42,11 +62,18 @@ export default class StartScreenView extends View<'section'> {
       },
     });
 
-    sectionElement.append(
-      this.optionsList.getHTML(),
-      addOptionButton.getHTML(),
-      clearListButton.getHTML()
-    );
-    return sectionElement;
+    return clearListButton.getHTML();
+  }
+
+  private createSaveListButton(): HTMLButtonElement {
+    const saveListButton = new Button({
+      textContent: 'save list to file',
+      type: 'button',
+      onClick: (): void => {
+        this.optionsList.saveListToFile();
+      },
+    });
+
+    return saveListButton.getHTML();
   }
 }
