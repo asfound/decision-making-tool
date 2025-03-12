@@ -5,6 +5,8 @@ import { View } from '~/view/view';
 import styles from './option-bar.styles.module.css';
 import { OptionProperties } from './option-properties';
 
+const EMPTY_QUANTITY = 0;
+
 const PLACEHOLDERS = {
   title: 'Title',
   weight: 'Weight',
@@ -65,7 +67,7 @@ export class OptionBar extends View<'li'> {
     weightInput.placeholder = PLACEHOLDERS.weight;
     weightInput.setAttribute('type', 'number');
 
-    if (this.weight > 0) {
+    if (this.weight > EMPTY_QUANTITY) {
       weightInput.value = String(this.weight);
     }
 

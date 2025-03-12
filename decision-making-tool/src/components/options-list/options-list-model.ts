@@ -6,6 +6,7 @@ export type ListData = {
 };
 
 const INITIAL_ID = 1;
+const SIZE_OF_EMPTY_MAP = 0;
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
   private idCounter: number;
@@ -20,7 +21,7 @@ export class OptionsListModel {
       this.addOption(option);
     }
 
-    if (this.options.size === 0) {
+    if (this.options.size === SIZE_OF_EMPTY_MAP) {
       this.addOption(new OptionProperties(this.getIdAndIncrement()));
     }
   }
@@ -37,7 +38,7 @@ export class OptionsListModel {
   public removeOption(id: number): void {
     this.options.delete(id);
 
-    if (this.options.size === 0) {
+    if (this.options.size === SIZE_OF_EMPTY_MAP) {
       this.resetIDCounter();
     }
   }

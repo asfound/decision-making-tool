@@ -47,6 +47,7 @@ export default [
       'unicorn/better-regex': 'warn',
       'max-lines-per-function': ['error', { max: 40 }],
       'unicorn/no-null': 'off',
+      'no-magic-numbers': 'error',
     },
   },
   pluginJs.configs.recommended,
