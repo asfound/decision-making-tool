@@ -2,6 +2,7 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
+import styles from './option-bar.styles.module.css';
 import { OptionProperties } from './option-properties';
 
 const PLACEHOLDERS = {
@@ -34,9 +35,9 @@ export class OptionBar extends View<'li'> {
 
   protected createHTML(): HTMLLIElement {
     const idString = `#${String(this.id)}`;
-    const liElement = li({});
+    const liElement = li({ className: styles.bar });
 
-    const labelElement = label({ textContent: idString });
+    const labelElement = label({ textContent: idString, className: styles.id });
     labelElement.setAttribute('for', idString);
 
     const titleInput = input({});

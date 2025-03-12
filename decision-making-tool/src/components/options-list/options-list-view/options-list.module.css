@@ -1,6 +1,6 @@
 .list {
-  padding: 1rem;
-  border: 1px var(--primary-color) solid;
+  padding: 1.25rem 1rem;
+  border: var(--basic-border);
   border-radius: var(--border-radius);
 
   list-style: none;

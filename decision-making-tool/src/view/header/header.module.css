@@ -4,7 +4,7 @@
 
 .heading {
   padding: 0.5rem;
-  border: 1px var(--primary-color) solid;
+  border: var(--basic-border);
   border-radius: var(--border-radius);
 
   font-weight: 900;

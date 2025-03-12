@@ -1,0 +1,10 @@
+.id {
+  display: inline-block;
+  min-width: 2rem;
+}
+
+.bar:not(:last-child) {
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: var(--basic-border);
+}
