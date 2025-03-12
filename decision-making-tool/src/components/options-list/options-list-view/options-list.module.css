@@ -1,8 +1,13 @@
 .list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   padding: 1.25rem 1rem;
   border: var(--basic-border);
   border-radius: var(--border-radius);
 
+  text-align: center;
   list-style: none;
 
   background-color: var(--white);

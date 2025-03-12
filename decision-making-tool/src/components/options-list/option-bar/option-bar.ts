@@ -40,7 +40,7 @@ export class OptionBar extends View<'li'> {
     const labelElement = label({ textContent: idString, className: styles.id });
     labelElement.setAttribute('for', idString);
 
-    const titleInput = input({});
+    const titleInput = input({ className: styles.title });
     titleInput.placeholder = PLACEHOLDERS.title;
     titleInput.setAttribute('id', idString);
 
@@ -53,7 +53,7 @@ export class OptionBar extends View<'li'> {
       this.updatePropertiesInModel();
     });
 
-    const weightInput = input({});
+    const weightInput = input({ className: styles.weight });
     weightInput.placeholder = PLACEHOLDERS.weight;
     weightInput.setAttribute('type', 'number');
 
