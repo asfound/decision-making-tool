@@ -22,7 +22,6 @@ export class Modal extends View<'dialog'> {
 
   protected createHTML(): HTMLDialogElement {
     const modalWindow = dialog({ className: styles.modal });
-    modalWindow.append(this.childView);
 
     const buttonsContainer = div({ className: styles.container });
 
@@ -37,27 +36,46 @@ export class Modal extends View<'dialog'> {
       },
     });
 
+    modalWindow.addEventListener('click', (event) => {
+      if (event.target === modalWindow) {
+        closeButton.removeListener();
+        modalWindow.close();
+        modalWindow.remove();
+      }
+    });
+
     buttonsContainer.append(closeButton.getHTML());
 
     if (this.childCallback) {
-      const confirmButton = new Button({
-        textContent: 'confirm',
-        type: 'button',
-        onClick: (): void => {
-          closeButton.removeListener();
-          modalWindow.close();
-          modalWindow.remove();
+      const confirmButton = this.createConfirmButton(modalWindow, closeButton);
 
-          if (this.childCallback) {
-            this.childCallback();
-          }
-        },
-      });
-
-      buttonsContainer.append(confirmButton.getHTML());
+      buttonsContainer.append(confirmButton);
     }
 
+    modalWindow.append(this.childView);
     modalWindow.append(buttonsContainer);
+
     return modalWindow;
+  }
+
+  private createConfirmButton(
+    modalWindow: HTMLDialogElement,
+    closeButton: Button
+  ): HTMLButtonElement {
+    const confirmButton = new Button({
+      textContent: 'confirm',
+      type: 'button',
+      onClick: (): void => {
+        closeButton.removeListener();
+        modalWindow.close();
+        modalWindow.remove();
+
+        if (this.childCallback) {
+          this.childCallback();
+        }
+      },
+    });
+
+    return confirmButton.getHTML();
   }
 }
