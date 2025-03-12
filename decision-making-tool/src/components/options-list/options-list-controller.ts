@@ -28,4 +28,8 @@ export class OptionsListController {
   public getOptions(): OptionProperties[] {
     return this.model.getOptions();
   }
+
+  public clearList(): void {
+    this.model.clearOptions();
+  }
 }

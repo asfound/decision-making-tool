@@ -34,9 +34,18 @@ export default class StartScreenView extends View<'section'> {
       },
     });
 
+    const clearListButton = new Button({
+      textContent: 'clear list',
+      type: 'button',
+      onClick: (): void => {
+        this.optionsList.clearList();
+      },
+    });
+
     sectionElement.append(
       this.optionsList.getHTML(),
-      addOptionButton.getHTML()
+      addOptionButton.getHTML(),
+      clearListButton.getHTML()
     );
     return sectionElement;
   }

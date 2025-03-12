@@ -9,6 +9,7 @@ import styles from './options-list.module.css';
 
 export class OptionsList extends View<'ul'> {
   protected view: HTMLUListElement;
+  private readonly options: Map<number, OptionBar> = new Map();
   private readonly controller: OptionsListController;
 
   constructor(controller: OptionsListController) {
@@ -21,7 +22,18 @@ export class OptionsList extends View<'ul'> {
   public addOption(): void {
     const optionProperties = this.controller.addOption();
     const optionElement = this.createOptionBar(optionProperties);
+
     this.view.append(optionElement.getHTML());
+  }
+
+  public clearList(): void {
+    this.controller.clearList();
+
+    for (const option of this.options.values()) {
+      option.onClear();
+    }
+
+    this.options.clear();
   }
 
   protected createHTML(): HTMLUListElement {
@@ -29,6 +41,7 @@ export class OptionsList extends View<'ul'> {
 
     for (const optionProperties of this.controller.getOptions()) {
       const optionElement = this.createOptionBar(optionProperties);
+
       listElement.append(optionElement.getHTML());
     }
 
@@ -36,10 +49,14 @@ export class OptionsList extends View<'ul'> {
   }
 
   private createOptionBar(properties: OptionProperties): OptionBar {
-    return new OptionBar(
+    const optionElement = new OptionBar(
       properties,
       this.controller.removeOption.bind(this.controller),
       this.controller.updateOption.bind(this.controller)
     );
+
+    this.options.set(optionElement.id, optionElement);
+
+    return optionElement;
   }
 }

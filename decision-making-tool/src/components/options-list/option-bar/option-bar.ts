@@ -11,9 +11,10 @@ const PLACEHOLDERS = {
 };
 
 export class OptionBar extends View<'li'> {
+  public readonly id: number;
+
   protected view: HTMLLIElement;
 
-  private readonly id: number;
   private title: string;
   private weight: number;
 
@@ -31,6 +32,13 @@ export class OptionBar extends View<'li'> {
     this.weight = weight;
 
     this.view = this.createHTML();
+  }
+
+  public buttonCallback: () => void = () => {};
+
+  public onClear(): void {
+    this.buttonCallback();
+    this.removeElement();
   }
 
   protected createHTML(): HTMLLIElement {
@@ -78,11 +86,16 @@ export class OptionBar extends View<'li'> {
       textContent: 'delete',
       type: 'button',
       onClick: (): void => {
+        deleteButton.removeListener();
         deleteButton.removeElement();
         parent.remove();
         this.removeOptionCallback(this.id);
       },
     });
+
+    this.buttonCallback = (): void => {
+      deleteButton.removeListener();
+    };
 
     return deleteButton.getHTML();
   }

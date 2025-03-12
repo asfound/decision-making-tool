@@ -37,6 +37,11 @@ export class OptionsListModel {
     }
   }
 
+  public clearOptions(): void {
+    this.options.clear();
+    this.resetIDCounter();
+  }
+
   public updateOptionProperties(newProperties: OptionProperties): void {
     const option = this.options.get(newProperties.id);
 

@@ -19,10 +19,8 @@ export class Button extends View<'button'> {
     this.view = this.createHTML();
   }
 
-  public removeElement(): void {
+  public removeListener(): void {
     this.abortController.abort();
-
-    this.view.remove();
   }
 
   protected createHTML(): HTMLButtonElement {
