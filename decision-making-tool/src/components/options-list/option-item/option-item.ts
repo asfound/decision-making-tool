@@ -2,7 +2,7 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import styles from './option-item.styles.module.css';
+import styles from './option-item.module.css';
 import { OptionProperties } from './option-properties';
 
 const EMPTY_QUANTITY = 0;
