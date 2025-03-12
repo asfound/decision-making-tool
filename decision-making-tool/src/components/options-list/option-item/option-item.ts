@@ -2,7 +2,7 @@ import { Button } from '~/components/button/button';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import styles from './option-bar.styles.module.css';
+import styles from './option-item.styles.module.css';
 import { OptionProperties } from './option-properties';
 
 const EMPTY_QUANTITY = 0;
@@ -12,7 +12,7 @@ const PLACEHOLDERS = {
   weight: 'Weight',
 };
 
-export class OptionBar extends View<'li'> {
+export class OptionItem extends View<'li'> {
   public readonly id: number;
 
   protected view: HTMLLIElement;
@@ -45,7 +45,7 @@ export class OptionBar extends View<'li'> {
 
   protected createHTML(): HTMLLIElement {
     const idString = `#${String(this.id)}`;
-    const liElement = li({ className: styles.bar });
+    const liElement = li({ className: styles.item });
 
     const labelElement = label({ textContent: idString, className: styles.id });
     labelElement.setAttribute('for', idString);

@@ -2,7 +2,7 @@ import { JsonFileService } from '~/services/json-file-service';
 
 import type { OptionsListModel } from './options-list-model';
 
-import { OptionProperties } from './option-bar/option-properties';
+import { OptionProperties } from './option-item/option-properties';
 
 export class OptionsListController {
   private readonly model: OptionsListModel;

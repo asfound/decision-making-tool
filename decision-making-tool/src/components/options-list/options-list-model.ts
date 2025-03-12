@@ -1,4 +1,4 @@
-import { OptionProperties } from './option-bar/option-properties';
+import { OptionProperties } from './option-item/option-properties';
 
 export type ListData = {
   list: Array<{ id: number; title: string; weight: number }>;

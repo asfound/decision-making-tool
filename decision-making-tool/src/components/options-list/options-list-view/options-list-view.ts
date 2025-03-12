@@ -1,15 +1,15 @@
-import { OptionBar } from '~/components/options-list/option-bar/option-bar';
+import { OptionItem } from '~/components/options-list/option-item/option-item';
 import { ul } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import type { OptionProperties } from '../option-bar/option-properties';
+import type { OptionProperties } from '../option-item/option-properties';
 import type { OptionsListController } from '../options-list-controller';
 
 import styles from './options-list.module.css';
 
 export class OptionsList extends View<'ul'> {
   protected view: HTMLUListElement;
-  private readonly options: Map<number, OptionBar> = new Map();
+  private readonly options: Map<number, OptionItem> = new Map();
   private readonly controller: OptionsListController;
 
   constructor(controller: OptionsListController) {
@@ -21,7 +21,7 @@ export class OptionsList extends View<'ul'> {
 
   public addOption(): void {
     const optionProperties = this.controller.addOption();
-    const optionElement = this.createOptionBar(optionProperties);
+    const optionElement = this.createOptionItem(optionProperties);
 
     this.view.append(optionElement.getHTML());
   }
@@ -42,7 +42,7 @@ export class OptionsList extends View<'ul'> {
         this.clearView();
 
         for (const optionProperties of this.controller.getOptions()) {
-          const optionElement = this.createOptionBar(optionProperties);
+          const optionElement = this.createOptionItem(optionProperties);
 
           this.view.append(optionElement.getHTML());
         }
@@ -56,7 +56,7 @@ export class OptionsList extends View<'ul'> {
     const listElement = ul({ className: styles.list });
 
     for (const optionProperties of this.controller.getOptions()) {
-      const optionElement = this.createOptionBar(optionProperties);
+      const optionElement = this.createOptionItem(optionProperties);
 
       listElement.append(optionElement.getHTML());
     }
@@ -64,8 +64,8 @@ export class OptionsList extends View<'ul'> {
     return listElement;
   }
 
-  private createOptionBar(properties: OptionProperties): OptionBar {
-    const optionElement = new OptionBar(
+  private createOptionItem(properties: OptionProperties): OptionItem {
+    const optionElement = new OptionItem(
       properties,
       this.controller.removeOption.bind(this.controller),
       this.controller.updateOption.bind(this.controller)

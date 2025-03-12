@@ -1,11 +1,11 @@
-.bar {
+.item {
   display: flex;
   justify-content: center;
   width: 100%;
   max-width: 35rem;
 }
 
-.bar:not(:last-child) {
+.item:not(:last-child) {
   margin-bottom: 1rem;
   padding-bottom: 1rem;
   border-bottom: var(--basic-border);
