@@ -45,6 +45,7 @@ export class OptionsListController {
   public async loadListFromFile(): Promise<void> {
     const data = await this.fileService.loadDataFromFile();
 
+    this.clearList();
     this.model.setListData(data);
   }
 }

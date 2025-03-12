@@ -77,6 +77,8 @@ export class OptionsList extends View<'ul'> {
   }
 
   private clearView(): void {
+    this.view.replaceChildren();
+
     for (const option of this.options.values()) {
       option.onClear();
     }
