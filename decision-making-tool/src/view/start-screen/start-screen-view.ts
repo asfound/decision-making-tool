@@ -1,4 +1,5 @@
 import { Button } from '~/components/button/button';
+import { Modal } from '~/components/modal/modal';
 import { OptionsListController } from '~/components/options-list/options-list-controller';
 import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
@@ -34,12 +35,15 @@ export default class StartScreenView extends View<'section'> {
 
     const loadListButton = this.createLoadListButton();
 
+    const pasteListButton = this.createPasteListButton();
+
     sectionElement.append(
       this.optionsList.getHTML(),
       addOptionButton,
       clearListButton,
       saveListButton,
-      loadListButton
+      loadListButton,
+      pasteListButton
     );
     return sectionElement;
   }
@@ -90,5 +94,19 @@ export default class StartScreenView extends View<'section'> {
     });
 
     return loadListButton.getHTML();
+  }
+
+  private createPasteListButton(): HTMLButtonElement {
+    const pasteListButton = new Button({
+      textContent: 'paste list from file',
+      type: 'button',
+      onClick: (): void => {
+        const modal = new Modal();
+        document.body.prepend(modal.getHTML());
+        modal.showModal();
+      },
+    });
+
+    return pasteListButton.getHTML();
   }
 }

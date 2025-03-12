@@ -27,6 +27,8 @@ export const a = createElementFactory('a');
 
 export const button = createElementFactory('button');
 
+export const dialog = createElementFactory('dialog');
+
 export const div = createElementFactory('div');
 
 export const h1 = createElementFactory('h1');
