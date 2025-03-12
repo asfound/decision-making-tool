@@ -1,4 +1,4 @@
-import { SaveListService } from '~/services/save-list';
+import { JsonFileService } from '~/services/json-file-service';
 
 import type { OptionsListModel } from './options-list-model';
 
@@ -6,11 +6,11 @@ import { OptionProperties } from './option-bar/option-properties';
 
 export class OptionsListController {
   private readonly model: OptionsListModel;
-  private readonly saveListService: SaveListService;
+  private readonly saveListService: JsonFileService;
 
   constructor(model: OptionsListModel) {
     this.model = model;
-    this.saveListService = new SaveListService();
+    this.saveListService = new JsonFileService();
   }
 
   public addOption(): OptionProperties {

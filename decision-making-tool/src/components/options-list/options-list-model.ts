@@ -67,11 +67,7 @@ export class OptionsListModel {
   }
 
   public getListData(): ListData {
-    const list = [...this.options.values()].map((properties) => ({
-      id: properties.id,
-      title: properties.title,
-      weight: properties.weight,
-    }));
+    const list = [...this.options.values()];
 
     const lastId = this.idCounter;
 
