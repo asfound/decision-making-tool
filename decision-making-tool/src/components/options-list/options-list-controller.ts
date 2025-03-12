@@ -6,11 +6,11 @@ import { OptionProperties } from './option-bar/option-properties';
 
 export class OptionsListController {
   private readonly model: OptionsListModel;
-  private readonly saveListService: JsonFileService;
+  private readonly fileService: JsonFileService;
 
   constructor(model: OptionsListModel) {
     this.model = model;
-    this.saveListService = new JsonFileService();
+    this.fileService = new JsonFileService();
   }
 
   public addOption(): OptionProperties {
@@ -39,6 +39,12 @@ export class OptionsListController {
 
   public saveListToFile(): void {
     const data = this.model.getListData();
-    this.saveListService.saveDataToFile(data);
+    this.fileService.saveDataToFile(data);
+  }
+
+  public async loadListFromFile(): Promise<void> {
+    const data = await this.fileService.loadDataFromFile();
+
+    this.model.setListData(data);
   }
 }

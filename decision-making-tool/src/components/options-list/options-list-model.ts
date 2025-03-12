@@ -74,6 +74,17 @@ export class OptionsListModel {
     return { list, lastId };
   }
 
+  public setListData(data: ListData): void {
+    this.idCounter = data.lastId;
+
+    for (const item of data.list) {
+      this.options.set(
+        item.id,
+        new OptionProperties(item.id, item.title, item.weight)
+      );
+    }
+  }
+
   private resetIDCounter(): void {
     this.idCounter = INITIAL_ID;
   }

@@ -28,16 +28,28 @@ export class OptionsList extends View<'ul'> {
 
   public clearList(): void {
     this.controller.clearList();
-
-    for (const option of this.options.values()) {
-      option.onClear();
-    }
-
-    this.options.clear();
+    this.clearView();
   }
 
   public saveListToFile(): void {
     this.controller.saveListToFile();
+  }
+
+  public loadListFromFile(): void {
+    this.controller
+      .loadListFromFile()
+      .then((): void => {
+        this.clearView();
+
+        for (const optionProperties of this.controller.getOptions()) {
+          const optionElement = this.createOptionBar(optionProperties);
+
+          this.view.append(optionElement.getHTML());
+        }
+      })
+      .catch(() => {
+        throw new Error('Could not load file');
+      });
   }
 
   protected createHTML(): HTMLUListElement {
@@ -62,5 +74,13 @@ export class OptionsList extends View<'ul'> {
     this.options.set(optionElement.id, optionElement);
 
     return optionElement;
+  }
+
+  private clearView(): void {
+    for (const option of this.options.values()) {
+      option.onClear();
+    }
+
+    this.options.clear();
   }
 }

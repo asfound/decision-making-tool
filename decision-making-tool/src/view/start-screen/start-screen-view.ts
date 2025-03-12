@@ -32,11 +32,14 @@ export default class StartScreenView extends View<'section'> {
 
     const saveListButton = this.createSaveListButton();
 
+    const loadListButton = this.createLoadListButton();
+
     sectionElement.append(
       this.optionsList.getHTML(),
       addOptionButton,
       clearListButton,
-      saveListButton
+      saveListButton,
+      loadListButton
     );
     return sectionElement;
   }
@@ -75,5 +78,17 @@ export default class StartScreenView extends View<'section'> {
     });
 
     return saveListButton.getHTML();
+  }
+
+  private createLoadListButton(): HTMLButtonElement {
+    const loadListButton = new Button({
+      textContent: 'load list from file',
+      type: 'button',
+      onClick: (): void => {
+        this.optionsList.loadListFromFile();
+      },
+    });
+
+    return loadListButton.getHTML();
   }
 }
