@@ -1,9 +1,9 @@
 import type { ListData } from '~/components/options-list/options-list-model';
 
 import { ERRORS } from '~/constants/errors';
+import { INDEX_VALUES } from '~/constants/index-values';
 import { isListData } from '~/utils/type-guards';
 
-const FIRST_FILE_INDEX = 0;
 const FILENAME = 'options-list-asfound.json';
 
 import { a, input } from '~/utils/create-element';
@@ -31,7 +31,7 @@ export class JsonFileService {
           reject(new Error(ERRORS.FILE_SELECT_ERROR));
           return;
         }
-        resolve(inputElement.files[FIRST_FILE_INDEX]);
+        resolve(inputElement.files[INDEX_VALUES.FIRST_INDEX]);
       });
 
       inputElement.dispatchEvent(new MouseEvent('click'));

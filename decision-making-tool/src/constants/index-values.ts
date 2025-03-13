@@ -1,0 +1,4 @@
+export const INDEX_VALUES = {
+  FIRST_INDEX: 0,
+  INDEX_INCREMENT: 1,
+};
