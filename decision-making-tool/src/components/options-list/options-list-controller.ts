@@ -1,4 +1,5 @@
 import { JsonFileService } from '~/services/json-file-service';
+import { LocalStorageService } from '~/services/local-storage-service';
 import { TextareaService } from '~/services/textarea-service';
 
 import type { OptionsListModel, PastedOptionData } from './options-list-model';
@@ -9,11 +10,15 @@ export class OptionsListController {
   private readonly model: OptionsListModel;
   private readonly fileService: JsonFileService;
   private readonly textareaService: TextareaService;
+  private readonly localStorageService: LocalStorageService;
 
   constructor(model: OptionsListModel) {
     this.model = model;
     this.fileService = new JsonFileService();
     this.textareaService = new TextareaService();
+    this.localStorageService = new LocalStorageService();
+
+    this.getLocalStorageData();
   }
 
   public addOption(itemData?: PastedOptionData): OptionProperties {
@@ -25,15 +30,21 @@ export class OptionsListController {
     );
     this.model.addOption(optionProperties);
 
+    this.updateLocalStorage();
+
     return optionProperties;
   }
 
   public removeOption(optionId: number): void {
     this.model.removeOption(optionId);
+
+    this.updateLocalStorage();
   }
 
   public updateOption(optionProperties: OptionProperties): void {
     this.model.updateOptionProperties(optionProperties);
+
+    this.updateLocalStorage();
   }
 
   public getOptions(): OptionProperties[] {
@@ -42,6 +53,8 @@ export class OptionsListController {
 
   public clearList(): void {
     this.model.clearOptions();
+
+    this.updateLocalStorage();
   }
 
   public saveListToFile(): void {
@@ -54,6 +67,8 @@ export class OptionsListController {
 
     this.clearList();
     this.model.setListData(data);
+
+    this.updateLocalStorage();
   }
 
   public pasteList(input: string): OptionProperties[] {
@@ -66,6 +81,21 @@ export class OptionsListController {
       properties.push(optionProperties);
     }
 
+    this.updateLocalStorage();
+
     return properties;
+  }
+
+  private updateLocalStorage(): void {
+    const currentListState = this.model.getListData();
+    this.localStorageService.saveListData(currentListState);
+  }
+
+  private getLocalStorageData(): void {
+    const data = this.localStorageService.loadListData();
+
+    if (data) {
+      this.model.setListData(data);
+    }
   }
 }
