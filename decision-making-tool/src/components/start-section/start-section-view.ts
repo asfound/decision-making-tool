@@ -19,6 +19,7 @@ export default class StartSectionView extends View<'section'> {
   private readonly optionsList: OptionsList;
   private readonly optionsListController: OptionsListController;
   private readonly router: Router;
+  private readonly childListeners: (() => void)[] = [];
 
   constructor(router: Router) {
     super();
@@ -36,7 +37,9 @@ export default class StartSectionView extends View<'section'> {
   public onRemove(): void {
     this.optionsList.clearView();
 
-    //abort all button listeners
+    for (const callback of this.childListeners) {
+      callback();
+    }
   }
 
   protected createHTML(): HTMLElement {
@@ -79,6 +82,8 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
+    this.childListeners.push(() => addOptionButton.removeListener());
+
     return addOptionButton.getHTML();
   }
 
@@ -91,6 +96,8 @@ export default class StartSectionView extends View<'section'> {
         this.optionsList.clearList();
       },
     });
+
+    this.childListeners.push(() => clearListButton.removeListener());
 
     return clearListButton.getHTML();
   }
@@ -105,6 +112,8 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
+    this.childListeners.push(() => saveListButton.removeListener());
+
     return saveListButton.getHTML();
   }
 
@@ -117,6 +126,8 @@ export default class StartSectionView extends View<'section'> {
         this.optionsList.loadListFromFile();
       },
     });
+
+    this.childListeners.push(() => loadListButton.removeListener());
 
     return loadListButton.getHTML();
   }
@@ -137,6 +148,8 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
+    this.childListeners.push(() => pasteListButton.removeListener());
+
     return pasteListButton.getHTML();
   }
 
@@ -149,6 +162,8 @@ export default class StartSectionView extends View<'section'> {
         this.router.navigate(RouterPage.PICKER);
       },
     });
+
+    this.childListeners.push(() => startButton.removeListener());
 
     return startButton.getHTML();
   }

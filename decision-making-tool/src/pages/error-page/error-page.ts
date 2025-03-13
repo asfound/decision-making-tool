@@ -23,12 +23,14 @@ export class ErrorPageView extends View<'main'> implements Page {
     this.router = router;
   }
 
+  public clearChildListener: () => void = () => {};
+
   public getHtmlElements(): HTMLElement[] {
     return [this.view];
   }
 
   public onRemove(): void {
-    //remove listener
+    this.clearChildListener();
   }
 
   protected createHTML(): HTMLElement {
@@ -46,6 +48,10 @@ export class ErrorPageView extends View<'main'> implements Page {
         this.router.navigate(RouterPage.INDEX);
       },
     });
+
+    this.clearChildListener = (): void => {
+      toMainButton.removeListener();
+    };
 
     containerElement.append(headingElement, toMainButton.getHTML());
 

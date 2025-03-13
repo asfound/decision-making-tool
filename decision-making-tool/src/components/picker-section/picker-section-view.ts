@@ -17,6 +17,12 @@ export default class PickerSectionView extends View<'section'> {
     this.router = router;
   }
 
+  public clearChildListener: () => void = () => {};
+
+  public onRemove(): void {
+    this.clearChildListener();
+  }
+
   protected createHTML(): HTMLElement {
     const sectionElement = section({}, ['Wheel']);
 
@@ -27,6 +33,10 @@ export default class PickerSectionView extends View<'section'> {
         this.router.navigate(RouterPage.INDEX);
       },
     });
+
+    this.clearChildListener = (): void => {
+      backButton.removeListener();
+    };
 
     sectionElement.append(backButton.getHTML());
     return sectionElement;

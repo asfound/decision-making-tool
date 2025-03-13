@@ -31,10 +31,10 @@ export class OptionItem extends View<'li'> {
     this.view = this.createHTML();
   }
 
-  public buttonCallback: () => void = () => {};
+  public clearChildListener: () => void = () => {};
 
   public onClear(): void {
-    this.buttonCallback();
+    this.clearChildListener();
     this.removeElement();
   }
 
@@ -90,7 +90,7 @@ export class OptionItem extends View<'li'> {
       },
     });
 
-    this.buttonCallback = (): void => {
+    this.clearChildListener = (): void => {
       deleteButton.removeListener();
     };
 
