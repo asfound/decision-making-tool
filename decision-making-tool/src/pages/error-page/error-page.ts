@@ -32,7 +32,7 @@ export class ErrorPageView extends View<'main'> implements Page {
   }
 
   protected createHTML(): HTMLElement {
-    const mainElement = main({ className: styles.main });
+    const mainElement = main({});
     const headingElement = h1({ className: styles.heading }, [HEADING_TEXT]);
     headingElement.classList.add(SHARED_CLASSES.HEADING);
 
