@@ -1,3 +1,4 @@
+import { SHARED_CLASSES } from '~/constants/shared-classes';
 import { h1, header } from '~/utils/create-element';
 
 import { View } from '../view';
@@ -16,6 +17,8 @@ export class HeaderView extends View<'header'> {
 
   protected createHTML(): HTMLElement {
     const headingElement = h1({ className: styles.heading }, [APP_NAME]);
-    return header({ className: styles.header }, [headingElement]);
+    headingElement.classList.add(SHARED_CLASSES.HEADING);
+
+    return header({}, [headingElement]);
   }
 }

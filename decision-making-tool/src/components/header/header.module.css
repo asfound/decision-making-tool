@@ -1,15 +1,5 @@
-.header {
-  text-align: center;
-}
-
 .heading {
-  margin-bottom: 3rem;
-  padding: 0.5rem;
   border: var(--basic-border);
   border-radius: var(--border-radius);
-
-  font-weight: 900;
-  color: var(--primary-color);
-
   background-color: var(--white);
 }
