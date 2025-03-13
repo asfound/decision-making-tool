@@ -118,7 +118,7 @@ export default class StartScreenView extends View<'section'> {
         const textareaElement = new Textarea();
 
         const modal = new Modal(textareaElement.getHTML(), () => {
-          console.log(textareaElement.getValue());
+          this.optionsList.pasteList(textareaElement.getValue());
         });
         document.body.prepend(modal.getHTML());
         modal.showModal();

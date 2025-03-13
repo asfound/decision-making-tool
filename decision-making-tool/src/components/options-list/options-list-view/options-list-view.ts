@@ -22,6 +22,7 @@ export class OptionsList extends View<'ul'> {
 
   public addOption(): void {
     const optionProperties = this.controller.addOption();
+
     const optionElement = this.createOptionItem(optionProperties);
 
     this.view.append(optionElement.getHTML());
@@ -51,6 +52,14 @@ export class OptionsList extends View<'ul'> {
       .catch(() => {
         throw new Error(ERRORS.FILE_LOAD_ERROR);
       });
+  }
+
+  public pasteList(input: string): void {
+    const optionPropertiesToPaste = this.controller.pasteList(input);
+
+    for (const optionProperties of optionPropertiesToPaste) {
+      this.createAndAppendOption(optionProperties, this.view);
+    }
   }
 
   protected createHTML(): HTMLUListElement {
@@ -85,5 +94,14 @@ export class OptionsList extends View<'ul'> {
     }
 
     this.options.clear();
+  }
+
+  private createAndAppendOption(
+    optionProperties: OptionProperties,
+    parent: HTMLElement
+  ): void {
+    const optionElement = this.createOptionItem(optionProperties);
+
+    parent.append(optionElement.getHTML());
   }
 }

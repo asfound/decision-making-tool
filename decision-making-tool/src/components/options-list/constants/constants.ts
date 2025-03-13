@@ -4,4 +4,5 @@ export const VALUES = {
   EMPTY_MAP_SIZE: 0,
 
   INITIAL_ID: 1,
+  ID_INCREMENT: 1,
 };

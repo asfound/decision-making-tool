@@ -1,12 +1,12 @@
 import { VALUES } from './constants/constants';
 import { OptionProperties } from './option-item/option-properties';
 export type ListData = {
-  list: Array<{ id: number; title: string; weight: number }>;
+  list: Array<OptionData>;
   lastId: number;
 };
 
-const ID_INCREMENT = 1;
-
+export type OptionData = { id: number; title: string; weight: number };
+export type PastedOptionData = Omit<OptionData, 'id'>;
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
   private idCounter: number;
@@ -61,7 +61,7 @@ export class OptionsListModel {
 
   public getIdAndIncrement(): number {
     const currentId = this.idCounter;
-    this.idCounter += ID_INCREMENT;
+    this.idCounter += VALUES.ID_INCREMENT;
 
     return currentId;
   }
