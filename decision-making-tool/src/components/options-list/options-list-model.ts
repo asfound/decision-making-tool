@@ -7,6 +7,7 @@ export type ListData = {
 
 export type OptionData = { id: number; title: string; weight: number };
 export type PastedOptionData = Omit<OptionData, 'id'>;
+
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
   private idCounter: number;

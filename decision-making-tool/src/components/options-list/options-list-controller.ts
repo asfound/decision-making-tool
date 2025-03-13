@@ -1,7 +1,7 @@
 import { JsonFileService } from '~/services/json-file-service';
 import { TextareaService } from '~/services/textarea-service';
 
-import type { OptionsListModel } from './options-list-model';
+import type { OptionsListModel, PastedOptionData } from './options-list-model';
 
 import { OptionProperties } from './option-item/option-properties';
 
@@ -16,9 +16,13 @@ export class OptionsListController {
     this.textareaService = new TextareaService();
   }
 
-  public addOption(): OptionProperties {
+  public addOption(itemData?: PastedOptionData): OptionProperties {
     const idToUse = this.model.getIdAndIncrement();
-    const optionProperties = new OptionProperties(idToUse);
+    const optionProperties = new OptionProperties(
+      idToUse,
+      itemData?.title,
+      itemData?.weight
+    );
     this.model.addOption(optionProperties);
 
     return optionProperties;
@@ -55,16 +59,11 @@ export class OptionsListController {
   public pasteList(input: string): OptionProperties[] {
     const data = this.textareaService.parseTextInput(input);
     const properties = [];
-    for (const item of data) {
-      const idToUse = this.model.getIdAndIncrement();
-      const optionProperties = new OptionProperties(
-        idToUse,
-        item.title,
-        item.weight
-      );
+
+    for (const itemData of data) {
+      const optionProperties = this.addOption(itemData);
 
       properties.push(optionProperties);
-      this.model.addOption(optionProperties);
     }
 
     return properties;
