@@ -44,9 +44,7 @@ export default [
         { accessibility: 'explicit', overrides: { constructors: 'off' } },
       ],
       '@typescript-eslint/member-ordering': 'error',
-      'unicorn/better-regex': 'warn',
       'max-lines-per-function': ['error', { max: 40 }],
-      'unicorn/no-null': 'off',
       'no-magic-numbers': 'error',
     },
   },
@@ -54,6 +52,12 @@ export default [
   ...tseslint.configs.recommendedTypeChecked,
   eslintPluginUnicorn.configs.recommended,
   prettier,
+  {
+    rules: {
+      'unicorn/no-null': 'off',
+      'unicorn/better-regex': 'warn',
+    },
+  },
   {
     linterOptions: {
       noInlineConfig: true,
