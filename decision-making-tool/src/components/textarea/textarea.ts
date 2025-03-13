@@ -1,6 +1,6 @@
+import { View } from '~/components/view';
 import { PLACEHOLDERS } from '~/constants/ui-texts';
 import { textarea } from '~/utils/create-element';
-import { View } from '~/view/view';
 
 import styles from './textarea.module.css';
 

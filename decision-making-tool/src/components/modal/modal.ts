@@ -1,6 +1,6 @@
+import { View } from '~/components/view';
 import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { dialog, div } from '~/utils/create-element';
-import { View } from '~/view/view';
 
 import { Button } from '../button/button';
 import styles from './modal.module.css';

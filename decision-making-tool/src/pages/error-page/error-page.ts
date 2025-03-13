@@ -3,10 +3,13 @@ import type { Router } from '~/router/router';
 import { Button } from '~/components/button/button';
 import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
-import { section } from '~/utils/create-element';
-import { View } from '~/view/view';
+import { main } from '~/utils/create-element';
 
-export default class PickerPageView extends View<'section'> {
+import type { Page } from '../app-page/app-page';
+
+import { View } from '../../components/view';
+
+export class ErrorPageView extends View<'main'> implements Page {
   protected view: HTMLElement;
   private readonly router: Router;
 
@@ -17,18 +20,22 @@ export default class PickerPageView extends View<'section'> {
     this.router = router;
   }
 
-  protected createHTML(): HTMLElement {
-    const sectionElement = section({}, ['Wheel']);
+  public getHtmlElements(): HTMLElement[] {
+    return [this.view];
+  }
 
-    const backButton = new Button({
-      textContent: BUTTON_TEXTS.BACK,
+  protected createHTML(): HTMLElement {
+    const mainElement = main({}, ['Error page']);
+
+    const toMainButton = new Button({
+      textContent: BUTTON_TEXTS.TO_MAIN,
       type: 'button',
       onClick: (): void => {
         this.router.navigate(RouterPage.INDEX);
       },
     });
 
-    sectionElement.append(backButton.getHTML());
-    return sectionElement;
+    mainElement.append(toMainButton.getHTML());
+    return mainElement;
   }
 }

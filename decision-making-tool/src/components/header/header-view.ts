@@ -16,10 +16,6 @@ export class HeaderView extends View<'header'> {
 
   protected createHTML(): HTMLElement {
     const headingElement = h1({ className: styles.heading }, [APP_NAME]);
-    const headerElement = header({ className: styles.header }, [
-      headingElement,
-    ]);
-
-    return headerElement;
+    return header({ className: styles.header }, [headingElement]);
   }
 }

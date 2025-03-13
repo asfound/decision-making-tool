@@ -1,10 +1,10 @@
 import type { Tag } from '~/utils/create-element';
 
-import type { View } from '../view';
+import type { View } from '../../components/view';
 export interface Page {
   getHtmlElements(): HTMLElement[];
 }
-import { HeaderView } from '../header/header-view';
+import { HeaderView } from '../../components/header/header-view';
 
 export class AppPage implements Page {
   private readonly headerView: HeaderView;

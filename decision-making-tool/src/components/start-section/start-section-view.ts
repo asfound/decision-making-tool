@@ -6,14 +6,14 @@ import { OptionsListController } from '~/components/options-list/options-list-co
 import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
 import { Textarea } from '~/components/textarea/textarea';
+import { View } from '~/components/view';
 import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { div, section } from '~/utils/create-element';
-import { View } from '~/view/view';
 
-import styles from './start-page.module.css';
+import styles from './start-section.module.css';
 
-export default class StartPageView extends View<'section'> {
+export default class StartSectionView extends View<'section'> {
   protected view: HTMLElement;
   private readonly optionsListModel: OptionsListModel;
   private readonly optionsList: OptionsList;

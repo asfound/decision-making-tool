@@ -1,11 +1,12 @@
-import type { Page } from '~/view/app-page/app-page';
+import type { Page } from '~/pages/app-page/app-page';
 
 import { ERRORS } from '~/constants/errors';
-import { AppPage } from '~/view/app-page/app-page';
-import { ErrorPageView } from '~/view/error-page/error-page';
+import { AppPage } from '~/pages/app-page/app-page';
+import { ErrorPageView } from '~/pages/error-page/error-page';
 
 import { RouterPage } from './pages';
-import Route from './route';
+import { Route } from './route';
+
 const FRAGMENT_IDENTIFIER_INDEX = 1;
 
 export class Router {
@@ -38,7 +39,7 @@ export class Router {
           this.setPage(page);
         })
         .catch((error) => {
-          throw new Error(`${ERRORS.PAGE_LOAD_ERROR} + ${error}`);
+          throw new Error(`${ERRORS.PAGE_LOAD_ERROR} ${error}`);
         });
     } else {
       this.setPage(new ErrorPageView(this));
@@ -53,13 +54,13 @@ export class Router {
 export const ROUTES: Route[] = [
   new Route(['', `${RouterPage.INDEX}`], async (router: Router) => {
     const { default: StartPageView } = await import(
-      '~/view/start-page/start-page-view'
+      '~/components/start-section/start-section-view'
     );
     return new AppPage(new StartPageView(router));
   }),
   new Route([`${RouterPage.PICKER}`], async (router: Router) => {
     const { default: PickerPageView } = await import(
-      '~/view/picker-page/picker-page-view'
+      '~/components/picker-section/picker-section-view'
     );
     return new AppPage(new PickerPageView(router));
   }),

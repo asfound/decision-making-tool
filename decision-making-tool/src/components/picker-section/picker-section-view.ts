@@ -1,15 +1,12 @@
 import type { Router } from '~/router/router';
 
 import { Button } from '~/components/button/button';
+import { View } from '~/components/view';
 import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
-import { main } from '~/utils/create-element';
+import { section } from '~/utils/create-element';
 
-import type { Page } from '../app-page/app-page';
-
-import { View } from '../view';
-
-export class ErrorPageView extends View<'main'> implements Page {
+export default class PickerSectionView extends View<'section'> {
   protected view: HTMLElement;
   private readonly router: Router;
 
@@ -20,22 +17,18 @@ export class ErrorPageView extends View<'main'> implements Page {
     this.router = router;
   }
 
-  public getHtmlElements(): HTMLElement[] {
-    return [this.view];
-  }
-
   protected createHTML(): HTMLElement {
-    const mainElement = main({}, ['Error page']);
+    const sectionElement = section({}, ['Wheel']);
 
-    const toMainButton = new Button({
-      textContent: BUTTON_TEXTS.TO_MAIN,
+    const backButton = new Button({
+      textContent: BUTTON_TEXTS.BACK,
       type: 'button',
       onClick: (): void => {
         this.router.navigate(RouterPage.INDEX);
       },
     });
 
-    mainElement.append(toMainButton.getHTML());
-    return mainElement;
+    sectionElement.append(backButton.getHTML());
+    return sectionElement;
   }
 }

@@ -1,5 +1,5 @@
+import { View } from '~/components/view';
 import { button } from '~/utils/create-element';
-import { View } from '~/view/view';
 
 import styles from './button.module.css';
 

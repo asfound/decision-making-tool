@@ -1,7 +1,7 @@
 import { OptionItem } from '~/components/options-list/option-item/option-item';
+import { View } from '~/components/view';
 import { ERRORS } from '~/constants/errors';
 import { ul } from '~/utils/create-element';
-import { View } from '~/view/view';
 
 import type { OptionProperties } from '../option-item/option-properties';
 import type { OptionsListController } from '../options-list-controller';

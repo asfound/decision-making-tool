@@ -1,8 +1,8 @@
-import type { Page } from '~/view/app-page/app-page';
+import type { Page } from '~/pages/app-page/app-page';
 
 import { Router, ROUTES } from '~/router/router';
 
-export default class App {
+export class App {
   private readonly router: Router;
 
   constructor() {

@@ -1,7 +1,7 @@
 import { Button } from '~/components/button/button';
+import { View } from '~/components/view';
 import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { input, label, li } from '~/utils/create-element';
-import { View } from '~/view/view';
 
 import { VALUES } from '../constants/constants';
 import styles from './option-item.module.css';
