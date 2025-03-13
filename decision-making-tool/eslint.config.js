@@ -8,6 +8,7 @@ import tseslint from 'typescript-eslint';
 /** @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.ConfigFile} */
 export default [
   { files: ['**/*.{js,mjs,cjs,ts}'] },
+  { ignores: ['dist', 'node_modules', '**/*config.js'] },
   {
     languageOptions: {
       globals: globals.browser,
@@ -44,12 +45,15 @@ export default [
         { accessibility: 'explicit', overrides: { constructors: 'off' } },
       ],
       '@typescript-eslint/member-ordering': 'error',
-      'max-lines-per-function': ['error', { max: 40 }],
+      'max-lines-per-function': [
+        'error',
+        { max: 40, skipBlankLines: true, skipComments: true },
+      ],
       'no-magic-numbers': 'error',
     },
   },
   pluginJs.configs.recommended,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.strictTypeChecked,
   eslintPluginUnicorn.configs.recommended,
   prettier,
   {

@@ -82,7 +82,9 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
-    this.childListeners.push(() => addOptionButton.removeListener());
+    this.childListeners.push(() => {
+      addOptionButton.removeListener();
+    });
 
     return addOptionButton.getHTML();
   }
@@ -97,7 +99,9 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
-    this.childListeners.push(() => clearListButton.removeListener());
+    this.childListeners.push(() => {
+      clearListButton.removeListener();
+    });
 
     return clearListButton.getHTML();
   }
@@ -112,7 +116,9 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
-    this.childListeners.push(() => saveListButton.removeListener());
+    this.childListeners.push(() => {
+      saveListButton.removeListener();
+    });
 
     return saveListButton.getHTML();
   }
@@ -127,7 +133,9 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
-    this.childListeners.push(() => loadListButton.removeListener());
+    this.childListeners.push(() => {
+      loadListButton.removeListener();
+    });
 
     return loadListButton.getHTML();
   }
@@ -148,7 +156,9 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
-    this.childListeners.push(() => pasteListButton.removeListener());
+    this.childListeners.push(() => {
+      pasteListButton.removeListener();
+    });
 
     return pasteListButton.getHTML();
   }
@@ -163,7 +173,9 @@ export default class StartSectionView extends View<'section'> {
       },
     });
 
-    this.childListeners.push(() => startButton.removeListener());
+    this.childListeners.push(() => {
+      startButton.removeListener();
+    });
 
     return startButton.getHTML();
   }
