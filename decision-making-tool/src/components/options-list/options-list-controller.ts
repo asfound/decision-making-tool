@@ -96,6 +96,8 @@ export class OptionsListController {
 
     if (data) {
       this.model.setListData(data);
+    } else {
+      this.addOption();
     }
   }
 }

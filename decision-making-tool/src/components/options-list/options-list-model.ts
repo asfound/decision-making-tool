@@ -21,10 +21,6 @@ export class OptionsListModel {
     for (const option of initialOptions) {
       this.addOption(option);
     }
-
-    if (this.options.size === VALUES.EMPTY_MAP_SIZE) {
-      this.addOption(new OptionProperties(this.getIdAndIncrement()));
-    }
   }
 
   public getOptions(): OptionProperties[] {
