@@ -1,15 +1,16 @@
 import type { ListData } from '~/components/options-list/options-list-model';
 
+import { ERRORS } from '~/constants/errors';
 export function isNonNullable<T>(value: T): value is NonNullable<T> {
   return value !== null && value !== undefined;
 }
 
 export function isListData(data: unknown): asserts data is ListData {
   if (!isNonNullable(data)) {
-    throw new Error('Data is null or undefined');
+    throw new Error(ERRORS.NULLABLE_VALUE_ERROR);
   }
 
   if (typeof data !== 'object' || !('list' in data) || !('lastId' in data)) {
-    throw new Error('Invalid type');
+    throw new Error(ERRORS.INVALID_TYPE_ERROR);
   }
 }

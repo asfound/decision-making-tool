@@ -14,7 +14,7 @@ export class MainView extends View<'main'> {
   }
 
   public setContent<T extends Tag>(content: View<T>): void {
-    // ToDO use remove to clean
+    // TODO use remove to clean
     this.view.innerHTML = '';
     this.view.append(content.getHTML());
   }

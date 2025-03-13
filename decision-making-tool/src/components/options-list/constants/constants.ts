@@ -1,0 +1,7 @@
+export const VALUES = {
+  EMPTY_QUANTITY: 0,
+  EMPTY_STRING: '',
+  EMPTY_MAP_SIZE: 0,
+
+  INITIAL_ID: 1,
+};

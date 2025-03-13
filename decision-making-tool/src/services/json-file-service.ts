@@ -1,7 +1,10 @@
 import type { ListData } from '~/components/options-list/options-list-model';
 
+import { ERRORS } from '~/constants/errors';
 import { isListData } from '~/utils/type-guards';
+
 const FIRST_FILE_INDEX = 0;
+const FILENAME = 'options-list-asfound.json';
 
 import { a, input } from '~/utils/create-element';
 export class JsonFileService {
@@ -13,7 +16,7 @@ export class JsonFileService {
     const link = a({});
 
     link.href = URL.createObjectURL(blob);
-    link.download = 'options-list-asfound.json';
+    link.download = FILENAME;
     link.click();
   }
 
@@ -25,7 +28,7 @@ export class JsonFileService {
     const file = await new Promise<File | null>((resolve, reject) => {
       inputElement.addEventListener('change', () => {
         if (!inputElement.files?.length) {
-          reject(new Error('No files currently selected for upload'));
+          reject(new Error(ERRORS.FILE_SELECT_ERROR));
           return;
         }
         resolve(inputElement.files[FIRST_FILE_INDEX]);
@@ -35,7 +38,7 @@ export class JsonFileService {
     });
 
     if (!file) {
-      throw new Error('No file selected');
+      throw new Error(ERRORS.FILE_SELECT_ERROR);
     }
 
     try {
@@ -44,7 +47,7 @@ export class JsonFileService {
       isListData(data);
       return data;
     } catch {
-      throw new Error('Not a valid file type.');
+      throw new Error(ERRORS.INVALID_FILE_TYPE_ERROR);
     }
   }
 }

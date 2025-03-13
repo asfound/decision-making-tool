@@ -1,16 +1,11 @@
 import { Button } from '~/components/button/button';
+import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { input, label, li } from '~/utils/create-element';
 import { View } from '~/view/view';
 
+import { VALUES } from '../constants/constants';
 import styles from './option-item.module.css';
 import { OptionProperties } from './option-properties';
-
-const EMPTY_QUANTITY = 0;
-
-const PLACEHOLDERS = {
-  title: 'Title',
-  weight: 'Weight',
-};
 
 export class OptionItem extends View<'li'> {
   public readonly id: number;
@@ -51,7 +46,7 @@ export class OptionItem extends View<'li'> {
     labelElement.setAttribute('for', idString);
 
     const titleInput = input({ className: styles.title });
-    titleInput.placeholder = PLACEHOLDERS.title;
+    titleInput.placeholder = PLACEHOLDERS.TITLE;
     titleInput.setAttribute('id', idString);
 
     if (this.title) {
@@ -64,10 +59,10 @@ export class OptionItem extends View<'li'> {
     });
 
     const weightInput = input({ className: styles.weight });
-    weightInput.placeholder = PLACEHOLDERS.weight;
+    weightInput.placeholder = PLACEHOLDERS.WEIGHT;
     weightInput.setAttribute('type', 'number');
 
-    if (this.weight > EMPTY_QUANTITY) {
+    if (this.weight > VALUES.EMPTY_QUANTITY) {
       weightInput.value = String(this.weight);
     }
 
@@ -85,7 +80,7 @@ export class OptionItem extends View<'li'> {
 
   private createDeleteButton(parent: HTMLLIElement): HTMLButtonElement {
     const deleteButton = new Button({
-      textContent: 'delete',
+      textContent: BUTTON_TEXTS.DELETE,
       type: 'button',
       onClick: (): void => {
         deleteButton.removeListener();

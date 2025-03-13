@@ -1,18 +1,18 @@
+import { VALUES } from './constants/constants';
 import { OptionProperties } from './option-item/option-properties';
-
 export type ListData = {
   list: Array<{ id: number; title: string; weight: number }>;
   lastId: number;
 };
 
-const INITIAL_ID = 1;
-const SIZE_OF_EMPTY_MAP = 0;
+const ID_INCREMENT = 1;
+
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
   private idCounter: number;
 
   constructor(
-    idCounter: number = INITIAL_ID,
+    idCounter: number = VALUES.INITIAL_ID,
     initialOptions: OptionProperties[] = []
   ) {
     this.idCounter = idCounter;
@@ -21,7 +21,7 @@ export class OptionsListModel {
       this.addOption(option);
     }
 
-    if (this.options.size === SIZE_OF_EMPTY_MAP) {
+    if (this.options.size === VALUES.EMPTY_MAP_SIZE) {
       this.addOption(new OptionProperties(this.getIdAndIncrement()));
     }
   }
@@ -38,7 +38,7 @@ export class OptionsListModel {
   public removeOption(id: number): void {
     this.options.delete(id);
 
-    if (this.options.size === SIZE_OF_EMPTY_MAP) {
+    if (this.options.size === VALUES.EMPTY_MAP_SIZE) {
       this.resetIDCounter();
     }
   }
@@ -61,7 +61,7 @@ export class OptionsListModel {
 
   public getIdAndIncrement(): number {
     const currentId = this.idCounter;
-    this.idCounter += 1;
+    this.idCounter += ID_INCREMENT;
 
     return currentId;
   }
@@ -86,6 +86,6 @@ export class OptionsListModel {
   }
 
   private resetIDCounter(): void {
-    this.idCounter = INITIAL_ID;
+    this.idCounter = VALUES.INITIAL_ID;
   }
 }

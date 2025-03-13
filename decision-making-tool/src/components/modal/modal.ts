@@ -1,3 +1,4 @@
+import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { dialog, div } from '~/utils/create-element';
 import { View } from '~/view/view';
 
@@ -27,7 +28,7 @@ export class Modal extends View<'dialog'> {
 
     const closeButton = new Button({
       className: styles.closeButton,
-      textContent: 'close',
+      textContent: BUTTON_TEXTS.CLOSE,
       type: 'button',
       onClick: (): void => {
         this.closeModal(modalWindow, closeButton);
@@ -63,7 +64,7 @@ export class Modal extends View<'dialog'> {
     closeButton: Button
   ): HTMLButtonElement {
     const confirmButton = new Button({
-      textContent: 'confirm',
+      textContent: BUTTON_TEXTS.CONFIRM,
       type: 'button',
       onClick: (): void => {
         this.closeModal(modal, closeButton);

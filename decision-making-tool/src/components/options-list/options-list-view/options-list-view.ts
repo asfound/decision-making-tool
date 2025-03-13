@@ -1,4 +1,5 @@
 import { OptionItem } from '~/components/options-list/option-item/option-item';
+import { ERRORS } from '~/constants/errors';
 import { ul } from '~/utils/create-element';
 import { View } from '~/view/view';
 
@@ -48,7 +49,7 @@ export class OptionsList extends View<'ul'> {
         }
       })
       .catch(() => {
-        throw new Error('Could not load file');
+        throw new Error(ERRORS.FILE_LOAD_ERROR);
       });
   }
 

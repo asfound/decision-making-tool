@@ -9,6 +9,7 @@ export class Router {
   }
 
   public navigate(): void {
+    //TODO remove magic
     const urlString = globalThis.location[locationField].slice(1);
 
     const path = urlString.split('/');
@@ -19,7 +20,7 @@ export class Router {
       route.paths.includes(pathToFind)
     );
 
-    // ToDO: add redirect to 404
+    // TODO: add redirect to 404
 
     routeToNavigate?.callback().catch((error) => console.error(error));
   }

@@ -4,6 +4,7 @@ import { OptionsListController } from '~/components/options-list/options-list-co
 import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
 import { Textarea } from '~/components/textarea/textarea';
+import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { div, section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
@@ -59,7 +60,7 @@ export default class StartScreenView extends View<'section'> {
   private createAddOptionButton(): HTMLButtonElement {
     const addOptionButton = new Button({
       className: styles.button,
-      textContent: 'add option',
+      textContent: BUTTON_TEXTS.ADD_OPTION,
       type: 'button',
       onClick: (): void => {
         this.optionsList.addOption();
@@ -72,7 +73,7 @@ export default class StartScreenView extends View<'section'> {
   private createClearListButton(): HTMLButtonElement {
     const clearListButton = new Button({
       className: styles.button,
-      textContent: 'clear list',
+      textContent: BUTTON_TEXTS.CLEAR_LIST,
       type: 'button',
       onClick: (): void => {
         this.optionsList.clearList();
@@ -85,7 +86,7 @@ export default class StartScreenView extends View<'section'> {
   private createSaveListButton(): HTMLButtonElement {
     const saveListButton = new Button({
       className: styles.button,
-      textContent: 'save list to file',
+      textContent: BUTTON_TEXTS.SAVE_LIST,
       type: 'button',
       onClick: (): void => {
         this.optionsList.saveListToFile();
@@ -98,7 +99,7 @@ export default class StartScreenView extends View<'section'> {
   private createLoadListButton(): HTMLButtonElement {
     const loadListButton = new Button({
       className: styles.button,
-      textContent: 'load list from file',
+      textContent: BUTTON_TEXTS.LOAD_LIST,
       type: 'button',
       onClick: (): void => {
         this.optionsList.loadListFromFile();
@@ -111,7 +112,7 @@ export default class StartScreenView extends View<'section'> {
   private createPasteListButton(): HTMLButtonElement {
     const pasteListButton = new Button({
       className: styles.button,
-      textContent: 'paste list',
+      textContent: BUTTON_TEXTS.PASTE_LIST,
       type: 'button',
       onClick: (): void => {
         const textareaElement = new Textarea();
@@ -130,7 +131,7 @@ export default class StartScreenView extends View<'section'> {
   private createStartButton(): HTMLButtonElement {
     const startButton = new Button({
       className: styles.button,
-      textContent: 'start',
+      textContent: BUTTON_TEXTS.START,
       type: 'button',
       onClick: (): void => {
         console.log(startButton);
