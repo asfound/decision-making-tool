@@ -1,3 +1,7 @@
+import type { Router } from '~/router/router';
+
+import { Button } from '~/components/button/button';
+import { RouterPage } from '~/router/pages';
 import { main } from '~/utils/create-element';
 
 import type { Page } from '../app-page/app-page';
@@ -6,10 +10,13 @@ import { View } from '../view';
 
 export class ErrorPageView extends View<'main'> implements Page {
   protected view: HTMLElement;
+  private readonly router: Router;
 
-  constructor() {
+  constructor(router: Router) {
     super();
+
     this.view = this.createHTML();
+    this.router = router;
   }
 
   public getHtmlElements(): HTMLElement[] {
@@ -19,6 +26,15 @@ export class ErrorPageView extends View<'main'> implements Page {
   protected createHTML(): HTMLElement {
     const mainElement = main({}, ['Error page']);
 
+    const toMainButton = new Button({
+      textContent: 'to start page',
+      type: 'button',
+      onClick: (): void => {
+        this.router.navigate(RouterPage.INDEX);
+      },
+    });
+
+    mainElement.append(toMainButton.getHTML());
     return mainElement;
   }
 }

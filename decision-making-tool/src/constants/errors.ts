@@ -5,4 +5,6 @@ export const ERRORS = {
 
   NULLABLE_VALUE_ERROR: 'Data is null or undefined',
   INVALID_TYPE_ERROR: 'Invalid type',
+
+  PAGE_LOAD_ERROR: 'Could not load page, invalid import: ',
 };

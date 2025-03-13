@@ -1,11 +1,11 @@
 import type { Page } from '~/view/app-page/app-page';
 
+import { ERRORS } from '~/constants/errors';
 import { AppPage } from '~/view/app-page/app-page';
 import { ErrorPageView } from '~/view/error-page/error-page';
 
 import { RouterPage } from './pages';
 import Route from './route';
-
 const FRAGMENT_IDENTIFIER_INDEX = 1;
 
 export class Router {
@@ -22,7 +22,7 @@ export class Router {
     if (fragment) {
       this.setHistory(fragment);
     }
-    console.log(globalThis.location.hash);
+
     const fragmentIdentifier = globalThis.location.hash.slice(
       FRAGMENT_IDENTIFIER_INDEX
     );
@@ -38,10 +38,10 @@ export class Router {
           this.setPage(page);
         })
         .catch((error) => {
-          throw new Error('Could not load page, invalid import: ' + error);
+          throw new Error(`${ERRORS.PAGE_LOAD_ERROR} + ${error}`);
         });
     } else {
-      this.setPage(new ErrorPageView());
+      this.setPage(new ErrorPageView(this));
     }
   }
 
