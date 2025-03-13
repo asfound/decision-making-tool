@@ -8,8 +8,9 @@ import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { div, section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
-import styles from './start-screen.module.css';
-export default class StartScreenView extends View<'section'> {
+import styles from './start-page.module.css';
+
+export default class StartPageView extends View<'section'> {
   protected view: HTMLElement;
   private readonly optionsListModel: OptionsListModel;
   private readonly optionsList: OptionsList;

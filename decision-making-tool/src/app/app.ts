@@ -22,14 +22,14 @@ export default class App {
   private createRoutes(): Route[] {
     return [
       new Route(['', `${Page.INDEX}`], async () => {
-        const { default: StartScreenView } = await import(
-          '~/view/start-screen/start-screen-view'
+        const { default: StartPageView } = await import(
+          '~/view/start-page/start-page-view'
         );
-        this.main.setContent(new StartScreenView());
+        this.main.setContent(new StartPageView());
       }),
       new Route([`${Page.PICKER}`], async () => {
         const { default: WheelView } = await import(
-          '~/view/picker/picker-view'
+          '~/view/picker-page/picker-page-view'
         );
         this.main.setContent(new WheelView());
       }),
