@@ -14,14 +14,11 @@ export class MainView extends View<'main'> {
   }
 
   public setContent<T extends Tag>(content: View<T>): void {
-    // TODO use remove to clean
-    this.view.innerHTML = '';
+    this.view.replaceChildren();
     this.view.append(content.getHTML());
   }
 
   protected createHTML(): HTMLElement {
-    const mainElement = main({});
-
-    return mainElement;
+    return main({});
   }
 }
