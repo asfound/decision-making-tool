@@ -33,6 +33,12 @@ export default class StartSectionView extends View<'section'> {
     this.view = this.createHTML();
   }
 
+  public onRemove(): void {
+    this.optionsList.clearView();
+
+    //abort all button listeners
+  }
+
   protected createHTML(): HTMLElement {
     const sectionElement = section({ className: styles.section });
 

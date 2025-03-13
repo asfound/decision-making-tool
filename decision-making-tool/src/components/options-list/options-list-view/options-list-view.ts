@@ -58,6 +58,16 @@ export class OptionsList extends View<'ul'> {
     }
   }
 
+  public clearView(): void {
+    this.view.replaceChildren();
+
+    for (const option of this.options.values()) {
+      option.onClear();
+    }
+
+    this.options.clear();
+  }
+
   protected createHTML(): HTMLUListElement {
     const listElement = ul({ className: styles.list });
 
@@ -78,16 +88,6 @@ export class OptionsList extends View<'ul'> {
     this.options.set(optionElement.id, optionElement);
 
     return optionElement;
-  }
-
-  private clearView(): void {
-    this.view.replaceChildren();
-
-    for (const option of this.options.values()) {
-      option.onClear();
-    }
-
-    this.options.clear();
   }
 
   private createAndAppendOption(

@@ -6,19 +6,23 @@ import { View } from '../view';
 
 export class MainView extends View<'main'> {
   protected view: HTMLElement;
+  private readonly content: View<Tag>;
 
-  public constructor() {
+  public constructor(content: View<Tag>) {
     super();
 
+    this.content = content;
     this.view = this.createHTML();
   }
 
-  public setContent<T extends Tag>(content: View<T>): void {
-    this.view.replaceChildren();
-    this.view.append(content.getHTML());
+  public onRemove(): void {
+    this.content.onRemove();
   }
 
   protected createHTML(): HTMLElement {
-    return main({});
+    const mainElement = main({});
+    mainElement.append(this.content.getHTML());
+
+    return mainElement;
   }
 }

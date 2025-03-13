@@ -27,6 +27,10 @@ export class ErrorPageView extends View<'main'> implements Page {
     return [this.view];
   }
 
+  public onRemove(): void {
+    //remove listener
+  }
+
   protected createHTML(): HTMLElement {
     const mainElement = main({ className: styles.main });
     const headingElement = h1({ className: styles.heading }, [HEADING_TEXT]);

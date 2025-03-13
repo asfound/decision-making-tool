@@ -11,5 +11,7 @@ export abstract class View<T extends Tag> {
     this.view.remove();
   }
 
+  public onRemove(): void {}
+
   protected abstract createHTML(): HTMLElementTagNameMap[T];
 }
