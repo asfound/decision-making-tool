@@ -23,9 +23,7 @@ export class OptionsList extends View<'ul'> {
   public addOption(): void {
     const optionProperties = this.controller.addOption();
 
-    const optionElement = this.createOptionItem(optionProperties);
-
-    this.view.append(optionElement.getHTML());
+    this.createAndAppendOption(optionProperties, this.view);
   }
 
   public clearList(): void {
@@ -44,9 +42,7 @@ export class OptionsList extends View<'ul'> {
         this.clearView();
 
         for (const optionProperties of this.controller.getOptions()) {
-          const optionElement = this.createOptionItem(optionProperties);
-
-          this.view.append(optionElement.getHTML());
+          this.createAndAppendOption(optionProperties, this.view);
         }
       })
       .catch(() => {
@@ -66,9 +62,7 @@ export class OptionsList extends View<'ul'> {
     const listElement = ul({ className: styles.list });
 
     for (const optionProperties of this.controller.getOptions()) {
-      const optionElement = this.createOptionItem(optionProperties);
-
-      listElement.append(optionElement.getHTML());
+      this.createAndAppendOption(optionProperties, listElement);
     }
 
     return listElement;
