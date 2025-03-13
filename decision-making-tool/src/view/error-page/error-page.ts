@@ -1,6 +1,7 @@
 import type { Router } from '~/router/router';
 
 import { Button } from '~/components/button/button';
+import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { main } from '~/utils/create-element';
 
@@ -27,7 +28,7 @@ export class ErrorPageView extends View<'main'> implements Page {
     const mainElement = main({}, ['Error page']);
 
     const toMainButton = new Button({
-      textContent: 'to start page',
+      textContent: BUTTON_TEXTS.TO_MAIN,
       type: 'button',
       onClick: (): void => {
         this.router.navigate(RouterPage.INDEX);

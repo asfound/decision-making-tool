@@ -8,6 +8,8 @@ export const BUTTON_TEXTS = {
   CLOSE: 'close',
   CONFIRM: 'confirm',
   DELETE: 'delete',
+  TO_MAIN: 'to start page',
+  BACK: 'back',
 };
 
 export const PLACEHOLDERS = {
