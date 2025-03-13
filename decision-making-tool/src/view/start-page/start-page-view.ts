@@ -1,3 +1,5 @@
+import type { Router } from '~/router/router';
+
 import { Button } from '~/components/button/button';
 import { Modal } from '~/components/modal/modal';
 import { OptionsListController } from '~/components/options-list/options-list-controller';
@@ -5,6 +7,7 @@ import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
 import { Textarea } from '~/components/textarea/textarea';
 import { BUTTON_TEXTS } from '~/constants/ui-texts';
+import { RouterPage } from '~/router/pages';
 import { div, section } from '~/utils/create-element';
 import { View } from '~/view/view';
 
@@ -15,9 +18,11 @@ export default class StartPageView extends View<'section'> {
   private readonly optionsListModel: OptionsListModel;
   private readonly optionsList: OptionsList;
   private readonly optionsListController: OptionsListController;
+  private readonly router: Router;
 
-  constructor() {
+  constructor(router: Router) {
     super();
+    this.router = router;
 
     this.optionsListModel = new OptionsListModel();
     this.optionsListController = new OptionsListController(
@@ -135,7 +140,7 @@ export default class StartPageView extends View<'section'> {
       textContent: BUTTON_TEXTS.START,
       type: 'button',
       onClick: (): void => {
-        console.log(startButton);
+        this.router.navigate(RouterPage.PICKER);
       },
     });
 

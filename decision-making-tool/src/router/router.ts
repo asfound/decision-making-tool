@@ -15,10 +15,13 @@ export class Router {
     this.routes = routes;
     this.setPage = setPage;
 
-    globalThis.addEventListener('hashchange', this.navigate.bind(this));
+    globalThis.addEventListener('hashchange', () => this.navigate(null));
   }
 
-  public navigate(): void {
+  public navigate(fragment: string | null): void {
+    if (fragment) {
+      this.setHistory(fragment);
+    }
     console.log(globalThis.location.hash);
     const fragmentIdentifier = globalThis.location.hash.slice(
       FRAGMENT_IDENTIFIER_INDEX
@@ -30,7 +33,7 @@ export class Router {
 
     if (routeToNavigate) {
       routeToNavigate
-        .getPage()
+        .getPage(this)
         .then((page) => {
           this.setPage(page);
         })
@@ -41,19 +44,23 @@ export class Router {
       this.setPage(new ErrorPageView());
     }
   }
+
+  private setHistory(fragmentIdentifier: string): void {
+    globalThis.location.href = `${globalThis.location.href.replace(/#(.*)$/, '')}#${fragmentIdentifier}`;
+  }
 }
 
 export const ROUTES: Route[] = [
-  new Route(['', `${RouterPage.INDEX}`], async () => {
+  new Route(['', `${RouterPage.INDEX}`], async (router: Router) => {
     const { default: StartPageView } = await import(
       '~/view/start-page/start-page-view'
     );
-    return new AppPage(new StartPageView());
+    return new AppPage(new StartPageView(router));
   }),
-  new Route([`${RouterPage.PICKER}`], async () => {
+  new Route([`${RouterPage.PICKER}`], async (router: Router) => {
     const { default: PickerPageView } = await import(
       '~/view/picker-page/picker-page-view'
     );
-    return new AppPage(new PickerPageView());
+    return new AppPage(new PickerPageView(router));
   }),
 ];

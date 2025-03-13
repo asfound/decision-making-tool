@@ -15,7 +15,7 @@ export default class App {
 
     this.router = new Router(ROUTES, this.setPage.bind(this));
     this.createView();
-    this.router.navigate();
+    this.router.navigate(null);
   }
 
   private createView(): void {
