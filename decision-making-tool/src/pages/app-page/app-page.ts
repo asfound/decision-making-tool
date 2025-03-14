@@ -4,7 +4,7 @@ import { MainView } from '~/components/main/main-view';
 
 import type { View } from '../../components/view';
 
-import { HeaderView } from '../../components/header/header-view';
+import { HeaderView } from '../../components/header/header';
 
 export interface Page {
   getHtmlElements(): HTMLElement[];

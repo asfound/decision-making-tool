@@ -47,12 +47,3 @@
 body:has(dialog[open]) {
   overflow: hidden;
 }
-
-.heading {
-  margin-bottom: 3rem;
-  padding: 0.5rem;
-
-  font-weight: 900;
-  color: var(--primary-color);
-  text-align: center;
-}

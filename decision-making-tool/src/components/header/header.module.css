@@ -1,5 +1,8 @@
-.heading {
+.header {
+  margin-top: 1.35rem;
+  margin-bottom: 3rem;
   border: var(--basic-border);
   border-radius: var(--border-radius);
+
   background-color: var(--white);
 }

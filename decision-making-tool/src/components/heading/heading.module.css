@@ -1,0 +1,8 @@
+.heading {
+  margin: 0;
+  padding: 0.5rem;
+
+  font-weight: 900;
+  color: var(--primary-color);
+  text-align: center;
+}
