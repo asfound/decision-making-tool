@@ -57,15 +57,15 @@ export class Router {
 
 export const ROUTES: Route[] = [
   new Route(['', RouterPage.INDEX], async (router: Router) => {
-    const { default: StartPageView } = await import(
+    const { default: StartSection } = await import(
       '~/components/start-section/start-section'
     );
-    return new AppPage(new StartPageView(router));
+    return new AppPage(new StartSection(router));
   }),
   new Route([RouterPage.PICKER], async (router: Router) => {
-    const { default: PickerPageView } = await import(
+    const { default: PickerSection } = await import(
       '~/components/picker-section/picker-section'
     );
-    return new AppPage(new PickerPageView(router));
+    return new AppPage(new PickerSection(router));
   }),
 ];
