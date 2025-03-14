@@ -11,6 +11,6 @@ export const COLOR_RANGE = {
 };
 
 export const APP_COLORS = {
-  PRIMARY_COLOR: 'rgb(0, 60, 255)',
+  PRIMARY_COLOR: 'rgb(0, 63, 255)',
   WHITE: 'rgb(255, 255, 255)',
 };
