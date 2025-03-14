@@ -64,7 +64,7 @@ export class Picker extends View<'canvas'> {
       this.sectorsOptions
     );
 
-    this.startAngle = BASE_ANGLES.DEGREES.ZERO;
+    this.startAngle = this.utility.toRadians(-BASE_ANGLES.DEGREES.QUARTER);
 
     this.drawPiker();
 

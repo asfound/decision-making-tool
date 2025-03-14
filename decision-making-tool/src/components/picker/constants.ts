@@ -3,6 +3,7 @@ const DOUBLE = 2;
 export const BASE_ANGLES = {
   DEGREES: {
     ZERO: 0,
+    QUARTER: 90,
     HALF: 180,
     FULL: 360,
   },
