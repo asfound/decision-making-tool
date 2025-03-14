@@ -1,10 +1,10 @@
 import type { Tag } from '~/utils/create-element';
 
-import { MainView } from '~/components/main/main-view';
+import { Main } from '~/components/main/main';
 
 import type { View } from '../../components/view';
 
-import { HeaderView } from '../../components/header/header';
+import { Header } from '../../components/header/header';
 
 export interface Page {
   getHtmlElements(): HTMLElement[];
@@ -12,12 +12,12 @@ export interface Page {
 }
 
 export class AppPage implements Page {
-  private readonly headerView: HeaderView;
-  private readonly mainView: MainView;
+  private readonly headerView: Header;
+  private readonly mainView: Main;
 
   constructor(view: View<Tag>) {
-    this.headerView = new HeaderView();
-    this.mainView = new MainView(view);
+    this.headerView = new Header();
+    this.mainView = new Main(view);
   }
 
   public onRemove(): void {

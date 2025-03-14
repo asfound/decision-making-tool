@@ -5,7 +5,7 @@ import { Heading } from '../heading/heading';
 import { View } from '../view';
 import styles from './header.module.css';
 
-export class HeaderView extends View<'header'> {
+export class Header extends View<'header'> {
   protected view: HTMLElement;
 
   public constructor() {

@@ -54,13 +54,13 @@ export class Router {
 export const ROUTES: Route[] = [
   new Route(['', `${RouterPage.INDEX}`], async (router: Router) => {
     const { default: StartPageView } = await import(
-      '~/components/start-section/start-section-view'
+      '~/components/start-section/start-section'
     );
     return new AppPage(new StartPageView(router));
   }),
   new Route([`${RouterPage.PICKER}`], async (router: Router) => {
     const { default: PickerPageView } = await import(
-      '~/components/picker-section/picker-section-view'
+      '~/components/picker-section/picker-section'
     );
     return new AppPage(new PickerPageView(router));
   }),

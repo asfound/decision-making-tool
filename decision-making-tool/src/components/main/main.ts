@@ -4,7 +4,7 @@ import { main } from '~/utils/create-element';
 
 import { View } from '../view';
 
-export class MainView extends View<'main'> {
+export class Main extends View<'main'> {
   protected view: HTMLElement;
   private readonly content: View<Tag>;
 

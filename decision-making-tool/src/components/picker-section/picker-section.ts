@@ -6,7 +6,7 @@ import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { section } from '~/utils/create-element';
 
-export default class PickerSectionView extends View<'section'> {
+export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
   private readonly router: Router;
 

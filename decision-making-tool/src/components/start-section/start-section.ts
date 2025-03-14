@@ -13,7 +13,7 @@ import { div, section } from '~/utils/create-element';
 
 import styles from './start-section.module.css';
 
-export default class StartSectionView extends View<'section'> {
+export default class StartSection extends View<'section'> {
   protected view: HTMLElement;
   private readonly optionsListModel: OptionsListModel;
   private readonly optionsList: OptionsList;
