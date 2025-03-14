@@ -1,5 +1,6 @@
 import type { Page } from '~/pages/app-page/app-page';
 
+import { NotValidOptionsError } from '~/components/picker-section/picker-section';
 import { ERRORS } from '~/constants/errors';
 import { AppPage } from '~/pages/app-page/app-page';
 import { ErrorPageView } from '~/pages/error-page/error-page';
@@ -41,7 +42,9 @@ export class Router {
           this.setPage(page);
         })
         .catch((error: unknown) => {
-          if (error instanceof Error) {
+          if (error instanceof NotValidOptionsError) {
+            this.navigate(RouterPage.INDEX);
+          } else if (error instanceof Error) {
             throw new TypeError(`${ERRORS.PAGE_LOAD_ERROR} ${error}`);
           }
         });

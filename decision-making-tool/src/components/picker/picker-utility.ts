@@ -1,19 +1,21 @@
+import type { OptionData } from '../options-list/options-list-model';
+
 import { BASE_ANGLES, COLOR_RANGE } from './constants';
 
-const TEMP = [
-  { id: 18, title: 'One', weight: 10 },
-  { id: 19, title: 'Two', weight: 67 },
-  { id: 20, title: 'Three', weight: 4 },
-];
-
 const INITIAL_VALUE = 0;
+
+const RANDOM_THRESHOLD = 0.5;
 
 export class PickerUtility {
   private readonly colorModel: string[] = ['red', 'green', 'blue'];
 
-  public getRadiansPerWeight(): number {
-    const totalWeight = TEMP.reduce(
-      (sum, sector) => sum + sector.weight,
+  public shuffleOptions(options: OptionData[]): OptionData[] {
+    return options.sort(() => Math.random() - RANDOM_THRESHOLD);
+  }
+
+  public getRadiansPerWeight(sectorsOptions: OptionData[]): number {
+    const totalWeight = sectorsOptions.reduce(
+      (sum, option) => sum + option.weight,
       INITIAL_VALUE
     );
 

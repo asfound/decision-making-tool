@@ -1,8 +1,8 @@
 /* eslint-disable max-lines-per-function */
-
-import { LocalStorageService } from '~/services/local-storage-service';
 import { canvas } from '~/utils/create-element';
 import { assertNotNull } from '~/utils/type-guards';
+
+import type { OptionData } from '../options-list/options-list-model';
 
 import { View } from '../view';
 import { APP_COLORS, BASE_ANGLES } from './constants';
@@ -17,12 +17,6 @@ const VALUES = {
   ZERO_COORDINATE: 0,
 };
 
-const TEMP = [
-  { id: 18, title: 'One', weight: 10 },
-  { id: 19, title: 'Two', weight: 67 },
-  { id: 20, title: 'Three', weight: 4 },
-];
-
 export class Picker extends View<'canvas'> {
   protected view: HTMLCanvasElement;
   private readonly width: number;
@@ -32,17 +26,18 @@ export class Picker extends View<'canvas'> {
   private readonly centerY: number;
 
   private readonly utility: PickerUtility;
-  private readonly localStorageService: LocalStorageService;
+
   private readonly radius: number;
   private readonly radiansPerWeight: number;
-  private readonly sectors: { id: number; title: string; weight: number }[];
   private readonly startAngle: number;
+  private readonly sectorsOptions: OptionData[];
 
-  public constructor(sideLength: number) {
+  public constructor(sideLength: number, optionsData: OptionData[]) {
     super();
 
     this.utility = new PickerUtility();
-    this.localStorageService = new LocalStorageService();
+
+    this.sectorsOptions = this.utility.shuffleOptions(optionsData);
 
     const devicePixelRatio = window.devicePixelRatio || VALUES.BASE_RATIO;
 
@@ -65,8 +60,9 @@ export class Picker extends View<'canvas'> {
     this.centerY = sideLength / VALUES.HALF_SIZE;
     this.radius = sideLength / VALUES.HALF_SIZE - VALUES.OFFSET;
 
-    this.sectors = TEMP;
-    this.radiansPerWeight = this.utility.getRadiansPerWeight();
+    this.radiansPerWeight = this.utility.getRadiansPerWeight(
+      this.sectorsOptions
+    );
 
     this.startAngle = BASE_ANGLES.DEGREES.ZERO;
 
@@ -114,8 +110,8 @@ export class Picker extends View<'canvas'> {
     this.ctx.strokeStyle = APP_COLORS.WHITE;
     let startAngle = this.startAngle;
 
-    for (const sector of this.sectors) {
-      const sectorAngle = sector.weight * this.radiansPerWeight;
+    for (const option of this.sectorsOptions) {
+      const sectorAngle = option.weight * this.radiansPerWeight;
       const endAngle = startAngle + sectorAngle;
 
       this.ctx.beginPath();
