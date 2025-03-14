@@ -16,7 +16,9 @@ export class Router {
     this.routes = routes;
     this.setPage = setPage;
 
-    globalThis.addEventListener('hashchange', () => this.navigate(null));
+    globalThis.addEventListener('hashchange', () => {
+      this.navigate(null);
+    });
   }
 
   public navigate(fragment: string | null): void {
@@ -38,8 +40,10 @@ export class Router {
         .then((page) => {
           this.setPage(page);
         })
-        .catch((error) => {
-          throw new Error(`${ERRORS.PAGE_LOAD_ERROR} ${error}`);
+        .catch((error: unknown) => {
+          if (error instanceof Error) {
+            throw new TypeError(`${ERRORS.PAGE_LOAD_ERROR} ${error}`);
+          }
         });
     } else {
       this.setPage(new ErrorPageView(this));
@@ -52,13 +56,13 @@ export class Router {
 }
 
 export const ROUTES: Route[] = [
-  new Route(['', `${RouterPage.INDEX}`], async (router: Router) => {
+  new Route(['', RouterPage.INDEX], async (router: Router) => {
     const { default: StartPageView } = await import(
       '~/components/start-section/start-section'
     );
     return new AppPage(new StartPageView(router));
   }),
-  new Route([`${RouterPage.PICKER}`], async (router: Router) => {
+  new Route([RouterPage.PICKER], async (router: Router) => {
     const { default: PickerPageView } = await import(
       '~/components/picker-section/picker-section'
     );
