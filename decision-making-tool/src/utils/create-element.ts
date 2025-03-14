@@ -1,7 +1,9 @@
 import { isNonNullable } from './type-guards';
 
 export type Tag = keyof HTMLElementTagNameMap;
+
 type Properties<T extends Tag> = Partial<HTMLElementTagNameMap[T]>;
+
 type ChildNode = Node | string | null | undefined;
 
 function createElementFactory<T extends Tag>(tag: T) {
@@ -26,6 +28,8 @@ function createElementFactory<T extends Tag>(tag: T) {
 export const a = createElementFactory('a');
 
 export const button = createElementFactory('button');
+
+export const canvas = createElementFactory('canvas');
 
 export const dialog = createElementFactory('dialog');
 

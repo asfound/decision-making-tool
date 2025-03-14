@@ -6,6 +6,10 @@ import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { section } from '~/utils/create-element';
 
+import { Picker } from '../picker/picker';
+import styles from './picker-section.module.css';
+
+const CANVAS_SIZE = 500;
 export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
   private readonly router: Router;
@@ -24,7 +28,7 @@ export default class PickerSection extends View<'section'> {
   }
 
   protected createHTML(): HTMLElement {
-    const sectionElement = section({}, ['Wheel']);
+    const sectionElement = section({ className: styles.section });
 
     const backButton = new Button({
       textContent: BUTTON_TEXTS.BACK,
@@ -38,7 +42,9 @@ export default class PickerSection extends View<'section'> {
       backButton.removeListener();
     };
 
-    sectionElement.append(backButton.getHTML());
+    const pickerElement = new Picker(CANVAS_SIZE);
+
+    sectionElement.append(backButton.getHTML(), pickerElement.getHTML());
     return sectionElement;
   }
 }

@@ -14,3 +14,11 @@ export function isListData(data: unknown): asserts data is ListData {
     throw new Error(ERRORS.INVALID_TYPE_ERROR);
   }
 }
+
+export function assertNotNull<T>(
+  value: T | null | undefined
+): asserts value is T {
+  if (value === null || value === undefined) {
+    throw new Error(ERRORS.NULLABLE_VALUE_ERROR);
+  }
+}
