@@ -32,6 +32,8 @@ const VALUES = {
   POINTER_STROKE_WIDTH: 6,
 };
 
+export type OptionDataWithColor = OptionData & { color: string };
+
 export class Picker extends View<'canvas'> {
   protected view: HTMLCanvasElement;
   private readonly width: number;
@@ -45,7 +47,7 @@ export class Picker extends View<'canvas'> {
   private readonly radius: number;
   private readonly radiansPerWeight: number;
   private startAngle: number;
-  private readonly sectorsOptions: OptionData[];
+  private readonly sectorsOptions: OptionDataWithColor[];
 
   private spinning: boolean;
   private spinSpeed: number;
@@ -55,7 +57,7 @@ export class Picker extends View<'canvas'> {
 
     this.utility = new PickerUtility();
 
-    this.sectorsOptions = this.utility.shuffleOptions(optionsData);
+    this.sectorsOptions = this.utility.createSectorOptions(optionsData);
 
     const devicePixelRatio = window.devicePixelRatio || VALUES.BASE_RATIO;
 
@@ -128,7 +130,7 @@ export class Picker extends View<'canvas'> {
         endAngle
       );
       this.ctx.closePath();
-      this.ctx.fillStyle = this.utility.getRandomColor();
+      this.ctx.fillStyle = option.color;
       this.ctx.fill();
       this.ctx.stroke();
 
@@ -245,6 +247,7 @@ export class Picker extends View<'canvas'> {
 
     const RANDOM_COEFFICIENT = 20;
     this.spinSpeed = Math.random() * RANDOM_COEFFICIENT + RANDOM_COEFFICIENT;
+
     const deceleration = 0.98;
 
     const animate = (): void => {

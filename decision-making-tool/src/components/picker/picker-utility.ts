@@ -8,8 +8,18 @@ const INITIAL_VALUE = 0;
 
 const RANDOM_THRESHOLD = 0.5;
 
+import type { OptionDataWithColor } from './picker';
 export class PickerUtility {
   private readonly colorModel: string[] = ['red', 'green', 'blue'];
+
+  public createSectorOptions(options: OptionData[]): OptionDataWithColor[] {
+    const shuffleOptions = this.shuffleOptions(options);
+
+    return shuffleOptions.map((option) => ({
+      ...option,
+      color: this.getRandomColor(),
+    }));
+  }
 
   public shuffleOptions(options: OptionData[]): OptionData[] {
     return options.sort(() => Math.random() - RANDOM_THRESHOLD);
@@ -54,5 +64,11 @@ export class PickerUtility {
 
       return `${slicedText}...`;
     }
+  }
+
+  public easeOutQuint(progress: number): number {
+    const EASING_POWER = 2;
+    const FUNCTION_MAX_VALUE = 1;
+    return -(Math.cos(Math.PI * progress) - FUNCTION_MAX_VALUE) / EASING_POWER;
   }
 }
