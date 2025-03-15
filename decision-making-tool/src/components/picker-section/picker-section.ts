@@ -20,6 +20,7 @@ export default class PickerSection extends View<'section'> {
   private readonly router: Router;
   private readonly localStorageService: LocalStorageService;
   private readonly optionsData: OptionData[];
+  private readonly childListeners: (() => void)[] = [];
 
   constructor(router: Router) {
     super();
@@ -40,7 +41,9 @@ export default class PickerSection extends View<'section'> {
   public clearChildListener: () => void = () => {};
 
   public onRemove(): void {
-    this.clearChildListener();
+    for (const callback of this.childListeners) {
+      callback();
+    }
   }
 
   protected createHTML(): HTMLElement {
@@ -54,13 +57,29 @@ export default class PickerSection extends View<'section'> {
       },
     });
 
-    this.clearChildListener = (): void => {
+    this.childListeners.push(() => {
       backButton.removeListener();
-    };
+    });
+
+    const pickButton = new Button({
+      textContent: BUTTON_TEXTS.PICK,
+      type: 'button',
+      onClick: (): void => {
+        this.router.navigate(RouterPage.INDEX);
+      },
+    });
+
+    this.childListeners.push(() => {
+      pickButton.removeListener();
+    });
 
     const pickerElement = new Picker(CANVAS_SIZE, this.optionsData);
 
-    sectionElement.append(backButton.getHTML(), pickerElement.getHTML());
+    sectionElement.append(
+      backButton.getHTML(),
+      pickButton.getHTML(),
+      pickerElement.getHTML()
+    );
     return sectionElement;
   }
 }

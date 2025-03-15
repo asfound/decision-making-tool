@@ -10,6 +10,7 @@ export const BUTTON_TEXTS = {
   DELETE: 'delete',
   TO_MAIN: 'to start page',
   BACK: 'back',
+  PICK: 'pick',
 };
 
 export const PLACEHOLDERS = {
