@@ -7,6 +7,7 @@ import type { OptionData } from '../options-list/options-list-model';
 import { View } from '../view';
 import { APP_COLORS, BASE_ANGLES } from './constants';
 import { PickerUtility } from './picker-utility';
+
 const VALUES = {
   HALF_SIZE: 2,
   OFFSET: 20,
@@ -14,6 +15,21 @@ const VALUES = {
   BASE_RATIO: 1,
 
   ZERO_COORDINATE: 0,
+
+  SUFFICIENT_ANGLE: 0.2,
+
+  OUTER_CIRCLE_STROKE: 10,
+  INNER_CIRCLE_STROKE: 7,
+
+  TITLE_FONT: '700 12px Montserrat',
+  TITLE_STROKE_WIDTH: 2,
+  TITLE_X_COORDINATE: 120,
+  TITLE_Y_COORDINATE: 0,
+
+  POINTER_WIDTH: 17,
+  POINTER_HEIGHT: 25,
+  POINTER_OVERLAP: 15,
+  POINTER_STROKE_WIDTH: 6,
 };
 
 export class Picker extends View<'canvas'> {
@@ -98,8 +114,7 @@ export class Picker extends View<'canvas'> {
       this.utility.toRadians(BASE_ANGLES.DEGREES.FULL)
     );
 
-    const OUTER_CIRCLE_STROKE = 10;
-    this.ctx.lineWidth = OUTER_CIRCLE_STROKE;
+    this.ctx.lineWidth = VALUES.OUTER_CIRCLE_STROKE;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
 
@@ -120,7 +135,7 @@ export class Picker extends View<'canvas'> {
       this.ctx.arc(
         this.centerX,
         this.centerY,
-        this.radius - OUTER_CIRCLE_STROKE / VALUES.HALF_SIZE,
+        this.radius - VALUES.OUTER_CIRCLE_STROKE / VALUES.HALF_SIZE,
         startAngle,
         endAngle
       );
@@ -131,8 +146,7 @@ export class Picker extends View<'canvas'> {
 
       const middleAngle = startAngle + sectorAngle / VALUES.HALF_SIZE;
 
-      const SUFFICIENT_ANGLE = 0.2;
-      if (sectorAngle > SUFFICIENT_ANGLE) {
+      if (sectorAngle > VALUES.SUFFICIENT_ANGLE) {
         this.drawOptionTitle(middleAngle, option.title);
       }
 
@@ -145,23 +159,25 @@ export class Picker extends View<'canvas'> {
     this.ctx.translate(this.centerX, this.centerY);
     this.ctx.rotate(middleAngle);
 
-    const TITLE_ALIGNMENT = 'center';
-    const TITLE_BASELINE = 'middle';
-    this.ctx.textAlign = TITLE_ALIGNMENT;
-    this.ctx.textBaseline = TITLE_BASELINE;
-
-    const STROKE_WIDTH = 2;
-    this.ctx.font = '700 12px Montserrat';
+    this.ctx.textAlign = 'center';
+    this.ctx.textBaseline = 'middle';
+    this.ctx.font = VALUES.TITLE_FONT;
     this.ctx.fillStyle = APP_COLORS.PRIMARY;
     this.ctx.strokeStyle = APP_COLORS.WHITE;
-    this.ctx.lineWidth = STROKE_WIDTH;
-
-    const X_COORDINATE = 120;
-    const Y_COORDINATE = 0;
+    this.ctx.lineWidth = VALUES.TITLE_STROKE_WIDTH;
 
     const formattedTitle = this.utility.formatTitle(title);
-    this.ctx.strokeText(formattedTitle, X_COORDINATE, Y_COORDINATE);
-    this.ctx.fillText(formattedTitle, X_COORDINATE, Y_COORDINATE);
+
+    this.ctx.strokeText(
+      formattedTitle,
+      VALUES.TITLE_X_COORDINATE,
+      VALUES.TITLE_Y_COORDINATE
+    );
+    this.ctx.fillText(
+      formattedTitle,
+      VALUES.TITLE_X_COORDINATE,
+      VALUES.TITLE_Y_COORDINATE
+    );
 
     this.ctx.restore();
   }
@@ -179,33 +195,33 @@ export class Picker extends View<'canvas'> {
     this.ctx.fillStyle = APP_COLORS.WHITE;
     this.ctx.fill();
 
-    const INNER_CIRCLE_STROKE = 7;
-    this.ctx.lineWidth = INNER_CIRCLE_STROKE;
+    this.ctx.lineWidth = VALUES.INNER_CIRCLE_STROKE;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
   }
 
   private drawPointer(): void {
-    const POINTER_WIDTH = 20;
-    const POINTER_HEIGHT = 30;
-    const POINTER_OVERLAP = 18;
-
-    const pointerX1 = this.centerX - POINTER_WIDTH;
-    const pointerX2 = this.centerX + POINTER_WIDTH;
+    const pointerX1 = this.centerX - VALUES.POINTER_WIDTH;
+    const pointerX2 = this.centerX + VALUES.POINTER_WIDTH;
     const pointerY =
-      this.centerY - this.radius - POINTER_HEIGHT + POINTER_OVERLAP;
+      this.centerY -
+      this.radius -
+      VALUES.POINTER_HEIGHT +
+      VALUES.POINTER_OVERLAP;
 
     this.ctx.beginPath();
     this.ctx.moveTo(pointerX1, pointerY);
     this.ctx.lineTo(pointerX2, pointerY);
-    this.ctx.lineTo(this.centerX, this.centerY - this.radius + POINTER_OVERLAP);
+    this.ctx.lineTo(
+      this.centerX,
+      this.centerY - this.radius + VALUES.POINTER_OVERLAP
+    );
     this.ctx.closePath();
 
     this.ctx.fillStyle = APP_COLORS.WHITE;
     this.ctx.fill();
 
-    const POINTER_STROKE_WIDTH = 6;
-    this.ctx.lineWidth = POINTER_STROKE_WIDTH;
+    this.ctx.lineWidth = VALUES.POINTER_STROKE_WIDTH;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
   }
