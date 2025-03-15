@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import { canvas } from '~/utils/create-element';
 import { assertNotNull } from '~/utils/type-guards';
 
@@ -20,6 +19,7 @@ const VALUES = {
 
   OUTER_CIRCLE_STROKE: 10,
   INNER_CIRCLE_STROKE: 7,
+  SEGMENTS_STROKE: 2,
 
   TITLE_FONT: '700 12px Montserrat',
   TITLE_STROKE_WIDTH: 2,
@@ -81,11 +81,7 @@ export class Picker extends View<'canvas'> {
 
     this.startAngle = this.utility.toRadians(-BASE_ANGLES.DEGREES.QUARTER);
 
-    this.drawPiker();
-
-    this.drawCenterElement();
-
-    this.drawPointer();
+    this.drawPicker();
   }
 
   protected createHTML(): HTMLCanvasElement {
@@ -97,32 +93,17 @@ export class Picker extends View<'canvas'> {
     return canvasElement;
   }
 
-  private drawPiker(): void {
-    this.ctx.clearRect(
-      VALUES.ZERO_COORDINATE,
-      VALUES.ZERO_COORDINATE,
-      this.view.width,
-      this.view.height
-    );
+  private drawPicker(): void {
+    this.drawPickerMount();
 
-    this.ctx.beginPath();
-    this.ctx.arc(
-      this.centerX,
-      this.centerY,
-      this.radius,
-      this.utility.toRadians(BASE_ANGLES.DEGREES.ZERO),
-      this.utility.toRadians(BASE_ANGLES.DEGREES.FULL)
-    );
+    this.drawSegments();
 
-    this.ctx.lineWidth = VALUES.OUTER_CIRCLE_STROKE;
-    this.ctx.strokeStyle = APP_COLORS.PRIMARY;
-    this.ctx.stroke();
+    this.drawCenterElement();
 
-    //TODO remove comment
-    // ============== SEGMENTS ==============
-    const SEGMENTS_STROKE = 2;
-
-    this.ctx.lineWidth = SEGMENTS_STROKE;
+    this.drawPointer();
+  }
+  private drawSegments(): void {
+    this.ctx.lineWidth = VALUES.SEGMENTS_STROKE;
     this.ctx.strokeStyle = APP_COLORS.WHITE;
     let startAngle = this.startAngle;
 
@@ -152,6 +133,28 @@ export class Picker extends View<'canvas'> {
 
       startAngle = endAngle;
     }
+  }
+
+  private drawPickerMount(): void {
+    this.ctx.clearRect(
+      VALUES.ZERO_COORDINATE,
+      VALUES.ZERO_COORDINATE,
+      this.view.width,
+      this.view.height
+    );
+
+    this.ctx.beginPath();
+    this.ctx.arc(
+      this.centerX,
+      this.centerY,
+      this.radius,
+      this.utility.toRadians(BASE_ANGLES.DEGREES.ZERO),
+      this.utility.toRadians(BASE_ANGLES.DEGREES.FULL)
+    );
+
+    this.ctx.lineWidth = VALUES.OUTER_CIRCLE_STROKE;
+    this.ctx.strokeStyle = APP_COLORS.PRIMARY;
+    this.ctx.stroke();
   }
 
   private drawOptionTitle(middleAngle: number, title: string): void {
