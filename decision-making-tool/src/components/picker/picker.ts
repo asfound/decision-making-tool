@@ -44,8 +44,11 @@ export class Picker extends View<'canvas'> {
 
   private readonly radius: number;
   private readonly radiansPerWeight: number;
-  private readonly startAngle: number;
+  private startAngle: number;
   private readonly sectorsOptions: OptionData[];
+
+  private spinning: boolean;
+  private spinSpeed: number;
 
   public constructor(sideLength: number, optionsData: OptionData[]) {
     super();
@@ -81,7 +84,11 @@ export class Picker extends View<'canvas'> {
 
     this.startAngle = this.utility.toRadians(-BASE_ANGLES.DEGREES.QUARTER);
 
+    this.spinning = false;
+    this.spinSpeed = 0;
+
     this.drawPicker();
+    this.spin();
   }
 
   protected createHTML(): HTMLCanvasElement {
@@ -227,5 +234,32 @@ export class Picker extends View<'canvas'> {
     this.ctx.lineWidth = VALUES.POINTER_STROKE_WIDTH;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
+  }
+
+  private spin(): void {
+    if (this.spinning) {
+      return;
+    }
+
+    this.spinning = true;
+
+    const RANDOM_COEFFICIENT = 20;
+    this.spinSpeed = Math.random() * RANDOM_COEFFICIENT + RANDOM_COEFFICIENT;
+    const deceleration = 0.98;
+
+    const animate = (): void => {
+      this.startAngle += this.spinSpeed * (Math.PI / BASE_ANGLES.DEGREES.HALF);
+      this.spinSpeed *= deceleration;
+      this.drawPicker();
+
+      const SPEED_THRESHOLD = 0.1;
+      if (this.spinSpeed > SPEED_THRESHOLD) {
+        requestAnimationFrame(animate);
+      } else {
+        this.spinning = false;
+      }
+    };
+
+    animate();
   }
 }
