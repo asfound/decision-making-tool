@@ -31,11 +31,15 @@ export class PickerUtility {
       INITIAL_VALUE
     );
 
-    return BASE_ANGLES.RADIANS.FULL / totalWeight;
+    return BASE_ANGLES.RADIANS.FULL_TURN / totalWeight;
   }
 
   public toRadians(degrees: number): number {
-    return degrees * (Math.PI / BASE_ANGLES.DEGREES.HALF);
+    return degrees * (Math.PI / BASE_ANGLES.DEGREES.HALF_TURN);
+  }
+
+  public toDegrees(radians: number): number {
+    return radians * (BASE_ANGLES.DEGREES.HALF_TURN / Math.PI);
   }
 
   public getRandomColor(): string {
@@ -64,6 +68,10 @@ export class PickerUtility {
 
       return `${slicedText}...`;
     }
+  }
+
+  public getRandomEndAngle(): number {
+    return Math.random() * BASE_ANGLES.RADIANS.FULL_TURN;
   }
 
   public easeOutQuint(progress: number): number {

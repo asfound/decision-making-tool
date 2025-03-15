@@ -4,14 +4,14 @@ export const BASE_ANGLES = {
   DEGREES: {
     ZERO: 0,
     QUARTER: 90,
-    HALF: 180,
-    FULL: 360,
+    HALF_TURN: 180,
+    FULL_TURN: 360,
   },
 
   RADIANS: {
     ZERO: 0,
-    HALF: Math.PI,
-    FULL: DOUBLE * Math.PI,
+    HALF_TURN: Math.PI,
+    FULL_TURN: DOUBLE * Math.PI,
   },
 };
 

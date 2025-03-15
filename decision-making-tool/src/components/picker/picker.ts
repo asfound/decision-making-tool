@@ -90,7 +90,9 @@ export class Picker extends View<'canvas'> {
     this.spinSpeed = 0;
 
     this.drawPicker();
-    this.spin();
+    setTimeout(() => {
+      this.spin();
+    }, 3000);
   }
 
   protected createHTML(): HTMLCanvasElement {
@@ -158,7 +160,7 @@ export class Picker extends View<'canvas'> {
       this.centerY,
       this.radius,
       this.utility.toRadians(BASE_ANGLES.DEGREES.ZERO),
-      this.utility.toRadians(BASE_ANGLES.DEGREES.FULL)
+      this.utility.toRadians(BASE_ANGLES.DEGREES.FULL_TURN)
     );
 
     this.ctx.lineWidth = VALUES.OUTER_CIRCLE_STROKE;
@@ -201,7 +203,7 @@ export class Picker extends View<'canvas'> {
       this.centerY,
       VALUES.OFFSET,
       this.utility.toRadians(BASE_ANGLES.DEGREES.ZERO),
-      this.utility.toRadians(BASE_ANGLES.DEGREES.FULL)
+      this.utility.toRadians(BASE_ANGLES.DEGREES.FULL_TURN)
     );
 
     this.ctx.fillStyle = APP_COLORS.WHITE;
@@ -242,27 +244,44 @@ export class Picker extends View<'canvas'> {
     if (this.spinning) {
       return;
     }
-
     this.spinning = true;
 
-    const RANDOM_COEFFICIENT = 20;
-    this.spinSpeed = Math.random() * RANDOM_COEFFICIENT + RANDOM_COEFFICIENT;
+    let spinStartTime: number | null = null;
 
-    const deceleration = 0.98;
+    const MILLISECOND = 1000;
 
-    const animate = (): void => {
-      this.startAngle += this.spinSpeed * (Math.PI / BASE_ANGLES.DEGREES.HALF);
-      this.spinSpeed *= deceleration;
+    const DURATION = 2000;
+    const FULL_TURNS_PER_SECOND = 1;
+
+    const TOTAL_TURNS = (DURATION / MILLISECOND) * FULL_TURNS_PER_SECOND;
+    const TOTAL_ANGLE = TOTAL_TURNS * BASE_ANGLES.DEGREES.FULL_TURN;
+
+    console.log(this.startAngle);
+    const animate = (timestamp: number): void => {
+      if (spinStartTime === null) {
+        spinStartTime = timestamp;
+      }
+
+      const elapsedTime = timestamp - spinStartTime;
+
+      const FULL_PROGRESS = 1;
+      const currentProgress = Math.min(elapsedTime / DURATION, FULL_PROGRESS);
+
+      this.startAngle = this.utility.toRadians(
+        currentProgress * TOTAL_ANGLE - BASE_ANGLES.DEGREES.QUARTER
+      );
+
       this.drawPicker();
 
-      const SPEED_THRESHOLD = 0.1;
-      if (this.spinSpeed > SPEED_THRESHOLD) {
+      if (currentProgress < FULL_PROGRESS) {
+        console.log(this.startAngle);
+        console.log(currentProgress);
         requestAnimationFrame(animate);
       } else {
         this.spinning = false;
       }
     };
 
-    animate();
+    requestAnimationFrame(animate);
   }
 }
