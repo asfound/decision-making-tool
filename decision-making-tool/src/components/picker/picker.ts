@@ -7,7 +7,6 @@ import type { OptionData } from '../options-list/options-list-model';
 import { View } from '../view';
 import { APP_COLORS, BASE_ANGLES } from './constants';
 import { PickerUtility } from './picker-utility';
-
 const VALUES = {
   HALF_SIZE: 2,
   OFFSET: 20,
@@ -69,6 +68,8 @@ export class Picker extends View<'canvas'> {
     this.drawPiker();
 
     this.drawCenterElement();
+
+    this.drawPointer();
   }
 
   protected createHTML(): HTMLCanvasElement {
@@ -128,8 +129,41 @@ export class Picker extends View<'canvas'> {
       this.ctx.fill();
       this.ctx.stroke();
 
+      const middleAngle = startAngle + sectorAngle / VALUES.HALF_SIZE;
+
+      const SUFFICIENT_ANGLE = 0.2;
+      if (sectorAngle > SUFFICIENT_ANGLE) {
+        this.drawOptionTitle(middleAngle, option.title);
+      }
+
       startAngle = endAngle;
     }
+  }
+
+  private drawOptionTitle(middleAngle: number, title: string): void {
+    this.ctx.save();
+    this.ctx.translate(this.centerX, this.centerY);
+    this.ctx.rotate(middleAngle);
+
+    const TITLE_ALIGNMENT = 'center';
+    const TITLE_BASELINE = 'middle';
+    this.ctx.textAlign = TITLE_ALIGNMENT;
+    this.ctx.textBaseline = TITLE_BASELINE;
+
+    const STROKE_WIDTH = 2;
+    this.ctx.font = '700 12px Montserrat';
+    this.ctx.fillStyle = APP_COLORS.PRIMARY;
+    this.ctx.strokeStyle = APP_COLORS.WHITE;
+    this.ctx.lineWidth = STROKE_WIDTH;
+
+    const X_COORDINATE = 120;
+    const Y_COORDINATE = 0;
+
+    const formattedTitle = this.utility.formatTitle(title);
+    this.ctx.strokeText(formattedTitle, X_COORDINATE, Y_COORDINATE);
+    this.ctx.fillText(formattedTitle, X_COORDINATE, Y_COORDINATE);
+
+    this.ctx.restore();
   }
 
   private drawCenterElement(): void {
@@ -147,6 +181,31 @@ export class Picker extends View<'canvas'> {
 
     const INNER_CIRCLE_STROKE = 7;
     this.ctx.lineWidth = INNER_CIRCLE_STROKE;
+    this.ctx.strokeStyle = APP_COLORS.PRIMARY;
+    this.ctx.stroke();
+  }
+
+  private drawPointer(): void {
+    const POINTER_WIDTH = 20;
+    const POINTER_HEIGHT = 30;
+    const POINTER_OVERLAP = 18;
+
+    const pointerX1 = this.centerX - POINTER_WIDTH;
+    const pointerX2 = this.centerX + POINTER_WIDTH;
+    const pointerY =
+      this.centerY - this.radius - POINTER_HEIGHT + POINTER_OVERLAP;
+
+    this.ctx.beginPath();
+    this.ctx.moveTo(pointerX1, pointerY);
+    this.ctx.lineTo(pointerX2, pointerY);
+    this.ctx.lineTo(this.centerX, this.centerY - this.radius + POINTER_OVERLAP);
+    this.ctx.closePath();
+
+    this.ctx.fillStyle = APP_COLORS.WHITE;
+    this.ctx.fill();
+
+    const POINTER_STROKE_WIDTH = 6;
+    this.ctx.lineWidth = POINTER_STROKE_WIDTH;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
   }

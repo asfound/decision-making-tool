@@ -1,3 +1,5 @@
+import { INDEX_VALUES } from '~/constants/index-values';
+
 import type { OptionData } from '../options-list/options-list-model';
 
 import { BASE_ANGLES, COLOR_RANGE } from './constants';
@@ -40,5 +42,17 @@ export class PickerUtility {
     colorValues[randomIndex] = COLOR_RANGE.MAX;
 
     return `rgb(${colorValues.join(', ')})`;
+  }
+
+  public formatTitle(text: string): string {
+    const MAX_LENGTH = 20;
+
+    if (text.length < MAX_LENGTH) {
+      return text;
+    } else {
+      const slicedText = text.slice(INDEX_VALUES.FIRST_INDEX, MAX_LENGTH);
+
+      return `${slicedText}...`;
+    }
   }
 }
