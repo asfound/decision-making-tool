@@ -63,6 +63,7 @@ export default class PickerSection extends View<'section'> {
       textContent: LABELS.DURATION,
     });
     labelElement.setAttribute('for', LABELS.DURATION);
+    labelElement.setAttribute('title', LABELS.DURATION_TITLE);
 
     const durationInput = new Input({
       placeholder: PLACEHOLDERS.DURATION,

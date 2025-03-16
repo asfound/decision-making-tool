@@ -45,8 +45,12 @@
 .duration {
   display: flex;
   align-items: center;
-  max-width: 7rem;
+
+  max-width: 8rem;
+
   background-color: var(--primary-color);
+
+  transition: background-color 0.3s;
 }
 
 .input {
@@ -58,6 +62,10 @@
   padding: 0 0.25rem;
   color: var(--primary-bright);
   text-transform: capitalize;
+}
+
+.duration:hover {
+  background-color: var(--primary-dark);
 }
 
 .button:last-child {

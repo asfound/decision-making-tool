@@ -19,7 +19,7 @@ export const PLACEHOLDERS = {
   TEXTAREA:
     'Paste a list of new options in a CSV-like format: \n\noption_title, option_weight',
   PICKER_DISPLAY: "Let's decide, press Pick!",
-  DURATION: 'Seconds',
+  DURATION: 'Sec',
 };
 
 export const HEADINGS = {
@@ -29,4 +29,5 @@ export const HEADINGS = {
 
 export const LABELS = {
   DURATION: 'duration',
+  DURATION_TITLE: 'Adjust picking process duration in seconds',
 };
