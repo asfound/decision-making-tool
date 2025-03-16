@@ -25,6 +25,7 @@ function createElementFactory<T extends Tag>(tag: T) {
   };
 }
 
+// TODO use enum for tags
 export const a = createElementFactory('a');
 
 export const button = createElementFactory('button');
@@ -46,6 +47,8 @@ export const label = createElementFactory('label');
 export const li = createElementFactory('li');
 
 export const main = createElementFactory('main');
+
+export const p = createElementFactory('p');
 
 export const section = createElementFactory('section');
 

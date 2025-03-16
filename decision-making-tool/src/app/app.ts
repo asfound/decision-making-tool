@@ -7,6 +7,7 @@ export class App {
   private currentPage: Page | null = null;
 
   constructor() {
+    // TODO use arrow functions instead of bind
     this.router = new Router(ROUTES, this.setPage.bind(this));
 
     this.router.navigate(null);
