@@ -2,15 +2,33 @@
   text-align: center;
 }
 
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 25rem;
+  margin: 0 auto;
+}
+
+.button {
+  flex: 1 1 10%;
+}
+
 .display {
   overflow: hidden;
 
-  max-width: 13rem;
+  max-width: 24rem;
   margin: 0 auto;
-  padding-left: 0.25rem;
+  margin-bottom: 0.5rem;
+  padding: 0.25rem;
+  padding-left: 0.5rem;
   border: var(--basic-border);
+  border-color: var(--primary-bright);
 
-  color: var(--primary-dark);
+  color: var(--primary-color);
   text-overflow: ellipsis;
   white-space: nowrap;
 
@@ -18,13 +36,51 @@
 }
 
 .display.selected {
-  color: var(--primary-bright);
-  background-color: var(--primary-color);
+  background-color: var(--primary-bright);
   transition:
-    color 0.3s,
-    background-color 0.3s;
+    color 1s,
+    background-color 1s;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+  max-width: 7rem;
+  background-color: var(--primary-color);
 }
 
 .input {
-  max-width: 2rem;
+  width: 100%;
+}
+
+.label {
+  display: inline-block;
+  padding: 0 0.25rem;
+  color: var(--primary-bright);
+  text-transform: capitalize;
+}
+
+.button:last-child {
+  flex: 1 1 100%;
+
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: var(--basic-border);
+  border-radius: var(--border-radius);
+
+  color: var(--primary-color);
+  text-transform: uppercase;
+
+  background-color: var(--white);
+
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border 0.2s;
+}
+
+.button:last-child:hover {
+  border-color: transparent;
+  color: var(--primary-color);
+  background-color: var(--primary-bright);
 }

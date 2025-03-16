@@ -52,11 +52,16 @@ export default class PickerSection extends View<'section'> {
   protected createHTML(): HTMLElement {
     const sectionElement = section({ className: styles.section });
 
+    const buttonsContainer = div({ className: styles.container });
+
     const backButton = this.createBackButton();
 
-    const inputContainer = div({});
+    const inputContainer = div({ className: styles.duration });
 
-    const labelElement = label({ textContent: LABELS.DURATION });
+    const labelElement = label({
+      className: styles.label,
+      textContent: LABELS.DURATION,
+    });
     labelElement.setAttribute('for', LABELS.DURATION);
 
     const durationInput = new Input({
@@ -84,6 +89,7 @@ export default class PickerSection extends View<'section'> {
         pickerElement.spin(Number(durationInput.value));
         sectorTitleDisplay.classList.remove(styles.selected);
       },
+      className: styles.button,
     });
 
     this.childListeners.push(() => {
@@ -101,6 +107,15 @@ export default class PickerSection extends View<'section'> {
       sectorTitleDisplay.classList.add(styles.selected);
     };
 
+    const soundButton = new Button({
+      textContent: 'sound off',
+      type: 'button',
+      onClick: (): void => {
+        console.log('sound');
+      },
+      className: styles.button,
+    }).getHTML();
+
     const pickerElement = new Picker(
       CANVAS_SIZE,
       this.optionsData,
@@ -108,10 +123,16 @@ export default class PickerSection extends View<'section'> {
       onAnimationEnd
     );
 
-    sectionElement.append(
+    buttonsContainer.append(
       backButton,
       inputContainer,
-      pickButton.getHTML(),
+      soundButton,
+      pickButton.getHTML()
+    );
+
+    //TODO unify getHTML placement
+    sectionElement.append(
+      buttonsContainer,
       sectorTitleDisplay,
       pickerElement.getHTML()
     );
@@ -126,6 +147,7 @@ export default class PickerSection extends View<'section'> {
       onClick: (): void => {
         this.router.navigate(RouterPage.INDEX);
       },
+      className: styles.button,
     });
 
     this.childListeners.push(() => {
