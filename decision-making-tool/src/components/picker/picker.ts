@@ -102,7 +102,7 @@ export class Picker extends View<'canvas'> {
     this.drawPicker();
   }
 
-  public spin(): void {
+  public spin(duration: number): void {
     if (this.spinning) {
       return;
     }
@@ -113,13 +113,13 @@ export class Picker extends View<'canvas'> {
 
     const MILLISECONDS_PER_SECOND = 1000;
 
-    const DURATION = 10_000;
+    const currentDuration = duration * MILLISECONDS_PER_SECOND;
     const FULL_TURNS_PER_SECOND = 1;
 
     const randomAngle = this.utility.getRandomEndAngle();
 
     const totalTurns =
-      (DURATION / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
+      (currentDuration / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
     const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN + randomAngle;
 
     const animate = (timestamp: number): void => {
@@ -130,7 +130,10 @@ export class Picker extends View<'canvas'> {
       const elapsedTime = timestamp - spinStartTime;
 
       const FULL_PROGRESS = 1;
-      let currentProgress = Math.min(elapsedTime / DURATION, FULL_PROGRESS);
+      let currentProgress = Math.min(
+        elapsedTime / currentDuration,
+        FULL_PROGRESS
+      );
 
       currentProgress = this.utility.easeInOutCirc(currentProgress);
 
@@ -141,7 +144,7 @@ export class Picker extends View<'canvas'> {
       this.drawPicker();
       this.onSectorChange(this.logCurrentSector());
 
-      if (elapsedTime < DURATION) {
+      if (elapsedTime < currentDuration) {
         requestAnimationFrame(animate);
       } else {
         this.spinning = false;

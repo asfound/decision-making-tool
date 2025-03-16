@@ -19,9 +19,14 @@ export const PLACEHOLDERS = {
   TEXTAREA:
     'Paste a list of new options in a CSV-like format: \n\noption_title, option_weight',
   PICKER_DISPLAY: "Let's decide, press Pick!",
+  DURATION: 'Seconds',
 };
 
 export const HEADINGS = {
   APP_NAME: 'Decision Making Tool',
   ERROR: 'Something went wrong or page does not exist',
+};
+
+export const LABELS = {
+  DURATION: 'duration',
 };

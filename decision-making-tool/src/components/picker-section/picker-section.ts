@@ -3,10 +3,10 @@ import type { Router } from '~/router/router';
 
 import { Button } from '~/components/button/button';
 import { View } from '~/components/view';
-import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
+import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
-import { p, section } from '~/utils/create-element';
+import { div, input, label, p, section } from '~/utils/create-element';
 
 import type { OptionData } from '../options-list/options-list-model';
 
@@ -50,23 +50,36 @@ export default class PickerSection extends View<'section'> {
   protected createHTML(): HTMLElement {
     const sectionElement = section({ className: styles.section });
 
-    const backButton = new Button({
-      textContent: BUTTON_TEXTS.BACK,
-      type: 'button',
-      onClick: (): void => {
-        this.router.navigate(RouterPage.INDEX);
-      },
+    const backButton = this.createBackButton();
+
+    const inputContainer = div({});
+    const labelElement = label({ textContent: LABELS.DURATION });
+    labelElement.setAttribute('for', LABELS.DURATION);
+
+    const MIN_DURATION = '5';
+
+    const durationInput = input({});
+    durationInput.setAttribute('id', LABELS.DURATION);
+    durationInput.placeholder = PLACEHOLDERS.DURATION;
+    durationInput.value = MIN_DURATION;
+    durationInput.setAttribute('type', 'number');
+    durationInput.setAttribute('min', MIN_DURATION);
+
+    durationInput.addEventListener('change', () => {
+      const value = Number(durationInput.value);
+
+      if (value < Number(MIN_DURATION)) {
+        durationInput.value = MIN_DURATION;
+      }
     });
 
-    this.childListeners.push(() => {
-      backButton.removeListener();
-    });
+    inputContainer.append(labelElement, durationInput);
 
     const pickButton = new Button({
       textContent: BUTTON_TEXTS.PICK,
       type: 'button',
       onClick: (): void => {
-        pickerElement.spin();
+        pickerElement.spin(Number(durationInput.value));
         sectorTitleDisplay.classList.remove(styles.selected);
       },
     });
@@ -94,11 +107,28 @@ export default class PickerSection extends View<'section'> {
     );
 
     sectionElement.append(
-      backButton.getHTML(),
+      backButton,
+      inputContainer,
       pickButton.getHTML(),
       sectorTitleDisplay,
       pickerElement.getHTML()
     );
     return sectionElement;
+  }
+
+  private createBackButton(): HTMLButtonElement {
+    const backButton = new Button({
+      textContent: BUTTON_TEXTS.BACK,
+      type: 'button',
+      onClick: (): void => {
+        this.router.navigate(RouterPage.INDEX);
+      },
+    });
+
+    this.childListeners.push(() => {
+      backButton.removeListener();
+    });
+
+    return backButton.getHTML();
   }
 }
