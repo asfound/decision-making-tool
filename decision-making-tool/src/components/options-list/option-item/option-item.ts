@@ -1,7 +1,8 @@
 import { Button } from '~/components/button/button';
+import { Input } from '~/components/input/input';
 import { View } from '~/components/view';
 import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
-import { input, label, li } from '~/utils/create-element';
+import { label, li } from '~/utils/create-element';
 
 import { VALUES } from '../constants/constants';
 import styles from './option-item.module.css';
@@ -45,9 +46,11 @@ export class OptionItem extends View<'li'> {
     const labelElement = label({ textContent: idString, className: styles.id });
     labelElement.setAttribute('for', idString);
 
-    const titleInput = input({ className: styles.title });
-    titleInput.placeholder = PLACEHOLDERS.TITLE;
-    titleInput.setAttribute('id', idString);
+    const titleInput = new Input({
+      placeholder: PLACEHOLDERS.TITLE,
+      className: styles.title,
+      attributes: { id: idString },
+    }).getHTML();
 
     if (this.title) {
       titleInput.value = this.title;
@@ -58,9 +61,13 @@ export class OptionItem extends View<'li'> {
       this.updatePropertiesInModel();
     });
 
-    const weightInput = input({ className: styles.weight });
-    weightInput.placeholder = PLACEHOLDERS.WEIGHT;
-    weightInput.setAttribute('type', 'number');
+    const weightInput = new Input({
+      placeholder: PLACEHOLDERS.WEIGHT,
+      className: styles.weight,
+      attributes: {
+        type: 'number',
+      },
+    }).getHTML();
 
     if (this.weight > VALUES.EMPTY_QUANTITY) {
       weightInput.value = String(this.weight);

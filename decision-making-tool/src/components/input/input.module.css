@@ -1,0 +1,24 @@
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.input {
+  padding: 0.25rem;
+  border: var(--basic-border);
+  color: var(--primary-dark);
+  outline: none;
+}
+
+.input:focus {
+  border: var(--basic-border);
+}
+
+.input::placeholder {
+  color: var(--primary-bright);
+}
+
+.input:hover {
+  --basic-border: 1px var(--primary-dark) solid;
+}

@@ -6,15 +6,17 @@ import { View } from '~/components/view';
 import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
-import { div, input, label, p, section } from '~/utils/create-element';
+import { div, label, p, section } from '~/utils/create-element';
 
 import type { OptionData } from '../options-list/options-list-model';
 
 import { Picker } from '../picker/picker';
 import styles from './picker-section.module.css';
+import { Input } from '../input/input';
 
 export class NotValidOptionsError extends Error {}
 
+const MIN_DURATION = '5';
 const CANVAS_SIZE = 500;
 export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
@@ -53,17 +55,17 @@ export default class PickerSection extends View<'section'> {
     const backButton = this.createBackButton();
 
     const inputContainer = div({});
+
     const labelElement = label({ textContent: LABELS.DURATION });
     labelElement.setAttribute('for', LABELS.DURATION);
 
-    const MIN_DURATION = '5';
+    const durationInput = new Input({
+      placeholder: PLACEHOLDERS.DURATION,
+      className: styles.input,
+      attributes: { id: LABELS.DURATION, type: 'number', min: MIN_DURATION },
+    }).getHTML();
 
-    const durationInput = input({});
-    durationInput.setAttribute('id', LABELS.DURATION);
-    durationInput.placeholder = PLACEHOLDERS.DURATION;
     durationInput.value = MIN_DURATION;
-    durationInput.setAttribute('type', 'number');
-    durationInput.setAttribute('min', MIN_DURATION);
 
     durationInput.addEventListener('change', () => {
       const value = Number(durationInput.value);
@@ -113,6 +115,7 @@ export default class PickerSection extends View<'section'> {
       sectorTitleDisplay,
       pickerElement.getHTML()
     );
+
     return sectionElement;
   }
 

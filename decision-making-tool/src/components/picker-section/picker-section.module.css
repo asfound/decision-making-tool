@@ -24,3 +24,7 @@
     color 0.3s,
     background-color 0.3s;
 }
+
+.input {
+  max-width: 2rem;
+}

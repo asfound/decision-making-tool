@@ -27,30 +27,7 @@
   max-width: 3rem;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  margin: 0;
-  appearance: none;
-}
-
-:is(.title, .weight) {
+.title,
+.weight {
   margin-right: 0.5rem;
-  padding: 0.25rem;
-  border: var(--basic-border);
-
-  color: var(--primary-dark);
-
-  outline: none;
-}
-
-:is(.title, .weight):focus {
-  border: var(--basic-border);
-}
-
-:is(.title, .weight)::placeholder {
-  color: var(--primary-bright);
-}
-
-:is(.title, .weight):hover {
-  --basic-border: 1px var(--primary-dark) solid;
 }
