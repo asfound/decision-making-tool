@@ -171,6 +171,7 @@ export default class StartSection extends View<'section'> {
       onClick: (): void => {
         this.router.navigate(RouterPage.PICKER);
       },
+      actionButton: true,
     });
 
     this.childListeners.push(() => {

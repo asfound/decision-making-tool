@@ -21,3 +21,26 @@
 .button:active {
   transform: scale(0.96);
 }
+
+.actionButton {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  border: var(--basic-border);
+  border-radius: var(--border-radius);
+
+  color: var(--primary-color);
+  text-transform: uppercase;
+
+  background-color: var(--white);
+
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border 0.2s;
+}
+
+.actionButton:hover {
+  border-color: transparent;
+  color: var(--primary-color);
+  background-color: var(--primary-bright);
+}

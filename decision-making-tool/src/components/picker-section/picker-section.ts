@@ -62,6 +62,7 @@ export default class PickerSection extends View<'section'> {
       className: styles.label,
       textContent: LABELS.DURATION,
     });
+
     labelElement.setAttribute('for', LABELS.DURATION);
     labelElement.setAttribute('title', LABELS.DURATION_TITLE);
 
@@ -91,6 +92,7 @@ export default class PickerSection extends View<'section'> {
         sectorTitleDisplay.classList.remove(styles.selected);
       },
       className: styles.button,
+      actionButton: true,
     });
 
     this.childListeners.push(() => {
