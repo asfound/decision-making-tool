@@ -71,7 +71,7 @@ export class PickerUtility {
   }
 
   public getRandomEndAngle(): number {
-    return Math.random() * BASE_ANGLES.RADIANS.FULL_TURN;
+    return Math.random() * BASE_ANGLES.DEGREES.FULL_TURN;
   }
 
   public easeInOutCirc(x: number): number {

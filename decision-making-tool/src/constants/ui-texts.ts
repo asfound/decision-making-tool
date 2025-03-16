@@ -18,6 +18,7 @@ export const PLACEHOLDERS = {
   WEIGHT: 'Weight',
   TEXTAREA:
     'Paste a list of new options in a CSV-like format: \n\noption_title, option_weight',
+  PICKER_DISPLAY: "Let's decide, press Pick!",
 };
 
 export const HEADINGS = {

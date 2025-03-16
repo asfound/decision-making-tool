@@ -1,3 +1,26 @@
 .section {
   text-align: center;
 }
+
+.display {
+  overflow: hidden;
+
+  max-width: 13rem;
+  margin: 0 auto;
+  padding-left: 0.25rem;
+  border: var(--basic-border);
+
+  color: var(--primary-dark);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  background-color: var(--white);
+}
+
+.display.selected {
+  color: var(--primary-bright);
+  background-color: var(--primary-color);
+  transition:
+    color 0.3s,
+    background-color 0.3s;
+}

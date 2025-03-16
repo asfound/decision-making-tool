@@ -51,12 +51,14 @@ export class Picker extends View<'canvas'> {
   private startAngle: number;
   private readonly sectorsOptions: OptionDataWithColor[];
   private readonly onSectorChange: (title: string) => string;
+  private readonly onAnimationEnd: () => void;
   private spinning: boolean;
 
   public constructor(
     sideLength: number,
     optionsData: OptionData[],
-    onSectorChange: (title: string) => string
+    onSectorChange: (title: string) => string,
+    onAnimationEnd: () => void
   ) {
     super();
 
@@ -65,6 +67,8 @@ export class Picker extends View<'canvas'> {
     this.sectorsOptions = this.utility.createSectorOptions(optionsData);
 
     this.onSectorChange = onSectorChange;
+
+    this.onAnimationEnd = onAnimationEnd;
 
     const devicePixelRatio = window.devicePixelRatio || VALUES.BASE_RATIO;
 
@@ -112,9 +116,11 @@ export class Picker extends View<'canvas'> {
     const DURATION = 10_000;
     const FULL_TURNS_PER_SECOND = 1;
 
+    const randomAngle = this.utility.getRandomEndAngle();
+
     const totalTurns =
       (DURATION / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
-    const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN;
+    const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN + randomAngle;
 
     const animate = (timestamp: number): void => {
       if (spinStartTime === null) {
@@ -139,6 +145,7 @@ export class Picker extends View<'canvas'> {
         requestAnimationFrame(animate);
       } else {
         this.spinning = false;
+        this.onAnimationEnd();
       }
     };
 

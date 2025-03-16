@@ -1,8 +1,9 @@
+/* eslint-disable max-lines-per-function */
 import type { Router } from '~/router/router';
 
 import { Button } from '~/components/button/button';
 import { View } from '~/components/view';
-import { BUTTON_TEXTS } from '~/constants/ui-texts';
+import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
 import { p, section } from '~/utils/create-element';
@@ -66,6 +67,7 @@ export default class PickerSection extends View<'section'> {
       type: 'button',
       onClick: (): void => {
         pickerElement.spin();
+        sectorTitleDisplay.classList.remove(styles.selected);
       },
     });
 
@@ -73,15 +75,22 @@ export default class PickerSection extends View<'section'> {
       pickButton.removeListener();
     });
 
-    const sectorTitleDisplay = p({}, ["Let's make a decision, press Pick!"]);
+    const sectorTitleDisplay = p({ className: styles.display }, [
+      PLACEHOLDERS.PICKER_DISPLAY,
+    ]);
 
     const onSectorChange = (title: string): string =>
       (sectorTitleDisplay.textContent = title);
 
+    const onAnimationEnd = (): void => {
+      sectorTitleDisplay.classList.add(styles.selected);
+    };
+
     const pickerElement = new Picker(
       CANVAS_SIZE,
       this.optionsData,
-      onSectorChange
+      onSectorChange,
+      onAnimationEnd
     );
 
     sectionElement.append(
