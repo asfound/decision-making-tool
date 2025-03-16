@@ -5,7 +5,7 @@ import { View } from '~/components/view';
 import { BUTTON_TEXTS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
-import { section } from '~/utils/create-element';
+import { p, section } from '~/utils/create-element';
 
 import type { OptionData } from '../options-list/options-list-model';
 
@@ -65,7 +65,7 @@ export default class PickerSection extends View<'section'> {
       textContent: BUTTON_TEXTS.PICK,
       type: 'button',
       onClick: (): void => {
-        this.router.navigate(RouterPage.INDEX);
+        pickerElement.spin();
       },
     });
 
@@ -73,11 +73,21 @@ export default class PickerSection extends View<'section'> {
       pickButton.removeListener();
     });
 
-    const pickerElement = new Picker(CANVAS_SIZE, this.optionsData);
+    const sectorTitleDisplay = p({}, ["Let's make a decision, press Pick!"]);
+
+    const onSectorChange = (title: string): string =>
+      (sectorTitleDisplay.textContent = title);
+
+    const pickerElement = new Picker(
+      CANVAS_SIZE,
+      this.optionsData,
+      onSectorChange
+    );
 
     sectionElement.append(
       backButton.getHTML(),
       pickButton.getHTML(),
+      sectorTitleDisplay,
       pickerElement.getHTML()
     );
     return sectionElement;

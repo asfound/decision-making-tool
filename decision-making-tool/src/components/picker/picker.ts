@@ -30,6 +30,8 @@ const VALUES = {
   POINTER_HEIGHT: 25,
   POINTER_OVERLAP: 15,
   POINTER_STROKE_WIDTH: 6,
+
+  EMPTY_TITLE_VALUE: '',
 };
 
 export type OptionDataWithColor = OptionData & { color: string };
@@ -48,15 +50,21 @@ export class Picker extends View<'canvas'> {
   private readonly radiansPerWeight: number;
   private startAngle: number;
   private readonly sectorsOptions: OptionDataWithColor[];
-
+  private readonly onSectorChange: (title: string) => string;
   private spinning: boolean;
 
-  public constructor(sideLength: number, optionsData: OptionData[]) {
+  public constructor(
+    sideLength: number,
+    optionsData: OptionData[],
+    onSectorChange: (title: string) => string
+  ) {
     super();
 
     this.utility = new PickerUtility();
 
     this.sectorsOptions = this.utility.createSectorOptions(optionsData);
+
+    this.onSectorChange = onSectorChange;
 
     const devicePixelRatio = window.devicePixelRatio || VALUES.BASE_RATIO;
 
@@ -88,8 +96,53 @@ export class Picker extends View<'canvas'> {
     this.spinning = false;
 
     this.drawPicker();
+  }
 
-    this.spin();
+  public spin(): void {
+    if (this.spinning) {
+      return;
+    }
+
+    this.spinning = true;
+
+    let spinStartTime: number | null = null;
+
+    const MILLISECONDS_PER_SECOND = 1000;
+
+    const DURATION = 10_000;
+    const FULL_TURNS_PER_SECOND = 1;
+
+    const totalTurns =
+      (DURATION / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
+    const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN;
+
+    const animate = (timestamp: number): void => {
+      if (spinStartTime === null) {
+        spinStartTime = timestamp;
+      }
+
+      const elapsedTime = timestamp - spinStartTime;
+
+      const FULL_PROGRESS = 1;
+      let currentProgress = Math.min(elapsedTime / DURATION, FULL_PROGRESS);
+
+      currentProgress = this.utility.easeInOutCirc(currentProgress);
+
+      this.startAngle = this.utility.toRadians(
+        currentProgress * totalAngle - BASE_ANGLES.DEGREES.QUARTER
+      );
+
+      this.drawPicker();
+      this.onSectorChange(this.logCurrentSector());
+
+      if (elapsedTime < DURATION) {
+        requestAnimationFrame(animate);
+      } else {
+        this.spinning = false;
+      }
+    };
+
+    requestAnimationFrame(animate);
   }
 
   protected createHTML(): HTMLCanvasElement {
@@ -110,6 +163,7 @@ export class Picker extends View<'canvas'> {
 
     this.drawPointer();
   }
+
   private drawSegments(): void {
     this.ctx.lineWidth = VALUES.SEGMENTS_STROKE;
     this.ctx.strokeStyle = APP_COLORS.WHITE;
@@ -237,49 +291,29 @@ export class Picker extends View<'canvas'> {
     this.ctx.stroke();
   }
 
-  private spin(): void {
-    if (this.spinning) {
-      return;
+  private logCurrentSector(): string {
+    const pointerAngle = BASE_ANGLES.DEGREES.ZERO;
+
+    let startAngle = this.startAngle + BASE_ANGLES.RADIANS.QUARTER;
+
+    for (const option of this.sectorsOptions) {
+      const currentSectorSize = option.weight * this.radiansPerWeight;
+      const endAngle = startAngle + currentSectorSize;
+
+      const normalizedSectorStart = startAngle % BASE_ANGLES.RADIANS.FULL_TURN;
+
+      const normalizedSectorEnd = endAngle % BASE_ANGLES.RADIANS.FULL_TURN;
+
+      if (
+        normalizedSectorStart === pointerAngle ||
+        normalizedSectorStart > normalizedSectorEnd
+      ) {
+        return option.title;
+      }
+
+      startAngle = endAngle;
     }
 
-    this.spinning = true;
-
-    let spinStartTime: number | null = null;
-
-    const MILLISECONDS_PER_SECOND = 1000;
-
-    const DURATION = 5000;
-    const FULL_TURNS_PER_SECOND = 1;
-
-    const totalTurns =
-      (DURATION / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
-    const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN;
-
-    const animate = (timestamp: number): void => {
-      if (spinStartTime === null) {
-        spinStartTime = timestamp;
-      }
-
-      const elapsedTime = timestamp - spinStartTime;
-
-      const FULL_PROGRESS = 1;
-      let currentProgress = Math.min(elapsedTime / DURATION, FULL_PROGRESS);
-
-      currentProgress = this.utility.easeInOutCirc(currentProgress);
-
-      this.startAngle = this.utility.toRadians(
-        currentProgress * totalAngle - BASE_ANGLES.DEGREES.QUARTER
-      );
-
-      this.drawPicker();
-
-      if (elapsedTime < DURATION) {
-        requestAnimationFrame(animate);
-      } else {
-        this.spinning = false;
-      }
-    };
-
-    requestAnimationFrame(animate);
+    return VALUES.EMPTY_TITLE_VALUE;
   }
 }

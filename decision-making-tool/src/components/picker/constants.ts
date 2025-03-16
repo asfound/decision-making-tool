@@ -10,6 +10,7 @@ export const BASE_ANGLES = {
 
   RADIANS: {
     ZERO: 0,
+    QUARTER: Math.PI / DOUBLE,
     HALF_TURN: Math.PI,
     FULL_TURN: DOUBLE * Math.PI,
   },
