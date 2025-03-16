@@ -5,9 +5,14 @@
 }
 
 .input {
-  padding: 0.25rem;
+  padding: 0.17rem;
+  padding-left: 0.35rem;
   border: var(--basic-border);
+
+  font: inherit;
+  font-size: 0.9rem;
   color: var(--primary-dark);
+
   outline: none;
 }
 
