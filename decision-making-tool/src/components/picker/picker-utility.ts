@@ -74,9 +74,23 @@ export class PickerUtility {
     return Math.random() * BASE_ANGLES.RADIANS.FULL_TURN;
   }
 
-  public easeOutQuint(progress: number): number {
-    const EASING_POWER = 2;
-    const FUNCTION_MAX_VALUE = 1;
-    return -(Math.cos(Math.PI * progress) - FUNCTION_MAX_VALUE) / EASING_POWER;
+  public easeInOutCirc(x: number): number {
+    return x < EASING.MID_POINT
+      ? EASING.SCALE_FACTOR * x * x
+      : EASING.MAX_VALUE -
+          Math.pow(
+            -EASING.SCALE_FACTOR * x + EASING.CURVE_SHAPE,
+            EASING.POWER_OF_2
+          ) /
+            EASING.HALF;
   }
 }
+
+const EASING = {
+  MID_POINT: 0.5,
+  MAX_VALUE: 1,
+  SCALE_FACTOR: 2,
+  CURVE_SHAPE: 2,
+  HALF: 2,
+  POWER_OF_2: 2,
+};

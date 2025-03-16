@@ -50,7 +50,6 @@ export class Picker extends View<'canvas'> {
   private readonly sectorsOptions: OptionDataWithColor[];
 
   private spinning: boolean;
-  private spinSpeed: number;
 
   public constructor(sideLength: number, optionsData: OptionData[]) {
     super();
@@ -87,12 +86,10 @@ export class Picker extends View<'canvas'> {
     this.startAngle = this.utility.toRadians(-BASE_ANGLES.DEGREES.QUARTER);
 
     this.spinning = false;
-    this.spinSpeed = 0;
 
     this.drawPicker();
-    setTimeout(() => {
-      this.spin();
-    }, 3000);
+
+    this.spin();
   }
 
   protected createHTML(): HTMLCanvasElement {
@@ -244,19 +241,20 @@ export class Picker extends View<'canvas'> {
     if (this.spinning) {
       return;
     }
+
     this.spinning = true;
 
     let spinStartTime: number | null = null;
 
-    const MILLISECOND = 1000;
+    const MILLISECONDS_PER_SECOND = 1000;
 
-    const DURATION = 2000;
+    const DURATION = 5000;
     const FULL_TURNS_PER_SECOND = 1;
 
-    const TOTAL_TURNS = (DURATION / MILLISECOND) * FULL_TURNS_PER_SECOND;
-    const TOTAL_ANGLE = TOTAL_TURNS * BASE_ANGLES.DEGREES.FULL_TURN;
+    const totalTurns =
+      (DURATION / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
+    const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN;
 
-    console.log(this.startAngle);
     const animate = (timestamp: number): void => {
       if (spinStartTime === null) {
         spinStartTime = timestamp;
@@ -265,17 +263,17 @@ export class Picker extends View<'canvas'> {
       const elapsedTime = timestamp - spinStartTime;
 
       const FULL_PROGRESS = 1;
-      const currentProgress = Math.min(elapsedTime / DURATION, FULL_PROGRESS);
+      let currentProgress = Math.min(elapsedTime / DURATION, FULL_PROGRESS);
+
+      currentProgress = this.utility.easeInOutCirc(currentProgress);
 
       this.startAngle = this.utility.toRadians(
-        currentProgress * TOTAL_ANGLE - BASE_ANGLES.DEGREES.QUARTER
+        currentProgress * totalAngle - BASE_ANGLES.DEGREES.QUARTER
       );
 
       this.drawPicker();
 
-      if (currentProgress < FULL_PROGRESS) {
-        console.log(this.startAngle);
-        console.log(currentProgress);
+      if (elapsedTime < DURATION) {
         requestAnimationFrame(animate);
       } else {
         this.spinning = false;
