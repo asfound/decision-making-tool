@@ -22,6 +22,8 @@ export class OptionItem extends View<'li'> {
 
   private weight: number;
 
+  private readonly childListeners: (() => void)[] = [];
+
   public constructor(
     { id, title, weight }: OptionProperties,
     private readonly removeOptionCallback: (id: number) => void,
@@ -38,10 +40,10 @@ export class OptionItem extends View<'li'> {
     this.view = this.createHTML();
   }
 
-  public clearChildListener: () => void = () => {};
-
   public onClear(): void {
-    this.clearChildListener();
+    for (const callback of this.childListeners) {
+      callback();
+    }
     this.removeElement();
   }
 
@@ -104,9 +106,9 @@ export class OptionItem extends View<'li'> {
       },
     });
 
-    this.clearChildListener = (): void => {
+    this.childListeners.push(() => {
       deleteButton.removeListener();
-    };
+    });
 
     return deleteButton.getHTML();
   }

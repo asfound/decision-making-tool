@@ -11,7 +11,7 @@ import styles from './options-list.module.css';
 export class OptionsList extends View<'ul'> {
   protected view: HTMLUListElement;
 
-  private readonly options: Map<number, OptionItem> = new Map();
+  private readonly options = new Map<number, OptionItem>();
 
   private readonly controller: OptionsListController;
 

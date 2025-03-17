@@ -63,8 +63,6 @@ export default class PickerSection extends View<'section'> {
     }
   }
 
-  public clearChildListener: () => void = () => {};
-
   public onRemove(): void {
     for (const callback of this.childListeners) {
       callback();

@@ -16,6 +16,8 @@ export class ErrorPageView extends View<'main'> implements Page {
 
   private readonly router: Router;
 
+  private readonly childListeners: (() => void)[] = [];
+
   constructor(router: Router) {
     super();
 
@@ -23,14 +25,14 @@ export class ErrorPageView extends View<'main'> implements Page {
     this.router = router;
   }
 
-  public clearChildListener: () => void = () => {};
+  public onRemove(): void {
+    for (const callback of this.childListeners) {
+      callback();
+    }
+  }
 
   public getHtmlElements(): HTMLElement[] {
     return [this.view];
-  }
-
-  public onRemove(): void {
-    this.clearChildListener();
   }
 
   protected createHTML(): HTMLElement {
@@ -49,9 +51,9 @@ export class ErrorPageView extends View<'main'> implements Page {
       },
     });
 
-    this.clearChildListener = (): void => {
+    this.childListeners.push(() => {
       toMainButton.removeListener();
-    };
+    });
 
     containerElement.append(headingElement.getHTML(), toMainButton.getHTML());
 

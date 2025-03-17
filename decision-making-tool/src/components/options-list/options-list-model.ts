@@ -4,7 +4,7 @@ import { VALUES } from './constants/options-constants';
 import { OptionProperties } from './option-item/option-properties';
 
 export class OptionsListModel {
-  private readonly options: Map<number, OptionProperties> = new Map();
+  private readonly options = new Map<number, OptionProperties>();
 
   private idCounter: number;
 
