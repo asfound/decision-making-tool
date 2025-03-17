@@ -42,7 +42,11 @@ export default class PickerSection extends View<'section'> {
     super();
 
     this.router = router;
+
     this.localStorageService = new LocalStorageService();
+
+    this.isMuted = this.localStorageService.loadSoundSetting();
+
     const listData = this.localStorageService.loadListData();
 
     if (listData && validateOptionsCount(listData.list)) {
@@ -51,8 +55,6 @@ export default class PickerSection extends View<'section'> {
     } else {
       throw new NotValidOptionsError();
     }
-
-    this.isMuted = this.localStorageService.loadSoundSetting();
   }
 
   public clearChildListener: () => void = () => {};
