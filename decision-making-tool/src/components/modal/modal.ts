@@ -30,7 +30,8 @@ export class Modal extends View<'dialog'> {
     const closeButton = new Button({
       className: styles.closeButton,
       textContent: BUTTON_TEXTS.CLOSE,
-      type: ATTRIBUTES.type_button,
+      type: ATTRIBUTES.TYPE_BUTTON,
+
       onClick: (): void => {
         this.closeModal(modalWindow, closeButton);
       },
@@ -66,7 +67,8 @@ export class Modal extends View<'dialog'> {
   ): HTMLButtonElement {
     const confirmButton = new Button({
       textContent: BUTTON_TEXTS.CONFIRM,
-      type: ATTRIBUTES.type_button,
+      type: ATTRIBUTES.TYPE_BUTTON,
+
       onClick: (): void => {
         this.closeModal(modal, closeButton);
 

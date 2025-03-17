@@ -2,6 +2,7 @@ import type { Router } from '~/router/router';
 
 import { Button } from '~/components/button/button';
 import { Heading } from '~/components/heading/heading';
+import { ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, HEADINGS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { div, main } from '~/utils/create-element';
@@ -41,7 +42,8 @@ export class ErrorPageView extends View<'main'> implements Page {
     const toMainButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.TO_MAIN,
-      type: 'button',
+      type: ATTRIBUTES.TYPE_BUTTON,
+
       onClick: (): void => {
         this.router.navigate(RouterPage.INDEX);
       },

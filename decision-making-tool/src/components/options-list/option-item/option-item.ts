@@ -89,7 +89,8 @@ export class OptionItem extends View<'li'> {
   private createDeleteButton(parent: HTMLLIElement): HTMLButtonElement {
     const deleteButton = new Button({
       textContent: BUTTON_TEXTS.DELETE,
-      type: ATTRIBUTES.type_button,
+      type: ATTRIBUTES.TYPE_BUTTON,
+
       onClick: (): void => {
         deleteButton.removeListener();
         deleteButton.removeElement();

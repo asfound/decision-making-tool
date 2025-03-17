@@ -1,3 +1,3 @@
 export const ATTRIBUTES = {
-  type_button: 'button',
+  TYPE_BUTTON: 'button',
 } as const;

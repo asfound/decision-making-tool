@@ -115,7 +115,7 @@ export default class PickerSection extends View<'section'> {
   private createBackButton(): HTMLButtonElement {
     const backButton = new Button({
       textContent: BUTTON_TEXTS.BACK,
-      type: ATTRIBUTES.type_button,
+      type: ATTRIBUTES.TYPE_BUTTON,
       className: styles.button,
 
       onClick: (): void => {
@@ -178,7 +178,7 @@ export default class PickerSection extends View<'section'> {
   private createSoundButton(): HTMLButtonElement {
     const soundButton = new Button({
       textContent: this.getSoundButtonTextContent(),
-      type: ATTRIBUTES.type_button,
+      type: ATTRIBUTES.TYPE_BUTTON,
       className: styles.button,
 
       onClick: (): void => {
@@ -209,7 +209,7 @@ export default class PickerSection extends View<'section'> {
   ): HTMLButtonElement {
     const pickButton = new Button({
       textContent: BUTTON_TEXTS.PICK,
-      type: ATTRIBUTES.type_button,
+      type: ATTRIBUTES.TYPE_BUTTON,
       className: styles.button,
       actionButton: true,
 
