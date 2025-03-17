@@ -21,6 +21,7 @@
   overflow: hidden;
 
   max-width: 24rem;
+  min-height: 1.5rem;
   margin: 0 auto;
   margin-bottom: 0.5rem;
   padding: 0.25rem;
