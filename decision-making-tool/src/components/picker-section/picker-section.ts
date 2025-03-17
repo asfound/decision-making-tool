@@ -3,7 +3,7 @@ import type { Router } from '~/router/router';
 import onEndSound from '~/assets/audio/end-sound.mp3';
 import { Button } from '~/components/button/button';
 import { View } from '~/components/view';
-import { ATTRIBUTES } from '~/constants/attributes';
+import { BUTTON_ATTRIBUTES, LABEL_ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
@@ -115,7 +115,7 @@ export default class PickerSection extends View<'section'> {
   private createBackButton(): HTMLButtonElement {
     const backButton = new Button({
       textContent: BUTTON_TEXTS.BACK,
-      type: ATTRIBUTES.TYPE_BUTTON,
+      type: BUTTON_ATTRIBUTES.TYPE,
       className: styles.button,
 
       onClick: (): void => {
@@ -143,8 +143,8 @@ export default class PickerSection extends View<'section'> {
       textContent: LABELS.DURATION,
     });
 
-    labelElement.setAttribute('for', LABELS.DURATION);
-    labelElement.setAttribute('title', LABELS.DURATION_TITLE);
+    labelElement.setAttribute(LABEL_ATTRIBUTES.FOR, LABELS.DURATION);
+    labelElement.setAttribute(LABEL_ATTRIBUTES.TITLE, LABELS.DURATION_TITLE);
 
     const durationInput = new Input({
       placeholder: PLACEHOLDERS.DURATION,
@@ -178,7 +178,7 @@ export default class PickerSection extends View<'section'> {
   private createSoundButton(): HTMLButtonElement {
     const soundButton = new Button({
       textContent: this.getSoundButtonTextContent(),
-      type: ATTRIBUTES.TYPE_BUTTON,
+      type: BUTTON_ATTRIBUTES.TYPE,
       className: styles.button,
 
       onClick: (): void => {
@@ -209,7 +209,7 @@ export default class PickerSection extends View<'section'> {
   ): HTMLButtonElement {
     const pickButton = new Button({
       textContent: BUTTON_TEXTS.PICK,
-      type: ATTRIBUTES.TYPE_BUTTON,
+      type: BUTTON_ATTRIBUTES.TYPE,
       className: styles.button,
       actionButton: true,
 

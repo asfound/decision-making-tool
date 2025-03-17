@@ -1,7 +1,7 @@
 import { Button } from '~/components/button/button';
 import { Input } from '~/components/input/input';
 import { View } from '~/components/view';
-import { ATTRIBUTES } from '~/constants/attributes';
+import { BUTTON_ATTRIBUTES, LABEL_ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { label, li } from '~/utils/create-element';
 
@@ -45,7 +45,7 @@ export class OptionItem extends View<'li'> {
     const liElement = li({ className: styles.item });
 
     const labelElement = label({ textContent: idString, className: styles.id });
-    labelElement.setAttribute('for', idString);
+    labelElement.setAttribute(LABEL_ATTRIBUTES.FOR, idString);
 
     const titleInput = new Input({
       placeholder: PLACEHOLDERS.TITLE,
@@ -89,7 +89,7 @@ export class OptionItem extends View<'li'> {
   private createDeleteButton(parent: HTMLLIElement): HTMLButtonElement {
     const deleteButton = new Button({
       textContent: BUTTON_TEXTS.DELETE,
-      type: ATTRIBUTES.TYPE_BUTTON,
+      type: BUTTON_ATTRIBUTES.TYPE,
 
       onClick: (): void => {
         deleteButton.removeListener();
