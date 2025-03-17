@@ -11,6 +11,8 @@ export const BUTTON_TEXTS = {
   TO_MAIN: 'to start page',
   BACK: 'back',
   PICK: 'pick',
+  SOUND_ON: 'sound on',
+  SOUND_OFF: 'sound off',
 };
 
 export const PLACEHOLDERS = {

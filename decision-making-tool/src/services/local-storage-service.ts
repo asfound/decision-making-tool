@@ -4,14 +4,17 @@ import { isListData } from '~/utils/type-guards';
 
 const LS_PREFIX = 'asfound-';
 const LIST_KEY = 'list-state';
+const SOUND_KEY = 'sound-setting';
 
 export class LocalStorageService {
   private readonly lsPrefix: string;
   private readonly listKey: string;
+  private readonly soundKey: string;
 
   constructor() {
     this.lsPrefix = LS_PREFIX;
     this.listKey = LIST_KEY;
+    this.soundKey = SOUND_KEY;
   }
 
   public saveListData(data: ListData): void {
@@ -29,6 +32,24 @@ export class LocalStorageService {
     } else {
       return null;
     }
+  }
+
+  public saveSoundSetting(data: boolean): void {
+    this.saveToStorage(this.soundKey, JSON.stringify(data));
+  }
+
+  public loadSoundSetting(): boolean {
+    const data = this.loadFromStorage(this.soundKey);
+
+    if (data) {
+      const parsedData: unknown = JSON.parse(data);
+
+      if (typeof parsedData === 'boolean') {
+        return parsedData;
+      }
+    }
+
+    return false;
   }
 
   private saveToStorage(key: string, value: string): void {

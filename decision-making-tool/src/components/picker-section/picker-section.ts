@@ -1,6 +1,7 @@
 /* eslint-disable max-lines-per-function */
 import type { Router } from '~/router/router';
 
+import onEndSound from '~/assets/audio/end-sound.mp3';
 import { Button } from '~/components/button/button';
 import { View } from '~/components/view';
 import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
@@ -26,6 +27,7 @@ export default class PickerSection extends View<'section'> {
   private readonly localStorageService: LocalStorageService;
   private readonly optionsData: OptionProperties[];
   private readonly childListeners: (() => void)[] = [];
+  private isMuted: boolean;
 
   constructor(router: Router) {
     super();
@@ -40,6 +42,8 @@ export default class PickerSection extends View<'section'> {
     } else {
       throw new NotValidOptionsError();
     }
+
+    this.isMuted = this.localStorageService.loadSoundSetting();
   }
 
   public clearChildListener: () => void = () => {};
@@ -52,6 +56,8 @@ export default class PickerSection extends View<'section'> {
 
   protected createHTML(): HTMLElement {
     const sectionElement = section({ className: styles.section });
+
+    const spinEndSound = new Audio(onEndSound);
 
     const buttonsContainer = div({ className: styles.container });
 
@@ -109,13 +115,20 @@ export default class PickerSection extends View<'section'> {
 
     const onAnimationEnd = (): void => {
       sectorTitleDisplay.classList.add(styles.selected);
+
+      if (!this.isMuted) {
+        void spinEndSound.play();
+      }
     };
 
     const soundButton = new Button({
-      textContent: 'sound off',
+      textContent: this.getSoundButtonTextContent(),
       type: 'button',
       onClick: (): void => {
-        console.log('sound');
+        this.isMuted = !this.isMuted;
+        this.localStorageService.saveSoundSetting(this.isMuted);
+
+        soundButton.textContent = this.getSoundButtonTextContent();
       },
       className: styles.button,
     }).getHTML();
@@ -159,5 +172,9 @@ export default class PickerSection extends View<'section'> {
     });
 
     return backButton.getHTML();
+  }
+
+  private getSoundButtonTextContent(): string {
+    return this.isMuted ? BUTTON_TEXTS.SOUND_ON : BUTTON_TEXTS.SOUND_OFF;
   }
 }
