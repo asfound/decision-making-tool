@@ -3,6 +3,7 @@ import type { Router } from '~/router/router';
 import onEndSound from '~/assets/audio/end-sound.mp3';
 import { Button } from '~/components/button/button';
 import { View } from '~/components/view';
+import { ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
@@ -114,7 +115,7 @@ export default class PickerSection extends View<'section'> {
   private createBackButton(): HTMLButtonElement {
     const backButton = new Button({
       textContent: BUTTON_TEXTS.BACK,
-      type: 'button',
+      type: ATTRIBUTES.type_button,
       className: styles.button,
 
       onClick: (): void => {
@@ -177,7 +178,7 @@ export default class PickerSection extends View<'section'> {
   private createSoundButton(): HTMLButtonElement {
     const soundButton = new Button({
       textContent: this.getSoundButtonTextContent(),
-      type: 'button',
+      type: ATTRIBUTES.type_button,
       className: styles.button,
 
       onClick: (): void => {
@@ -208,7 +209,7 @@ export default class PickerSection extends View<'section'> {
   ): HTMLButtonElement {
     const pickButton = new Button({
       textContent: BUTTON_TEXTS.PICK,
-      type: 'button',
+      type: ATTRIBUTES.type_button,
       className: styles.button,
       actionButton: true,
 

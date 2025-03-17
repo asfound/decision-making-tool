@@ -1,6 +1,7 @@
 import { Button } from '~/components/button/button';
 import { Input } from '~/components/input/input';
 import { View } from '~/components/view';
+import { ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { label, li } from '~/utils/create-element';
 
@@ -86,11 +87,6 @@ export class OptionItem extends View<'li'> {
   }
 
   private createDeleteButton(parent: HTMLLIElement): HTMLButtonElement {
-    //TODO refactor everywhere
-    const ATTRIBUTES = {
-      type_button: 'button',
-    } as const;
-
     const deleteButton = new Button({
       textContent: BUTTON_TEXTS.DELETE,
       type: ATTRIBUTES.type_button,
