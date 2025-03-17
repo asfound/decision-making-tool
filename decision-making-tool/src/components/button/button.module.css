@@ -22,6 +22,12 @@
   transform: scale(0.96);
 }
 
+.button:disabled {
+  pointer-events: none;
+  color: var(--primary-color);
+  background-color: var(--primary-bright);
+}
+
 .actionButton {
   margin-bottom: 1rem;
   padding: 0.75rem;
@@ -43,4 +49,8 @@
   border-color: transparent;
   color: var(--primary-color);
   background-color: var(--primary-bright);
+}
+
+.actionButton:disabled {
+  border-color: var(--primary-bright);
 }

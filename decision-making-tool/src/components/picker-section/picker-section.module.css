@@ -69,6 +69,14 @@
   background-color: var(--primary-dark);
 }
 
+.duration:has(.input:disabled) {
+  background-color: var(--primary-bright);
+}
+
+.duration:has(.input:disabled) .label {
+  color: var(--primary-color);
+}
+
 .button:last-child {
   flex: 1 1 100%;
 }

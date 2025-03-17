@@ -26,6 +26,10 @@ export default class PickerSection extends View<'section'> {
   private readonly localStorageService: LocalStorageService;
   private readonly optionsData: OptionProperties[];
   private readonly childListeners: (() => void)[] = [];
+  private readonly interactionElements: (
+    | HTMLInputElement
+    | HTMLButtonElement
+  )[] = [];
   private isMuted: boolean;
 
   constructor(router: Router) {
@@ -72,6 +76,7 @@ export default class PickerSection extends View<'section'> {
       (titleDisplay.textContent = title);
 
     const onAnimationEnd = (): void => {
+      this.toggleInteraction();
       titleDisplay.classList.add(styles.selected);
 
       if (!this.isMuted) {
@@ -121,6 +126,8 @@ export default class PickerSection extends View<'section'> {
       backButton.removeListener();
     });
 
+    this.interactionElements.push(backButton.getHTML());
+
     return backButton.getHTML();
   }
 
@@ -162,6 +169,8 @@ export default class PickerSection extends View<'section'> {
 
     inputContainer.append(labelElement, durationInput);
 
+    this.interactionElements.push(durationInput);
+
     return { container: inputContainer, input: durationInput };
   }
 
@@ -183,6 +192,8 @@ export default class PickerSection extends View<'section'> {
       soundButton.removeListener();
     });
 
+    this.interactionElements.push(soundButton.getHTML());
+
     return soundButton.getHTML();
   }
 
@@ -203,6 +214,8 @@ export default class PickerSection extends View<'section'> {
 
       onClick: (): void => {
         picker.spin(Number(input.value));
+
+        this.toggleInteraction();
         display.classList.remove(styles.selected);
       },
     });
@@ -211,6 +224,14 @@ export default class PickerSection extends View<'section'> {
       pickButton.removeListener();
     });
 
+    this.interactionElements.push(pickButton.getHTML());
+
     return pickButton.getHTML();
+  }
+
+  private toggleInteraction(): void {
+    for (const element of this.interactionElements) {
+      element.disabled = !element.disabled;
+    }
   }
 }

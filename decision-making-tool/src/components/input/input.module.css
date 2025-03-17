@@ -27,3 +27,9 @@
 .input:hover {
   --basic-border: 1px var(--primary-dark) solid;
 }
+
+.input:disabled {
+  pointer-events: none;
+  color: var(--primary-color);
+  background-color: var(--primary-bright);
+}
