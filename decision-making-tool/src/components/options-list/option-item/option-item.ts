@@ -24,18 +24,23 @@ export class OptionItem extends View<'li'> {
 
   private readonly childListeners: (() => void)[] = [];
 
+  private readonly removeOptionCallback: (id: number) => void;
+
+  private readonly updateOptionCallback: (properties: OptionProperties) => void;
+
   public constructor(
     { id, title, weight }: OptionProperties,
-    private readonly removeOptionCallback: (id: number) => void,
-    private readonly updateOptionCallback: (
-      properties: OptionProperties
-    ) => void
+    removeOptionCallback: (id: number) => void,
+    updateOptionCallback: (properties: OptionProperties) => void
   ) {
     super();
 
     this.id = id;
     this.title = title;
     this.weight = weight;
+
+    this.removeOptionCallback = removeOptionCallback;
+    this.updateOptionCallback = updateOptionCallback;
 
     this.view = this.createHTML();
   }

@@ -10,9 +10,12 @@ export class Button extends View<'button'> {
 
   private readonly abortController = new AbortController();
 
-  public constructor(private readonly properties: ButtonProperties) {
+  private readonly properties: ButtonProperties;
+
+  public constructor(properties: ButtonProperties) {
     super();
 
+    this.properties = properties;
     this.view = this.createHTML();
   }
 
