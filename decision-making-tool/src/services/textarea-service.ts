@@ -1,10 +1,10 @@
-import type { PastedOptionData } from '~/components/options-list/options-list-model';
+import type { PastedOptionProperties } from '~/components/options-list/options-list-model';
 
 import { VALUES } from '~/components/options-list/constants/constants';
 import { INDEX_VALUES } from '~/constants/index-values';
 
 export class TextareaService {
-  public parseTextInput(input: string): PastedOptionData[] {
+  public parseTextInput(input: string): PastedOptionProperties[] {
     const strings = input.split('\n');
     const nonEmptyStrings = strings.filter((item) => item !== '');
     const CSVLikeStrings = nonEmptyStrings.filter((item) => item.includes(','));

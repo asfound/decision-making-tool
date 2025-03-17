@@ -1,7 +1,7 @@
 import { canvas } from '~/utils/create-element';
 import { assertNotNull } from '~/utils/type-guards';
 
-import type { OptionData } from '../options-list/options-list-model';
+import type { OptionProperties } from '../options-list/option-item/option-properties';
 
 import { View } from '../view';
 import { APP_COLORS, BASE_ANGLES } from './constants';
@@ -34,7 +34,7 @@ const VALUES = {
   EMPTY_TITLE_VALUE: '',
 };
 
-export type OptionDataWithColor = OptionData & { color: string };
+export type OptionPropertiesWithColor = OptionProperties & { color: string };
 
 export class Picker extends View<'canvas'> {
   protected view: HTMLCanvasElement;
@@ -49,14 +49,14 @@ export class Picker extends View<'canvas'> {
   private readonly radius: number;
   private readonly radiansPerWeight: number;
   private startAngle: number;
-  private readonly sectorsOptions: OptionDataWithColor[];
+  private readonly sectorsOptions: OptionPropertiesWithColor[];
   private readonly onSectorChange: (title: string) => string;
   private readonly onAnimationEnd: () => void;
   private spinning: boolean;
 
   public constructor(
     sideLength: number,
-    optionsData: OptionData[],
+    optionsData: OptionProperties[],
     onSectorChange: (title: string) => string,
     onAnimationEnd: () => void
   ) {

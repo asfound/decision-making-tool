@@ -3,7 +3,10 @@ import { LocalStorageService } from '~/services/local-storage-service';
 import { TextareaService } from '~/services/textarea-service';
 import { validateOptionsCount } from '~/utils/check-options-count';
 
-import type { OptionsListModel, PastedOptionData } from './options-list-model';
+import type {
+  OptionsListModel,
+  PastedOptionProperties,
+} from './options-list-model';
 
 import { OptionProperties } from './option-item/option-properties';
 
@@ -22,7 +25,7 @@ export class OptionsListController {
     this.getLocalStorageData();
   }
 
-  public addOption(itemData?: PastedOptionData): OptionProperties {
+  public addOption(itemData?: PastedOptionProperties): OptionProperties {
     const idToUse = this.model.getIdAndIncrement();
     const optionProperties = new OptionProperties(
       idToUse,

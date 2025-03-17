@@ -1,8 +1,8 @@
-import type { OptionData } from '~/components/options-list/options-list-model';
+import type { OptionProperties } from '~/components/options-list/option-item/option-properties';
 
 import { VALUES } from '~/components/options-list/constants/constants';
 
-export function validateOptionsCount(optionsData: OptionData[]): boolean {
+export function validateOptionsCount(optionsData: OptionProperties[]): boolean {
   if (optionsData.length < VALUES.MINIMUM_OF_VALID_OPTIONS) {
     return false;
   }

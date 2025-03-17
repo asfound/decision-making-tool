@@ -6,14 +6,14 @@ import { View } from '~/components/view';
 import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
+import { validateOptionsCount } from '~/utils/check-options-count';
 import { div, label, p, section } from '~/utils/create-element';
 
-import type { OptionData } from '../options-list/options-list-model';
+import type { OptionProperties } from '../options-list/option-item/option-properties';
 
+import { Input } from '../input/input';
 import { Picker } from '../picker/picker';
 import styles from './picker-section.module.css';
-import { Input } from '../input/input';
-import { validateOptionsCount } from '~/utils/check-options-count';
 
 export class NotValidOptionsError extends Error {}
 
@@ -24,7 +24,7 @@ export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
   private readonly router: Router;
   private readonly localStorageService: LocalStorageService;
-  private readonly optionsData: OptionData[];
+  private readonly optionsData: OptionProperties[];
   private readonly childListeners: (() => void)[] = [];
 
   constructor(router: Router) {

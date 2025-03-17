@@ -1,31 +1,37 @@
 import { INDEX_VALUES } from '~/constants/index-values';
 
-import type { OptionData } from '../options-list/options-list-model';
-
 import { BASE_ANGLES, COLOR_RANGE } from './constants';
 
 const INITIAL_VALUE = 0;
 
 const RANDOM_THRESHOLD = 0.5;
 
-import type { OptionDataWithColor } from './picker';
+import type { OptionPropertiesWithColor } from './picker';
+
+import { OptionProperties } from '../options-list/option-item/option-properties';
 export class PickerUtility {
   private readonly colorModel: string[] = ['red', 'green', 'blue'];
 
-  public createSectorOptions(options: OptionData[]): OptionDataWithColor[] {
+  public createSectorOptions(
+    options: OptionProperties[]
+  ): OptionPropertiesWithColor[] {
     const shuffleOptions = this.shuffleOptions(options);
 
-    return shuffleOptions.map((option) => ({
-      ...option,
-      color: this.getRandomColor(),
-    }));
+    return shuffleOptions.map((option) =>
+      Object.assign(
+        new OptionProperties(option.id, option.title, option.weight),
+        {
+          color: this.getRandomColor(),
+        }
+      )
+    );
   }
 
-  public shuffleOptions(options: OptionData[]): OptionData[] {
+  public shuffleOptions(options: OptionProperties[]): OptionProperties[] {
     return options.sort(() => Math.random() - RANDOM_THRESHOLD);
   }
 
-  public getRadiansPerWeight(sectorsOptions: OptionData[]): number {
+  public getRadiansPerWeight(sectorsOptions: OptionProperties[]): number {
     const totalWeight = sectorsOptions.reduce(
       (sum, option) => sum + option.weight,
       INITIAL_VALUE

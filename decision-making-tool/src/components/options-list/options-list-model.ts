@@ -1,12 +1,11 @@
 import { VALUES } from './constants/constants';
 import { OptionProperties } from './option-item/option-properties';
 export type ListData = {
-  list: Array<OptionData>;
+  list: Array<OptionProperties>;
   lastId: number;
 };
 
-export type OptionData = { id: number; title: string; weight: number };
-export type PastedOptionData = Omit<OptionData, 'id'>;
+export type PastedOptionProperties = Omit<OptionProperties, 'id'>;
 
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();
@@ -29,7 +28,6 @@ export class OptionsListModel {
 
   public addOption(option: OptionProperties): void {
     this.options.set(option.id, option);
-    console.log([...this.options.values()]);
   }
 
   public removeOption(id: number): void {

@@ -148,6 +148,7 @@ export default class StartSection extends View<'section'> {
       onClick: (): void => {
         const textareaElement = new Textarea();
 
+        //TODO use one method to open modal
         const modal = new Modal(textareaElement.getHTML(), () => {
           this.optionsList.pasteList(textareaElement.getValue());
         });
