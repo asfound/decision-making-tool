@@ -37,4 +37,5 @@ export const LABELS = {
 export const MODAL = {
   INVALID_OPTIONS_COUNT:
     'Please add at least two options with a title and a weight greater than 0.',
+  INVALID_DURATION: 'The duration must be at least 5 seconds!',
 };

@@ -74,6 +74,7 @@
 }
 
 .duration:has(.input:disabled) .label {
+  pointer-events: none;
   color: var(--primary-color);
 }
 

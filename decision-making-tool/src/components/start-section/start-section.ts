@@ -163,7 +163,7 @@ export default class StartSection extends View<'section'> {
           TEXTAREA_SIZE.ROWS
         );
 
-        this.openModal(textareaElement.getHTML(), () => {
+        this.openModal(textareaElement.getHTML(), true, () => {
           this.optionsList.pasteList(textareaElement.getValue());
         });
       },
@@ -189,7 +189,7 @@ export default class StartSection extends View<'section'> {
         } else {
           const message = p({}, [MODAL.INVALID_OPTIONS_COUNT]);
 
-          this.openModal(message);
+          this.openModal(message, false);
         }
       },
     });
@@ -201,8 +201,12 @@ export default class StartSection extends View<'section'> {
     return startButton.getHTML();
   }
 
-  private openModal(content: HTMLElement, callback?: () => void): void {
-    const modal = new Modal(content, callback);
+  private openModal(
+    content: HTMLElement,
+    useConfirmation: boolean,
+    callback?: () => void
+  ): void {
+    const modal = new Modal(content, useConfirmation, callback);
     document.body.prepend(modal.getHTML());
 
     modal.showModal();

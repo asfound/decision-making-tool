@@ -12,11 +12,19 @@ export class Modal extends View<'dialog'> {
 
   private readonly childCallback?: () => void;
 
-  public constructor(childView: HTMLElement, childCallback?: () => void) {
+  private readonly useConfirmation: boolean;
+
+  public constructor(
+    childView: HTMLElement,
+    useConfirmation: boolean,
+    childCallback?: () => void
+  ) {
     super();
 
-    this.childCallback = childCallback;
     this.childView = childView;
+    this.useConfirmation = useConfirmation;
+    this.childCallback = childCallback;
+
     this.view = this.createHTML();
   }
 
@@ -51,7 +59,7 @@ export class Modal extends View<'dialog'> {
 
     buttonsContainer.append(closeButton.getHTML());
 
-    if (this.childCallback) {
+    if (this.useConfirmation) {
       const confirmButton = this.createConfirmButton(modalWindow, closeButton);
 
       buttonsContainer.append(confirmButton);
@@ -87,5 +95,9 @@ export class Modal extends View<'dialog'> {
     closeButton.removeListener();
     modal.close();
     modal.remove();
+
+    if (!this.useConfirmation && this.childCallback) {
+      this.childCallback();
+    }
   }
 }

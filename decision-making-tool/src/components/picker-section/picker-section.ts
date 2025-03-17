@@ -8,7 +8,12 @@ import {
   INPUT_ATTRIBUTES,
   LABEL_ATTRIBUTES,
 } from '~/constants/attributes';
-import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
+import {
+  BUTTON_TEXTS,
+  LABELS,
+  MODAL,
+  PLACEHOLDERS,
+} from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
 import { validateOptionsCount } from '~/utils/check-options-count';
@@ -17,6 +22,7 @@ import { div, label, p, section } from '~/utils/create-element';
 import type { OptionProperties } from '../options-list/option-item/option-properties';
 
 import { Input } from '../input/input';
+import { Modal } from '../modal/modal';
 import {
   ANIMATION_VALUES,
   CANVAS_VALUES,
@@ -169,20 +175,6 @@ export default class PickerSection extends View<'section'> {
 
     durationInput.value = ANIMATION_VALUES.MIN_DURATION;
 
-    const handleDurationChange = (): void => {
-      const value = Number(durationInput.value);
-
-      if (value < Number(ANIMATION_VALUES.MIN_DURATION)) {
-        durationInput.value = String(ANIMATION_VALUES.MIN_DURATION);
-      }
-    };
-
-    durationInput.addEventListener('change', handleDurationChange);
-
-    this.childListeners.push(() => {
-      durationInput.removeEventListener('change', handleDurationChange);
-    });
-
     inputContainer.append(labelElement, durationInput);
 
     this.interactionElements.push(durationInput);
@@ -229,10 +221,22 @@ export default class PickerSection extends View<'section'> {
       actionButton: true,
 
       onClick: (): void => {
-        picker.spin(Number(input.value));
+        if (Number(input.value) < Number(ANIMATION_VALUES.MIN_DURATION)) {
+          const message = p({}, [MODAL.INVALID_DURATION]);
+          const callback = (): void => {
+            input.focus();
+          };
 
-        this.toggleInteraction();
-        display.classList.remove(styles.selected);
+          const modal = new Modal(message, false, callback);
+          document.body.prepend(modal.getHTML());
+
+          modal.showModal();
+        } else {
+          picker.spin(Number(input.value));
+
+          this.toggleInteraction();
+          display.classList.remove(styles.selected);
+        }
       },
     });
 
