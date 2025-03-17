@@ -1,4 +1,4 @@
-import type { ButtonProperties } from '~/types/types';
+import type { ButtonProperties } from '~/types/interfaces';
 
 import { View } from '~/components/view';
 import { button } from '~/utils/create-element';

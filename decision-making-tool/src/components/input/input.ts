@@ -1,4 +1,4 @@
-import type { InputProperties } from '~/types/types';
+import type { InputProperties } from '~/types/interfaces';
 
 import { input } from '~/utils/create-element';
 

@@ -1,4 +1,4 @@
-import type { ListData } from '~/types/types';
+import type { ListData } from '~/types/interfaces';
 
 import { ERRORS } from '~/constants/errors';
 import { INDEX_VALUES } from '~/constants/index-values';

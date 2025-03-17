@@ -1,6 +1,7 @@
-import type { ListData } from '~/types/types';
+import type { ListData } from '~/types/interfaces';
 
 import { ERRORS } from '~/constants/errors';
+
 export function isNonNullable<T>(value: T): value is NonNullable<T> {
   return value !== null && value !== undefined;
 }

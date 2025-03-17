@@ -1,4 +1,4 @@
-import type { ListData } from '~/types/types';
+import type { ListData } from '~/types/interfaces';
 
 import { VALUES } from './constants/options-constants';
 import { OptionProperties } from './option-item/option-properties';

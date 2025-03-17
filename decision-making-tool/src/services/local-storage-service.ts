@@ -1,4 +1,4 @@
-import type { ListData } from '~/types/types';
+import type { ListData } from '~/types/interfaces';
 
 import { LOCAL_STORAGE } from '~/constants/local-storage';
 import { isListData } from '~/utils/type-guards';
