@@ -31,3 +31,8 @@ export const LABELS = {
   DURATION: 'duration',
   DURATION_TITLE: 'Adjust picking process duration in seconds',
 };
+
+export const MODAL = {
+  INVALID_OPTIONS_COUNT:
+    'Please add at least two options with a title and a weight greater than 0.',
+};

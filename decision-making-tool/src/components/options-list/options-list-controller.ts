@@ -1,6 +1,7 @@
 import { JsonFileService } from '~/services/json-file-service';
 import { LocalStorageService } from '~/services/local-storage-service';
 import { TextareaService } from '~/services/textarea-service';
+import { validateOptionsCount } from '~/utils/check-options-count';
 
 import type { OptionsListModel, PastedOptionData } from './options-list-model';
 
@@ -84,6 +85,10 @@ export class OptionsListController {
     this.updateLocalStorage();
 
     return properties;
+  }
+
+  public validateOptionsCount(): boolean {
+    return validateOptionsCount(this.model.getOptions());
   }
 
   private updateLocalStorage(): void {

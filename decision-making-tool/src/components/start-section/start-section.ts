@@ -7,9 +7,9 @@ import { OptionsListModel } from '~/components/options-list/options-list-model';
 import { OptionsList } from '~/components/options-list/options-list-view/options-list-view';
 import { Textarea } from '~/components/textarea/textarea';
 import { View } from '~/components/view';
-import { BUTTON_TEXTS } from '~/constants/ui-texts';
+import { BUTTON_TEXTS, MODAL } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
-import { div, section } from '~/utils/create-element';
+import { div, p, section } from '~/utils/create-element';
 
 import styles from './start-section.module.css';
 
@@ -169,7 +169,14 @@ export default class StartSection extends View<'section'> {
       textContent: BUTTON_TEXTS.START,
       type: 'button',
       onClick: (): void => {
-        this.router.navigate(RouterPage.PICKER);
+        if (this.optionsListController.validateOptionsCount()) {
+          this.router.navigate(RouterPage.PICKER);
+        } else {
+          const message = p({}, [MODAL.INVALID_OPTIONS_COUNT]);
+          const modal = new Modal(message);
+          document.body.prepend(modal.getHTML());
+          modal.showModal();
+        }
       },
       actionButton: true,
     });

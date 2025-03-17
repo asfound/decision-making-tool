@@ -13,11 +13,13 @@ import type { OptionData } from '../options-list/options-list-model';
 import { Picker } from '../picker/picker';
 import styles from './picker-section.module.css';
 import { Input } from '../input/input';
+import { validateOptionsCount } from '~/utils/check-options-count';
 
 export class NotValidOptionsError extends Error {}
 
 const MIN_DURATION = '5';
 const CANVAS_SIZE = 500;
+
 export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
   private readonly router: Router;
@@ -32,8 +34,7 @@ export default class PickerSection extends View<'section'> {
     this.localStorageService = new LocalStorageService();
     const listData = this.localStorageService.loadListData();
 
-    // TODO add validation of options utility
-    if (listData) {
+    if (listData && validateOptionsCount(listData.list)) {
       this.optionsData = listData.list;
       this.view = this.createHTML();
     } else {

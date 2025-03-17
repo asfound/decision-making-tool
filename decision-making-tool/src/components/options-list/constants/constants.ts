@@ -5,4 +5,5 @@ export const VALUES = {
 
   INITIAL_ID: 1,
   ID_INCREMENT: 1,
+  MINIMUM_OF_VALID_OPTIONS: 2,
 };
