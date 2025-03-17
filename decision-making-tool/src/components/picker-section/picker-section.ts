@@ -1,4 +1,3 @@
-/* eslint-disable max-lines-per-function */
 import type { Router } from '~/router/router';
 
 import onEndSound from '~/assets/audio/end-sound.mp3';
@@ -63,6 +62,72 @@ export default class PickerSection extends View<'section'> {
 
     const backButton = this.createBackButton();
 
+    const inputElement = this.createInputElement();
+
+    const titleDisplay = p({ className: styles.display }, [
+      PLACEHOLDERS.PICKER_DISPLAY,
+    ]);
+
+    const onSectorChange = (title: string): string =>
+      (titleDisplay.textContent = title);
+
+    const onAnimationEnd = (): void => {
+      titleDisplay.classList.add(styles.selected);
+
+      if (!this.isMuted) {
+        void spinEndSound.play();
+      }
+    };
+
+    const soundButton = this.createSoundButton();
+
+    const picker = new Picker(
+      CANVAS_SIZE,
+      this.optionsData,
+      onSectorChange,
+      onAnimationEnd
+    );
+
+    const pickButton = this.createPickButton(
+      picker,
+      inputElement.input,
+      titleDisplay
+    );
+
+    buttonsContainer.append(
+      backButton,
+      inputElement.container,
+      soundButton,
+      pickButton
+    );
+
+    sectionElement.append(buttonsContainer, titleDisplay, picker.getHTML());
+
+    return sectionElement;
+  }
+
+  private createBackButton(): HTMLButtonElement {
+    const backButton = new Button({
+      textContent: BUTTON_TEXTS.BACK,
+      type: 'button',
+      className: styles.button,
+
+      onClick: (): void => {
+        this.router.navigate(RouterPage.INDEX);
+      },
+    });
+
+    this.childListeners.push(() => {
+      backButton.removeListener();
+    });
+
+    return backButton.getHTML();
+  }
+
+  private createInputElement(): {
+    container: HTMLElement;
+    input: HTMLInputElement;
+  } {
     const inputContainer = div({ className: styles.duration });
 
     const labelElement = label({
@@ -81,100 +146,71 @@ export default class PickerSection extends View<'section'> {
 
     durationInput.value = MIN_DURATION;
 
-    durationInput.addEventListener('change', () => {
+    const handleDurationChange = (): void => {
       const value = Number(durationInput.value);
 
       if (value < Number(MIN_DURATION)) {
-        durationInput.value = MIN_DURATION;
+        durationInput.value = String(MIN_DURATION);
       }
+    };
+
+    durationInput.addEventListener('change', handleDurationChange);
+
+    this.childListeners.push(() => {
+      durationInput.removeEventListener('change', handleDurationChange);
     });
 
     inputContainer.append(labelElement, durationInput);
 
+    return { container: inputContainer, input: durationInput };
+  }
+
+  private createSoundButton(): HTMLButtonElement {
+    const soundButton = new Button({
+      textContent: this.getSoundButtonTextContent(),
+      type: 'button',
+      className: styles.button,
+
+      onClick: (): void => {
+        this.isMuted = !this.isMuted;
+        this.localStorageService.saveSoundSetting(this.isMuted);
+
+        soundButton.getHTML().textContent = this.getSoundButtonTextContent();
+      },
+    });
+
+    this.childListeners.push(() => {
+      soundButton.removeListener();
+    });
+
+    return soundButton.getHTML();
+  }
+
+  private getSoundButtonTextContent(): string {
+    return this.isMuted ? BUTTON_TEXTS.SOUND_ON : BUTTON_TEXTS.SOUND_OFF;
+  }
+
+  private createPickButton(
+    picker: Picker,
+    input: HTMLInputElement,
+    display: HTMLElement
+  ): HTMLButtonElement {
     const pickButton = new Button({
       textContent: BUTTON_TEXTS.PICK,
       type: 'button',
-      onClick: (): void => {
-        pickerElement.spin(Number(durationInput.value));
-        sectorTitleDisplay.classList.remove(styles.selected);
-      },
       className: styles.button,
       actionButton: true,
+
+      onClick: (): void => {
+        picker.spin(Number(input.value));
+        display.classList.remove(styles.selected);
+      },
     });
 
     this.childListeners.push(() => {
       pickButton.removeListener();
     });
 
-    const sectorTitleDisplay = p({ className: styles.display }, [
-      PLACEHOLDERS.PICKER_DISPLAY,
-    ]);
-
-    const onSectorChange = (title: string): string =>
-      (sectorTitleDisplay.textContent = title);
-
-    const onAnimationEnd = (): void => {
-      sectorTitleDisplay.classList.add(styles.selected);
-
-      if (!this.isMuted) {
-        void spinEndSound.play();
-      }
-    };
-
-    const soundButton = new Button({
-      textContent: this.getSoundButtonTextContent(),
-      type: 'button',
-      onClick: (): void => {
-        this.isMuted = !this.isMuted;
-        this.localStorageService.saveSoundSetting(this.isMuted);
-
-        soundButton.textContent = this.getSoundButtonTextContent();
-      },
-      className: styles.button,
-    }).getHTML();
-
-    const pickerElement = new Picker(
-      CANVAS_SIZE,
-      this.optionsData,
-      onSectorChange,
-      onAnimationEnd
-    );
-
-    buttonsContainer.append(
-      backButton,
-      inputContainer,
-      soundButton,
-      pickButton.getHTML()
-    );
-
-    //TODO unify getHTML placement
-    sectionElement.append(
-      buttonsContainer,
-      sectorTitleDisplay,
-      pickerElement.getHTML()
-    );
-
-    return sectionElement;
-  }
-
-  private createBackButton(): HTMLButtonElement {
-    const backButton = new Button({
-      textContent: BUTTON_TEXTS.BACK,
-      type: 'button',
-      onClick: (): void => {
-        this.router.navigate(RouterPage.INDEX);
-      },
-      className: styles.button,
-    });
-
-    this.childListeners.push(() => {
-      backButton.removeListener();
-    });
-
-    return backButton.getHTML();
-  }
-
-  private getSoundButtonTextContent(): string {
-    return this.isMuted ? BUTTON_TEXTS.SOUND_ON : BUTTON_TEXTS.SOUND_OFF;
+    return pickButton.getHTML();
   }
 }
