@@ -214,7 +214,7 @@ export default class PickerSection extends View<'section'> {
   }
 
   private getSoundButtonTextContent(): string {
-    return this.isMuted ? BUTTON_TEXTS.SOUND_ON : BUTTON_TEXTS.SOUND_OFF;
+    return this.isMuted ? BUTTON_TEXTS.SOUND_OFF : BUTTON_TEXTS.SOUND_ON;
   }
 
   private createPickButton(
