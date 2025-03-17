@@ -6,6 +6,7 @@ import { View } from '../view';
 
 export class Main extends View<'main'> {
   protected view: HTMLElement;
+
   private readonly content: View<Tag>;
 
   public constructor(content: View<Tag>) {

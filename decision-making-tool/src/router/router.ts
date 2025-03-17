@@ -12,7 +12,9 @@ const FRAGMENT_IDENTIFIER_INDEX = 1;
 
 export class Router {
   private readonly routes: Route[];
+
   private readonly setPage: (page: Page) => void;
+
   constructor(routes: Route[], setPage: (page: Page) => void) {
     this.routes = routes;
     this.setPage = setPage;

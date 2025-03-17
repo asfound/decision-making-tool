@@ -7,6 +7,7 @@ import styles from './button.module.css';
 
 export class Button extends View<'button'> {
   protected view: HTMLButtonElement;
+
   private readonly abortController = new AbortController();
 
   public constructor(private readonly properties: ButtonProperties) {

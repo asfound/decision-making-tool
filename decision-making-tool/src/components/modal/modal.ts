@@ -7,7 +7,9 @@ import { Button } from '../button/button';
 import styles from './modal.module.css';
 export class Modal extends View<'dialog'> {
   protected view: HTMLDialogElement;
+
   private readonly childView: HTMLElement;
+
   private readonly childCallback?: () => void;
 
   public constructor(childView: HTMLElement, childCallback?: () => void) {

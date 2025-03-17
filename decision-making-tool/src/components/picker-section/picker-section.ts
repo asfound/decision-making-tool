@@ -28,14 +28,20 @@ export class NotValidOptionsError extends Error {}
 
 export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
+
   private readonly router: Router;
+
   private readonly localStorageService: LocalStorageService;
+
   private readonly optionsData: OptionProperties[];
+
   private readonly childListeners: (() => void)[] = [];
+
   private readonly interactionElements: (
     | HTMLInputElement
     | HTMLButtonElement
   )[] = [];
+
   private isMuted: boolean;
 
   constructor(router: Router) {

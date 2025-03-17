@@ -9,6 +9,7 @@ import { Header } from '../../components/header/header';
 
 export class AppPage implements Page {
   private readonly headerView: Header;
+
   private readonly mainView: Main;
 
   constructor(view: View<Tag>) {

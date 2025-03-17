@@ -5,7 +5,9 @@ import { isListData } from '~/utils/type-guards';
 
 export class LocalStorageService {
   private readonly lsPrefix: string;
+
   private readonly listKey: string;
+
   private readonly soundKey: string;
 
   constructor() {

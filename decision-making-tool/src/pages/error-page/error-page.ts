@@ -13,6 +13,7 @@ import styles from './error-page.module.css';
 
 export class ErrorPageView extends View<'main'> implements Page {
   protected view: HTMLElement;
+
   private readonly router: Router;
 
   constructor(router: Router) {

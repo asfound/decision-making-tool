@@ -10,7 +10,9 @@ import styles from './options-list.module.css';
 
 export class OptionsList extends View<'ul'> {
   protected view: HTMLUListElement;
+
   private readonly options: Map<number, OptionItem> = new Map();
+
   private readonly controller: OptionsListController;
 
   constructor(controller: OptionsListController) {

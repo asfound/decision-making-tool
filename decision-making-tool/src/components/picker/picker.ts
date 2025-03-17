@@ -16,20 +16,31 @@ import { PickerUtility } from './picker-utility';
 
 export class Picker extends View<'canvas'> {
   protected view: HTMLCanvasElement;
+
   private readonly width: number;
+
   private readonly height: number;
+
   private readonly ctx: CanvasRenderingContext2D;
+
   private readonly centerX: number;
+
   private readonly centerY: number;
 
   private readonly utility: PickerUtility;
 
   private readonly radius: number;
+
   private readonly radiansPerWeight: number;
+
   private startAngle: number;
+
   private readonly sectorsOptions: OptionPropertiesWithColor[];
+
   private readonly onSectorChange: (title: string) => string;
+
   private readonly onAnimationEnd: () => void;
+
   private spinning: boolean;
 
   public constructor(

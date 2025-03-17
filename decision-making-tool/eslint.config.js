@@ -50,6 +50,7 @@ export default [
         { max: 40, skipBlankLines: true, skipComments: true },
       ],
       'no-magic-numbers': 'error',
+      'lines-between-class-members': ['error', 'always'],
     },
   },
   pluginJs.configs.recommended,
@@ -64,7 +65,7 @@ export default [
   },
   {
     linterOptions: {
-      // noInlineConfig: true,
+      noInlineConfig: true,
       reportUnusedDisableDirectives: 'warn',
     },
   },

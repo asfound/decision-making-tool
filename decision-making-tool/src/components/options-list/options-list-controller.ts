@@ -11,8 +11,11 @@ import { OptionProperties } from './option-item/option-properties';
 
 export class OptionsListController {
   private readonly model: OptionsListModel;
+
   private readonly fileService: JsonFileService;
+
   private readonly textareaService: TextareaService;
+
   private readonly localStorageService: LocalStorageService;
 
   constructor(model: OptionsListModel) {

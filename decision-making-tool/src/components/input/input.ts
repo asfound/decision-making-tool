@@ -7,6 +7,7 @@ import styles from './input.module.css';
 
 export class Input extends View<'input'> {
   protected view: HTMLInputElement;
+
   private readonly properties: InputProperties;
 
   constructor(properties: InputProperties) {

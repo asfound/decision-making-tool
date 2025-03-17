@@ -7,7 +7,9 @@ import styles from './textarea.module.css';
 
 export class Textarea extends View<'textarea'> {
   protected view: HTMLTextAreaElement;
+
   private readonly columns: string;
+
   private readonly rows: string;
 
   public constructor(columns: string, rows: string) {

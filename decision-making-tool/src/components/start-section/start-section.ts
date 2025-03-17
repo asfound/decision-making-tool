@@ -17,10 +17,15 @@ import styles from './start-section.module.css';
 
 export default class StartSection extends View<'section'> {
   protected view: HTMLElement;
+
   private readonly optionsListModel: OptionsListModel;
+
   private readonly optionsList: OptionsList;
+
   private readonly optionsListController: OptionsListController;
+
   private readonly router: Router;
+
   private readonly childListeners: (() => void)[] = [];
 
   constructor(router: Router) {

@@ -19,6 +19,7 @@ export class OptionItem extends View<'li'> {
   protected view: HTMLLIElement;
 
   private title: string;
+
   private weight: number;
 
   public constructor(
