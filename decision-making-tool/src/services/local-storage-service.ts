@@ -1,10 +1,7 @@
 import type { ListData } from '~/components/options-list/options-list-model';
 
+import { LOCAL_STORAGE } from '~/constants/local-storage';
 import { isListData } from '~/utils/type-guards';
-
-const LS_PREFIX = 'asfound-';
-const LIST_KEY = 'list-state';
-const SOUND_KEY = 'sound-setting';
 
 export class LocalStorageService {
   private readonly lsPrefix: string;
@@ -12,9 +9,9 @@ export class LocalStorageService {
   private readonly soundKey: string;
 
   constructor() {
-    this.lsPrefix = LS_PREFIX;
-    this.listKey = LIST_KEY;
-    this.soundKey = SOUND_KEY;
+    this.lsPrefix = LOCAL_STORAGE.LS_PREFIX;
+    this.listKey = LOCAL_STORAGE.LIST_KEY;
+    this.soundKey = LOCAL_STORAGE.SOUND_KEY;
   }
 
   public saveListData(data: ListData): void {
