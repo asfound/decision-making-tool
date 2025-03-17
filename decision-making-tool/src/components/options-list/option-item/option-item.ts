@@ -1,11 +1,15 @@
 import { Button } from '~/components/button/button';
 import { Input } from '~/components/input/input';
 import { View } from '~/components/view';
-import { BUTTON_ATTRIBUTES, LABEL_ATTRIBUTES } from '~/constants/attributes';
+import {
+  BUTTON_ATTRIBUTES,
+  INPUT_ATTRIBUTES,
+  LABEL_ATTRIBUTES,
+} from '~/constants/attributes';
 import { BUTTON_TEXTS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { label, li } from '~/utils/create-element';
 
-import { VALUES } from '../constants/constants';
+import { VALUES } from '../constants/options-constants';
 import styles from './option-item.module.css';
 import { OptionProperties } from './option-properties';
 
@@ -66,7 +70,7 @@ export class OptionItem extends View<'li'> {
       placeholder: PLACEHOLDERS.WEIGHT,
       className: styles.weight,
       attributes: {
-        type: 'number',
+        type: INPUT_ATTRIBUTES.TYPE_NUMBER,
       },
     }).getHTML();
 
@@ -89,7 +93,7 @@ export class OptionItem extends View<'li'> {
   private createDeleteButton(parent: HTMLLIElement): HTMLButtonElement {
     const deleteButton = new Button({
       textContent: BUTTON_TEXTS.DELETE,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         deleteButton.removeListener();

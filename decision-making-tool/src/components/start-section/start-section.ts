@@ -9,15 +9,11 @@ import { Textarea } from '~/components/textarea/textarea';
 import { View } from '~/components/view';
 import { BUTTON_ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, MODAL } from '~/constants/ui-texts';
+import { TEXTAREA_SIZE } from '~/constants/ui-values';
 import { RouterPage } from '~/router/pages';
 import { div, p, section } from '~/utils/create-element';
 
 import styles from './start-section.module.css';
-
-const TEXTAREA_SIZE = {
-  COLUMNS: '60',
-  ROWS: '10',
-};
 
 export default class StartSection extends View<'section'> {
   protected view: HTMLElement;
@@ -82,7 +78,7 @@ export default class StartSection extends View<'section'> {
     const addOptionButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.ADD_OPTION,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         this.optionsList.addOption();
@@ -100,7 +96,7 @@ export default class StartSection extends View<'section'> {
     const clearListButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.CLEAR_LIST,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         this.optionsList.clearList();
@@ -118,7 +114,7 @@ export default class StartSection extends View<'section'> {
     const saveListButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.SAVE_LIST,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         this.optionsList.saveListToFile();
@@ -136,7 +132,7 @@ export default class StartSection extends View<'section'> {
     const loadListButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.LOAD_LIST,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         this.optionsList.loadListFromFile();
@@ -154,7 +150,7 @@ export default class StartSection extends View<'section'> {
     const pasteListButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.PASTE_LIST,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         const textareaElement = new Textarea(
@@ -179,7 +175,7 @@ export default class StartSection extends View<'section'> {
     const startButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.START,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
       actionButton: true,
 
       onClick: (): void => {

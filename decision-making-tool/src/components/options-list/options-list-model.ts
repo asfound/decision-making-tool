@@ -1,4 +1,4 @@
-import { VALUES } from './constants/constants';
+import { VALUES } from './constants/options-constants';
 import { OptionProperties } from './option-item/option-properties';
 export type ListData = {
   list: Array<OptionProperties>;

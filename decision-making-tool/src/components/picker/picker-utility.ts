@@ -1,14 +1,15 @@
 import { INDEX_VALUES } from '~/constants/index-values';
 
-import { BASE_ANGLES, COLOR_RANGE } from './constants';
-
-const INITIAL_VALUE = 0;
-
-const RANDOM_THRESHOLD = 0.5;
-
 import type { OptionPropertiesWithColor } from './picker';
 
 import { OptionProperties } from '../options-list/option-item/option-properties';
+import {
+  BASE_ANGLES,
+  COLOR_RANGE,
+  EASING_VALUES,
+  UTILITY_VALUES,
+} from './constants/picker-constants';
+
 export class PickerUtility {
   private readonly colorModel: string[] = ['red', 'green', 'blue'];
 
@@ -28,13 +29,13 @@ export class PickerUtility {
   }
 
   public shuffleOptions(options: OptionProperties[]): OptionProperties[] {
-    return options.sort(() => Math.random() - RANDOM_THRESHOLD);
+    return options.sort(() => Math.random() - UTILITY_VALUES.RANDOM_THRESHOLD);
   }
 
   public getRadiansPerWeight(sectorsOptions: OptionProperties[]): number {
     const totalWeight = sectorsOptions.reduce(
       (sum, option) => sum + option.weight,
-      INITIAL_VALUE
+      UTILITY_VALUES.INITIAL_VALUE
     );
 
     return BASE_ANGLES.RADIANS.FULL_TURN / totalWeight;
@@ -81,22 +82,13 @@ export class PickerUtility {
   }
 
   public easeInOutCirc(x: number): number {
-    return x < EASING.MID_POINT
-      ? EASING.SCALE_FACTOR * x * x
-      : EASING.MAX_VALUE -
+    return x < EASING_VALUES.MID_POINT
+      ? EASING_VALUES.SCALE_FACTOR * x * x
+      : EASING_VALUES.MAX_VALUE -
           Math.pow(
-            -EASING.SCALE_FACTOR * x + EASING.CURVE_SHAPE,
-            EASING.POWER_OF_2
+            -EASING_VALUES.SCALE_FACTOR * x + EASING_VALUES.CURVE_SHAPE,
+            EASING_VALUES.POWER_OF_2
           ) /
-            EASING.HALF;
+            EASING_VALUES.HALF;
   }
 }
-
-const EASING = {
-  MID_POINT: 0.5,
-  MAX_VALUE: 1,
-  SCALE_FACTOR: 2,
-  CURVE_SHAPE: 2,
-  HALF: 2,
-  POWER_OF_2: 2,
-};

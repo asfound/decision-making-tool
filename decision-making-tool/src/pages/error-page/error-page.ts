@@ -42,7 +42,7 @@ export class ErrorPageView extends View<'main'> implements Page {
     const toMainButton = new Button({
       className: styles.button,
       textContent: BUTTON_TEXTS.TO_MAIN,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
 
       onClick: (): void => {
         this.router.navigate(RouterPage.INDEX);

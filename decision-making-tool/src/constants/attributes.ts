@@ -1,5 +1,5 @@
 export const BUTTON_ATTRIBUTES = {
-  TYPE: 'button',
+  TYPE_BUTTON: 'button',
 } as const;
 
 export const TEXTAREA_ATTRIBUTES = {
@@ -10,4 +10,8 @@ export const TEXTAREA_ATTRIBUTES = {
 export const LABEL_ATTRIBUTES = {
   FOR: 'for',
   TITLE: 'title',
-};
+} as const;
+
+export const INPUT_ATTRIBUTES = {
+  TYPE_NUMBER: 'number',
+} as const;

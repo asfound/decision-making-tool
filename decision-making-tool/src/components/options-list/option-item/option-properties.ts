@@ -1,4 +1,4 @@
-import { VALUES } from '../constants/constants';
+import { VALUES } from '../constants/options-constants';
 export class OptionProperties {
   constructor(
     public readonly id: number,

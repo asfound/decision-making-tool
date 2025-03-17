@@ -1,0 +1,81 @@
+const DOUBLE = 2;
+
+export const BASE_ANGLES = {
+  DEGREES: {
+    ZERO: 0,
+    QUARTER: 90,
+    HALF_TURN: 180,
+    FULL_TURN: 360,
+  },
+
+  RADIANS: {
+    ZERO: 0,
+    QUARTER: Math.PI / DOUBLE,
+    HALF_TURN: Math.PI,
+    FULL_TURN: DOUBLE * Math.PI,
+  },
+};
+
+export const COLOR_RANGE = {
+  MIN: 0,
+  MAX_RANDOM: 250,
+  MAX: 255,
+  OFFSET: 1,
+};
+
+export const APP_COLORS = {
+  PRIMARY: 'rgb(0, 63, 255)',
+  WHITE: 'rgb(255, 255, 255)',
+};
+
+export const UTILITY_VALUES = {
+  INITIAL_VALUE: 0,
+  RANDOM_THRESHOLD: 0.5,
+};
+
+export const EASING_VALUES = {
+  MID_POINT: 0.5,
+  MAX_VALUE: 1,
+  SCALE_FACTOR: 2,
+  CURVE_SHAPE: 2,
+  HALF: 2,
+  POWER_OF_2: 2,
+};
+
+export const CANVAS_VALUES = {
+  HALF_SIZE: 2,
+  OFFSET: 20,
+
+  BASE_RATIO: 1,
+
+  ZERO_COORDINATE: 0,
+
+  SUFFICIENT_ANGLE: 0.2,
+
+  OUTER_CIRCLE_STROKE: 10,
+  INNER_CIRCLE_STROKE: 7,
+  SEGMENTS_STROKE: 2,
+
+  TITLE_FONT: '700 12px Montserrat',
+  TITLE_STROKE_WIDTH: 2,
+  TITLE_X_COORDINATE: 120,
+  TITLE_Y_COORDINATE: 0,
+
+  POINTER_WIDTH: 17,
+  POINTER_HEIGHT: 25,
+  POINTER_OVERLAP: 15,
+  POINTER_STROKE_WIDTH: 6,
+
+  EMPTY_TITLE_VALUE: '',
+
+  CANVAS_SIZE: 500,
+};
+
+export const ANIMATION_VALUES = {
+  MILLISECONDS_PER_SECOND: 1000,
+
+  FULL_TURNS_PER_SECOND: 1,
+  FULL_PROGRESS: 1,
+
+  MIN_DURATION: '5',
+};

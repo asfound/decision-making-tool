@@ -4,35 +4,13 @@ import { assertNotNull } from '~/utils/type-guards';
 import type { OptionProperties } from '../options-list/option-item/option-properties';
 
 import { View } from '../view';
-import { APP_COLORS, BASE_ANGLES } from './constants';
+import {
+  ANIMATION_VALUES,
+  APP_COLORS,
+  BASE_ANGLES,
+  CANVAS_VALUES,
+} from './constants/picker-constants';
 import { PickerUtility } from './picker-utility';
-
-const VALUES = {
-  HALF_SIZE: 2,
-  OFFSET: 20,
-
-  BASE_RATIO: 1,
-
-  ZERO_COORDINATE: 0,
-
-  SUFFICIENT_ANGLE: 0.2,
-
-  OUTER_CIRCLE_STROKE: 10,
-  INNER_CIRCLE_STROKE: 7,
-  SEGMENTS_STROKE: 2,
-
-  TITLE_FONT: '700 12px Montserrat',
-  TITLE_STROKE_WIDTH: 2,
-  TITLE_X_COORDINATE: 120,
-  TITLE_Y_COORDINATE: 0,
-
-  POINTER_WIDTH: 17,
-  POINTER_HEIGHT: 25,
-  POINTER_OVERLAP: 15,
-  POINTER_STROKE_WIDTH: 6,
-
-  EMPTY_TITLE_VALUE: '',
-};
 
 export type OptionPropertiesWithColor = OptionProperties & { color: string };
 
@@ -70,7 +48,8 @@ export class Picker extends View<'canvas'> {
 
     this.onAnimationEnd = onAnimationEnd;
 
-    const devicePixelRatio = window.devicePixelRatio || VALUES.BASE_RATIO;
+    const devicePixelRatio =
+      window.devicePixelRatio || CANVAS_VALUES.BASE_RATIO;
 
     this.width = sideLength * devicePixelRatio;
     this.height = sideLength * devicePixelRatio;
@@ -87,9 +66,9 @@ export class Picker extends View<'canvas'> {
     this.ctx = context;
     this.ctx.scale(devicePixelRatio, devicePixelRatio);
 
-    this.centerX = sideLength / VALUES.HALF_SIZE;
-    this.centerY = sideLength / VALUES.HALF_SIZE;
-    this.radius = sideLength / VALUES.HALF_SIZE - VALUES.OFFSET;
+    this.centerX = sideLength / CANVAS_VALUES.HALF_SIZE;
+    this.centerY = sideLength / CANVAS_VALUES.HALF_SIZE;
+    this.radius = sideLength / CANVAS_VALUES.HALF_SIZE - CANVAS_VALUES.OFFSET;
 
     this.radiansPerWeight = this.utility.getRadiansPerWeight(
       this.sectorsOptions
@@ -111,15 +90,13 @@ export class Picker extends View<'canvas'> {
 
     let spinStartTime: number | null = null;
 
-    const MILLISECONDS_PER_SECOND = 1000;
-
-    const currentDuration = duration * MILLISECONDS_PER_SECOND;
-    const FULL_TURNS_PER_SECOND = 1;
+    const currentDuration = duration * ANIMATION_VALUES.MILLISECONDS_PER_SECOND;
 
     const randomAngle = this.utility.getRandomEndAngle();
 
     const totalTurns =
-      (currentDuration / MILLISECONDS_PER_SECOND) * FULL_TURNS_PER_SECOND;
+      (currentDuration / ANIMATION_VALUES.MILLISECONDS_PER_SECOND) *
+      ANIMATION_VALUES.FULL_TURNS_PER_SECOND;
     const totalAngle = totalTurns * BASE_ANGLES.DEGREES.FULL_TURN + randomAngle;
 
     const animate = (timestamp: number): void => {
@@ -129,10 +106,9 @@ export class Picker extends View<'canvas'> {
 
       const elapsedTime = timestamp - spinStartTime;
 
-      const FULL_PROGRESS = 1;
       let currentProgress = Math.min(
         elapsedTime / currentDuration,
-        FULL_PROGRESS
+        ANIMATION_VALUES.FULL_PROGRESS
       );
 
       currentProgress = this.utility.easeInOutCirc(currentProgress);
@@ -175,7 +151,7 @@ export class Picker extends View<'canvas'> {
   }
 
   private drawSegments(): void {
-    this.ctx.lineWidth = VALUES.SEGMENTS_STROKE;
+    this.ctx.lineWidth = CANVAS_VALUES.SEGMENTS_STROKE;
     this.ctx.strokeStyle = APP_COLORS.WHITE;
     let startAngle = this.startAngle;
 
@@ -188,7 +164,8 @@ export class Picker extends View<'canvas'> {
       this.ctx.arc(
         this.centerX,
         this.centerY,
-        this.radius - VALUES.OUTER_CIRCLE_STROKE / VALUES.HALF_SIZE,
+        this.radius -
+          CANVAS_VALUES.OUTER_CIRCLE_STROKE / CANVAS_VALUES.HALF_SIZE,
         startAngle,
         endAngle
       );
@@ -197,9 +174,9 @@ export class Picker extends View<'canvas'> {
       this.ctx.fill();
       this.ctx.stroke();
 
-      const middleAngle = startAngle + sectorAngle / VALUES.HALF_SIZE;
+      const middleAngle = startAngle + sectorAngle / CANVAS_VALUES.HALF_SIZE;
 
-      if (sectorAngle > VALUES.SUFFICIENT_ANGLE) {
+      if (sectorAngle > CANVAS_VALUES.SUFFICIENT_ANGLE) {
         this.drawOptionTitle(middleAngle, option.title);
       }
 
@@ -209,8 +186,8 @@ export class Picker extends View<'canvas'> {
 
   private drawPickerMount(): void {
     this.ctx.clearRect(
-      VALUES.ZERO_COORDINATE,
-      VALUES.ZERO_COORDINATE,
+      CANVAS_VALUES.ZERO_COORDINATE,
+      CANVAS_VALUES.ZERO_COORDINATE,
       this.view.width,
       this.view.height
     );
@@ -224,7 +201,7 @@ export class Picker extends View<'canvas'> {
       this.utility.toRadians(BASE_ANGLES.DEGREES.FULL_TURN)
     );
 
-    this.ctx.lineWidth = VALUES.OUTER_CIRCLE_STROKE;
+    this.ctx.lineWidth = CANVAS_VALUES.OUTER_CIRCLE_STROKE;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
   }
@@ -236,22 +213,22 @@ export class Picker extends View<'canvas'> {
 
     this.ctx.textAlign = 'center';
     this.ctx.textBaseline = 'middle';
-    this.ctx.font = VALUES.TITLE_FONT;
+    this.ctx.font = CANVAS_VALUES.TITLE_FONT;
     this.ctx.fillStyle = APP_COLORS.PRIMARY;
     this.ctx.strokeStyle = APP_COLORS.WHITE;
-    this.ctx.lineWidth = VALUES.TITLE_STROKE_WIDTH;
+    this.ctx.lineWidth = CANVAS_VALUES.TITLE_STROKE_WIDTH;
 
     const formattedTitle = this.utility.formatTitle(title);
 
     this.ctx.strokeText(
       formattedTitle,
-      VALUES.TITLE_X_COORDINATE,
-      VALUES.TITLE_Y_COORDINATE
+      CANVAS_VALUES.TITLE_X_COORDINATE,
+      CANVAS_VALUES.TITLE_Y_COORDINATE
     );
     this.ctx.fillText(
       formattedTitle,
-      VALUES.TITLE_X_COORDINATE,
-      VALUES.TITLE_Y_COORDINATE
+      CANVAS_VALUES.TITLE_X_COORDINATE,
+      CANVAS_VALUES.TITLE_Y_COORDINATE
     );
 
     this.ctx.restore();
@@ -262,7 +239,7 @@ export class Picker extends View<'canvas'> {
     this.ctx.arc(
       this.centerX,
       this.centerY,
-      VALUES.OFFSET,
+      CANVAS_VALUES.OFFSET,
       this.utility.toRadians(BASE_ANGLES.DEGREES.ZERO),
       this.utility.toRadians(BASE_ANGLES.DEGREES.FULL_TURN)
     );
@@ -270,33 +247,33 @@ export class Picker extends View<'canvas'> {
     this.ctx.fillStyle = APP_COLORS.WHITE;
     this.ctx.fill();
 
-    this.ctx.lineWidth = VALUES.INNER_CIRCLE_STROKE;
+    this.ctx.lineWidth = CANVAS_VALUES.INNER_CIRCLE_STROKE;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
   }
 
   private drawPointer(): void {
-    const pointerX1 = this.centerX - VALUES.POINTER_WIDTH;
-    const pointerX2 = this.centerX + VALUES.POINTER_WIDTH;
+    const pointerX1 = this.centerX - CANVAS_VALUES.POINTER_WIDTH;
+    const pointerX2 = this.centerX + CANVAS_VALUES.POINTER_WIDTH;
     const pointerY =
       this.centerY -
       this.radius -
-      VALUES.POINTER_HEIGHT +
-      VALUES.POINTER_OVERLAP;
+      CANVAS_VALUES.POINTER_HEIGHT +
+      CANVAS_VALUES.POINTER_OVERLAP;
 
     this.ctx.beginPath();
     this.ctx.moveTo(pointerX1, pointerY);
     this.ctx.lineTo(pointerX2, pointerY);
     this.ctx.lineTo(
       this.centerX,
-      this.centerY - this.radius + VALUES.POINTER_OVERLAP
+      this.centerY - this.radius + CANVAS_VALUES.POINTER_OVERLAP
     );
     this.ctx.closePath();
 
     this.ctx.fillStyle = APP_COLORS.WHITE;
     this.ctx.fill();
 
-    this.ctx.lineWidth = VALUES.POINTER_STROKE_WIDTH;
+    this.ctx.lineWidth = CANVAS_VALUES.POINTER_STROKE_WIDTH;
     this.ctx.strokeStyle = APP_COLORS.PRIMARY;
     this.ctx.stroke();
   }
@@ -324,6 +301,6 @@ export class Picker extends View<'canvas'> {
       startAngle = endAngle;
     }
 
-    return VALUES.EMPTY_TITLE_VALUE;
+    return CANVAS_VALUES.EMPTY_TITLE_VALUE;
   }
 }

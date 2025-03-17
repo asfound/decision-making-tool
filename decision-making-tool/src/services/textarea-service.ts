@@ -1,6 +1,6 @@
 import type { PastedOptionProperties } from '~/components/options-list/options-list-model';
 
-import { VALUES } from '~/components/options-list/constants/constants';
+import { VALUES } from '~/components/options-list/constants/options-constants';
 import { INDEX_VALUES } from '~/constants/index-values';
 
 export class TextareaService {

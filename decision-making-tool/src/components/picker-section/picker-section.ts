@@ -3,7 +3,11 @@ import type { Router } from '~/router/router';
 import onEndSound from '~/assets/audio/end-sound.mp3';
 import { Button } from '~/components/button/button';
 import { View } from '~/components/view';
-import { BUTTON_ATTRIBUTES, LABEL_ATTRIBUTES } from '~/constants/attributes';
+import {
+  BUTTON_ATTRIBUTES,
+  INPUT_ATTRIBUTES,
+  LABEL_ATTRIBUTES,
+} from '~/constants/attributes';
 import { BUTTON_TEXTS, LABELS, PLACEHOLDERS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { LocalStorageService } from '~/services/local-storage-service';
@@ -13,13 +17,14 @@ import { div, label, p, section } from '~/utils/create-element';
 import type { OptionProperties } from '../options-list/option-item/option-properties';
 
 import { Input } from '../input/input';
+import {
+  ANIMATION_VALUES,
+  CANVAS_VALUES,
+} from '../picker/constants/picker-constants';
 import { Picker } from '../picker/picker';
 import styles from './picker-section.module.css';
 
 export class NotValidOptionsError extends Error {}
-
-const MIN_DURATION = '5';
-const CANVAS_SIZE = 500;
 
 export default class PickerSection extends View<'section'> {
   protected view: HTMLElement;
@@ -88,7 +93,7 @@ export default class PickerSection extends View<'section'> {
     const soundButton = this.createSoundButton();
 
     const picker = new Picker(
-      CANVAS_SIZE,
+      CANVAS_VALUES.CANVAS_SIZE,
       this.optionsData,
       onSectorChange,
       onAnimationEnd
@@ -115,7 +120,7 @@ export default class PickerSection extends View<'section'> {
   private createBackButton(): HTMLButtonElement {
     const backButton = new Button({
       textContent: BUTTON_TEXTS.BACK,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
       className: styles.button,
 
       onClick: (): void => {
@@ -149,16 +154,20 @@ export default class PickerSection extends View<'section'> {
     const durationInput = new Input({
       placeholder: PLACEHOLDERS.DURATION,
       className: styles.input,
-      attributes: { id: LABELS.DURATION, type: 'number', min: MIN_DURATION },
+      attributes: {
+        id: LABELS.DURATION,
+        type: INPUT_ATTRIBUTES.TYPE_NUMBER,
+        min: ANIMATION_VALUES.MIN_DURATION,
+      },
     }).getHTML();
 
-    durationInput.value = MIN_DURATION;
+    durationInput.value = ANIMATION_VALUES.MIN_DURATION;
 
     const handleDurationChange = (): void => {
       const value = Number(durationInput.value);
 
-      if (value < Number(MIN_DURATION)) {
-        durationInput.value = String(MIN_DURATION);
+      if (value < Number(ANIMATION_VALUES.MIN_DURATION)) {
+        durationInput.value = String(ANIMATION_VALUES.MIN_DURATION);
       }
     };
 
@@ -178,7 +187,7 @@ export default class PickerSection extends View<'section'> {
   private createSoundButton(): HTMLButtonElement {
     const soundButton = new Button({
       textContent: this.getSoundButtonTextContent(),
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
       className: styles.button,
 
       onClick: (): void => {
@@ -209,7 +218,7 @@ export default class PickerSection extends View<'section'> {
   ): HTMLButtonElement {
     const pickButton = new Button({
       textContent: BUTTON_TEXTS.PICK,
-      type: BUTTON_ATTRIBUTES.TYPE,
+      type: BUTTON_ATTRIBUTES.TYPE_BUTTON,
       className: styles.button,
       actionButton: true,
 
