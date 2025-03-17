@@ -1,13 +1,9 @@
+import type { InputProperties } from '~/types/types';
+
 import { input } from '~/utils/create-element';
 
 import { View } from '../view';
 import styles from './input.module.css';
-
-type InputProperties = {
-  placeholder: string;
-  className?: string;
-  attributes?: Record<string, string>;
-};
 
 export class Input extends View<'input'> {
   protected view: HTMLInputElement;

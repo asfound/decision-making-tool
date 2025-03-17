@@ -1,4 +1,4 @@
-import type { PastedOptionProperties } from '~/components/options-list/options-list-model';
+import type { PastedOptionProperties } from '~/types/types';
 
 import { VALUES } from '~/components/options-list/constants/options-constants';
 import { INDEX_VALUES } from '~/constants/index-values';

@@ -25,6 +25,11 @@
     "noUncheckedSideEffectImports": true,
     "checkJs": true
   },
-  "include": ["src", "eslint.config.js", "vite.config.js"],
+  "include": [
+    "src",
+    "eslint.config.js",
+    "vite.config.js",
+    "src/types/interfaces.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

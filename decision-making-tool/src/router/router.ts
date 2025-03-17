@@ -1,4 +1,4 @@
-import type { Page } from '~/pages/app-page/app-page';
+import type { Page } from '~/types/interfaces';
 
 import { NotValidOptionsError } from '~/components/picker-section/picker-section';
 import { ERRORS } from '~/constants/errors';

@@ -1,6 +1,6 @@
-import { INDEX_VALUES } from '~/constants/index-values';
+import type { OptionPropertiesWithColor } from '~/types/types';
 
-import type { OptionPropertiesWithColor } from './picker';
+import { INDEX_VALUES } from '~/constants/index-values';
 
 import { OptionProperties } from '../options-list/option-item/option-properties';
 import {

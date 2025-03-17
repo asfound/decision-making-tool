@@ -1,4 +1,5 @@
 import type { Router } from '~/router/router';
+import type { Page } from '~/types/interfaces';
 
 import { Button } from '~/components/button/button';
 import { Heading } from '~/components/heading/heading';
@@ -6,8 +7,6 @@ import { BUTTON_ATTRIBUTES } from '~/constants/attributes';
 import { BUTTON_TEXTS, HEADINGS } from '~/constants/ui-texts';
 import { RouterPage } from '~/router/pages';
 import { div, main } from '~/utils/create-element';
-
-import type { Page } from '../app-page/app-page';
 
 import { View } from '../../components/view';
 import styles from './error-page.module.css';

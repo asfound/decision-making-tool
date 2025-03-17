@@ -1,15 +1,9 @@
+import type { ButtonProperties } from '~/types/types';
+
 import { View } from '~/components/view';
 import { button } from '~/utils/create-element';
 
 import styles from './button.module.css';
-
-type ButtonProperties = {
-  textContent: string;
-  type: HTMLButtonElement['type'];
-  onClick: () => void;
-  className?: string;
-  actionButton?: boolean;
-};
 
 export class Button extends View<'button'> {
   protected view: HTMLButtonElement;

@@ -1,12 +1,12 @@
-import type { ListData } from '~/components/options-list/options-list-model';
+import type { ListData } from '~/types/types';
 
 import { ERRORS } from '~/constants/errors';
 import { INDEX_VALUES } from '~/constants/index-values';
+import { a, input } from '~/utils/create-element';
 import { isListData } from '~/utils/type-guards';
 
 const FILENAME = 'as_found-options-list.json';
 
-import { a, input } from '~/utils/create-element';
 export class JsonFileService {
   public saveDataToFile(data: ListData): void {
     const blob = new Blob([JSON.stringify(data)], {

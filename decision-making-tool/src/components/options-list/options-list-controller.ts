@@ -1,12 +1,11 @@
+import type { PastedOptionProperties } from '~/types/types';
+
 import { JsonFileService } from '~/services/json-file-service';
 import { LocalStorageService } from '~/services/local-storage-service';
 import { TextareaService } from '~/services/textarea-service';
 import { validateOptionsCount } from '~/utils/check-options-count';
 
-import type {
-  OptionsListModel,
-  PastedOptionProperties,
-} from './options-list-model';
+import type { OptionsListModel } from './options-list-model';
 
 import { OptionProperties } from './option-item/option-properties';
 

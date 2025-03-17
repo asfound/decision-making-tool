@@ -1,4 +1,4 @@
-import type { ListData } from '~/components/options-list/options-list-model';
+import type { ListData } from '~/types/types';
 
 import { ERRORS } from '~/constants/errors';
 export function isNonNullable<T>(value: T): value is NonNullable<T> {

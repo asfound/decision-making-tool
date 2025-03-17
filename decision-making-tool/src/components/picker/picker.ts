@@ -1,3 +1,5 @@
+import type { OptionPropertiesWithColor } from '~/types/types';
+
 import { canvas } from '~/utils/create-element';
 import { assertNotNull } from '~/utils/type-guards';
 
@@ -11,8 +13,6 @@ import {
   CANVAS_VALUES,
 } from './constants/picker-constants';
 import { PickerUtility } from './picker-utility';
-
-export type OptionPropertiesWithColor = OptionProperties & { color: string };
 
 export class Picker extends View<'canvas'> {
   protected view: HTMLCanvasElement;

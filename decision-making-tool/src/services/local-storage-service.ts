@@ -1,4 +1,4 @@
-import type { ListData } from '~/components/options-list/options-list-model';
+import type { ListData } from '~/types/types';
 
 import { LOCAL_STORAGE } from '~/constants/local-storage';
 import { isListData } from '~/utils/type-guards';

@@ -1,11 +1,7 @@
+import type { ListData } from '~/types/types';
+
 import { VALUES } from './constants/options-constants';
 import { OptionProperties } from './option-item/option-properties';
-export type ListData = {
-  list: Array<OptionProperties>;
-  lastId: number;
-};
-
-export type PastedOptionProperties = Omit<OptionProperties, 'id'>;
 
 export class OptionsListModel {
   private readonly options: Map<number, OptionProperties> = new Map();

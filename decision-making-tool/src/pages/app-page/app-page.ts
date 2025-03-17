@@ -1,3 +1,4 @@
+import type { Page } from '~/types/interfaces';
 import type { Tag } from '~/utils/create-element';
 
 import { Main } from '~/components/main/main';
@@ -5,11 +6,6 @@ import { Main } from '~/components/main/main';
 import type { View } from '../../components/view';
 
 import { Header } from '../../components/header/header';
-
-export interface Page {
-  getHtmlElements(): HTMLElement[];
-  onRemove(): void;
-}
 
 export class AppPage implements Page {
   private readonly headerView: Header;
